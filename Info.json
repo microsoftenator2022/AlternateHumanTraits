@@ -1,0 +1,14 @@
+﻿{
+  "Id": "AlternateHumanTraits",
+  "DisplayName": "Alternate Human Traits",
+  "Version": "0.0.1pre",
+  "Author": "microsoftenator",
+
+  "ManagerVersion": "0.23.0",
+  "GameVersion": "1.3.0i",
+  //"Requirements": [ "TabletopTweaks-Core" ],
+  //"LoadAfter": [ "TabletopTweaks-Core" ],
+
+  "AssemblyName": "AlternateHumanTraits.dll",
+  "EntryMethod": "AlternateHumanTraits.Main.Load"
+}
