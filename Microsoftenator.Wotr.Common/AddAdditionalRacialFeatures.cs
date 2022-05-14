@@ -24,6 +24,7 @@ using HarmonyLib;
 
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
+using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.UI.Common;
 using Kingmaker.UI.MVVM._VM.CharGen.Phases.FeatureSelector;
@@ -31,35 +32,37 @@ using Kingmaker.UnitLogic;
 using Kingmaker.UnitLogic.Class.LevelUp;
 using Kingmaker.UnitLogic.Class.LevelUp.Actions;
 
+using Microsoftenator.Wotr.Common.Blueprints.Extensions;
+
 using System;
 using System.Linq;
 
 namespace Microsoftenator.Wotr.Common
 {
-	//public class AddAdditionalRacialFeatures : UnitFactComponentDelegate
-	//{
-	//	public BlueprintFeatureBaseReference[]? Features;
+	public class AddAdditionalRacialFeatures : UnitFactComponentDelegate
+	{
+		public BlueprintFeatureBaseReference[]? Features;
 
-	//	public override void OnActivate()
-	//	{
-	//		LevelUpController? controller = Kingmaker.Game.Instance?.LevelUpController;
-	//		if (controller == null) { return; }
-	//		if (controller.State.Mode == LevelUpState.CharBuildMode.Mythic) { return; }
-	//		if (Owner.Descriptor.Progression.CharacterLevel > 1) { return; }
-	//		LevelUpHelper.AddFeaturesFromProgression(controller.State, Owner, Features.Select(f => f.Get()).ToArray(), Owner.Progression.Race, 0);
-	//	}
+		public override void OnActivate()
+		{
+			LevelUpController? controller = Kingmaker.Game.Instance?.LevelUpController;
+			if (controller == null) { return; }
+			if (controller.State.Mode == LevelUpState.CharBuildMode.Mythic) { return; }
+			if (Owner.Descriptor.Progression.CharacterLevel > 1) { return; }
+			LevelUpHelper.AddFeaturesFromProgression(controller.State, Owner, Features.Select(f => f.Get()).ToArray(), Owner.Progression.Race, 0);
+		}
 
-	//	[HarmonyPatch(
-	//		typeof(CharGenFeatureSelectorPhaseVM),
-	//		nameof(CharGenFeatureSelectorPhaseVM.OrderPriority),
-	//		MethodType.Getter)]
-	//	static class Background_OrderPriority_Patch
-	//	{
-	//		static void Postfix(ref int __result, CharGenFeatureSelectorPhaseVM __instance)
-	//		{
-	//			FeatureGroup featureGroup = UIUtilityUnit.GetFeatureGroup(__instance.FeatureSelectorStateVM?.Feature);
-	//			if (featureGroup == FeatureGroup.BackgroundSelection) { __result += 500; }
-	//		}
-	//	}
-	//}
+		[HarmonyPatch(
+			typeof(CharGenFeatureSelectorPhaseVM),
+			nameof(CharGenFeatureSelectorPhaseVM.OrderPriority),
+			MethodType.Getter)]
+		static class Background_OrderPriority_Patch
+		{
+			static void Postfix(ref int __result, CharGenFeatureSelectorPhaseVM __instance)
+			{
+				FeatureGroup featureGroup = UIUtilityUnit.GetFeatureGroup(__instance.FeatureSelectorStateVM?.Feature);
+				if (featureGroup == FeatureGroup.BackgroundSelection) { __result += 500; }
+			}
+		}
+	}
 }

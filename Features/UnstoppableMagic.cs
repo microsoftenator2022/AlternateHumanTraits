@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Designers.Mechanics.Facts;
 
+using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Util;
 
-namespace AlternateHumanTraits.Feats
+namespace AlternateHumanTraits.Features
 {
 	internal static class UnstoppableMagic
 	{
@@ -24,7 +26,7 @@ namespace AlternateHumanTraits.Feats
 			var guid = Guid.Parse(Guids.UnstoppableMagic);
 			Main.Log?.Debug($"{guid}");
 
-			var feat = Helpers.CreateBlueprint<BlueprintFeature>(name, guid, feat =>
+			var unstoppableMagic = Helpers.CreateBlueprint<BlueprintFeature>(name, guid, feat =>
 			{
 				feat.IsClassFeature = true;
 
@@ -35,7 +37,10 @@ namespace AlternateHumanTraits.Feats
 
 				feat.AddComponent(new SpellPenetrationBonus() { Value = 2 });
 
-				feat.AddPrerequisiteFeature(Blueprints.HumanBonusFeat, Functional.Ignore, removeOnApply: true);
+				feat.AddPrerequisiteFeature(Blueprints.BasicFeatSelectionDummy, prerequisite =>
+				{
+					prerequisite.HideInUI = true;
+				}, removeOnApply: true);
 			});
 		}
 	}

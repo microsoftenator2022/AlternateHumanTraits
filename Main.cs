@@ -8,16 +8,6 @@ namespace AlternateHumanTraits
 {
 	static class Main
     {
-		//internal class ModContext : ModContextBase
-		//{
-		//	public ModContext(UnityModManager.ModEntry modEntry) : base(modEntry)
-		//	{
-				
-		//	}
-
-		//	public override void LoadAllSettings() { }
-		//}
-
 		internal class Logger
 		{
 			private readonly UnityModManager.ModEntry.ModLogger logger;
@@ -28,7 +18,7 @@ namespace AlternateHumanTraits
 #if DEBUG
 				s => logger.Log($"[DEBUG] {s}");
 #else
-						Functional.Ignore;
+				Functional.Ignore;
 #endif
 			public Action<string> Info => logger.Log;
 			public Action<string> Warning => logger.Warning;
@@ -48,13 +38,10 @@ namespace AlternateHumanTraits
 			return true;
 		}
 
-		//internal static ModContext? TTTContext;
-
 		static bool Load(UnityModManager.ModEntry modEntry)
 		{
 			Log = new(modEntry.Logger);
 
-			//TTTContext = new ModContext(modEntry);
 
 			Log.Debug($"{nameof(Main)}.{nameof(Load)}");
 

@@ -9,11 +9,12 @@ using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
 using Kingmaker.UnitLogic.FactLogic;
 
+using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Util;
 
-namespace AlternateHumanTraits.Feats
+namespace AlternateHumanTraits.Features
 {
 	internal static class Awareness
 	{
@@ -28,10 +29,8 @@ namespace AlternateHumanTraits.Feats
 			Guid guid = Guid.Parse(Guids.Awareness);
 			Main.Log?.Debug($"{guid}");
 
-			var feat = Helpers.CreateBlueprint<BlueprintFeature>(name, Guid.Parse(Guids.Awareness), feat =>
+			var awareness = Helpers.CreateBlueprint<BlueprintFeature>(name, Guid.Parse(Guids.Awareness), feat =>
 			{
-				//feat.AssetGuid = new BlueprintGuid(Guid.Parse(Guids.Awareness));
-
 				feat.IsClassFeature = true;
 
 				feat.SetDisplayName(displayName);
@@ -50,7 +49,10 @@ namespace AlternateHumanTraits.Feats
 					Value = 1
 				});
 
-				feat.AddPrerequisiteFeature(Blueprints.HumanBonusFeat, Functional.Ignore, removeOnApply: true);
+				feat.AddPrerequisiteFeature(Blueprints.BasicFeatSelectionDummy, prerequisite =>
+				{
+					prerequisite.HideInUI = true;
+				}, removeOnApply: true);
 			});
 		}
 	}
