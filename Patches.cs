@@ -6,28 +6,28 @@ using Kingmaker.Blueprints.JsonSystem;
 
 namespace AlternateHumanTraits.Patches
 {
-	[HarmonyPatch(typeof(BlueprintsCache), nameof(BlueprintsCache.Init))]
-	internal class BlueprintsCache_Init_Patch
-	{
-		private static bool patched;
+    [HarmonyPatch(typeof(BlueprintsCache), nameof(BlueprintsCache.Init))]
+    internal class BlueprintsCache_Init_Patch
+    {
+        private static bool patched;
 
-		static void Postfix()
-		{
-			if (patched) return;
-			patched = true;
+        static void Postfix()
+        {
+            if (patched) return;
+            patched = true;
 
-			Main.Log?.Debug($"{nameof(BlueprintsCache_Init_Patch)}.{nameof(Postfix)}");
+            Main.Log?.Debug($"{nameof(BlueprintsCache_Init_Patch)}.{nameof(Postfix)}");
 
-			HumanFeatureSelection.AddBasicFeatSelectionDummy();
+            HumanFeatureSelection.AddBasicFeatSelectionDummy();
 
-			HumanBonusFeat.AddHumanBonusFeat();
-			Awareness.AddAwarenessFeature();
-			UnstoppableMagic.AddUnstoppableMagic();
+            HumanBonusFeat.AddHumanBonusFeat();
+            Awareness.AddAwarenessFeature();
+            UnstoppableMagic.AddUnstoppableMagic();
 
-			HistoryOfTerrors.AddHistoryOfTerrorsTrait();
-			GiantAncestry.AddGiantAncestry();
+            HistoryOfTerrors.AddHistoryOfTerrorsTrait();
+            GiantAncestry.AddGiantAncestry();
 
-			HumanFeatureSelection.AddHumanFeatureSelection();
-		}
-	}
+            HumanFeatureSelection.AddHumanFeatureSelection();
+        }
+    }
 }

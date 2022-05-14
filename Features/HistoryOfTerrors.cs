@@ -10,37 +10,37 @@ using Microsoftenator.Wotr.Common.Util;
 
 namespace AlternateHumanTraits.Features
 {
-	internal static class HistoryOfTerrors
-	{
-		private static void PatchHistoryOfTerrors()
-		{
-			Main.Log?.Debug($"{nameof(HistoryOfTerrors)}.{nameof(PatchHistoryOfTerrors)}");
+    internal static class HistoryOfTerrors
+    {
+        private static void PatchHistoryOfTerrors()
+        {
+            Main.Log?.Debug($"{nameof(HistoryOfTerrors)}.{nameof(PatchHistoryOfTerrors)}");
 
-			var historyOfTerrors = Blueprints.HistoryOfTerrorsFeat;
+            var historyOfTerrors = Blueprints.HistoryOfTerrorsFeat;
 
-			historyOfTerrors.AddPrerequisiteNoFeature(Blueprints.HistoryOfTerrorsTrait, Functional.Ignore);
-		}
+            historyOfTerrors.AddPrerequisiteNoFeature(Blueprints.HistoryOfTerrorsTrait, Functional.Ignore);
+        }
 
-		private const string name = "HistoryOfTerrorsTrait";
+        private const string name = "HistoryOfTerrorsTrait";
 
-		internal static void AddHistoryOfTerrorsTrait()
-		{
-			Main.Log?.Debug($"{nameof(HistoryOfTerrors)}.{nameof(AddHistoryOfTerrorsTrait)}");
+        internal static void AddHistoryOfTerrorsTrait()
+        {
+            Main.Log?.Debug($"{nameof(HistoryOfTerrors)}.{nameof(AddHistoryOfTerrorsTrait)}");
 
-			var original = Blueprints.HistoryOfTerrorsFeat;
+            var original = Blueprints.HistoryOfTerrorsFeat;
 
-			var copy = original.CreateCopy(name, Guid.Parse(Guids.HistoryOfTerrorsTrait), feat =>
-			{
-				feat.SetDescription($"{feat.Description} This racial trait replaces the skilled trait.");
+            var copy = original.CreateCopy(name, Guid.Parse(Guids.HistoryOfTerrorsTrait), feat =>
+            {
+                feat.SetDescription($"{feat.Description} This racial trait replaces the skilled trait.");
 
-				feat.Groups = new[] { FeatureGroup.Racial };
+                feat.Groups = new[] { FeatureGroup.Racial };
 
-				feat.RemoveComponents(c => c is PrerequisiteFeature p && p.Feature == Blueprints.HumanRace);
+                feat.RemoveComponents(c => c is PrerequisiteFeature p && p.Feature == Blueprints.HumanRace);
 
-				feat.AddPrerequisiteFeature(Blueprints.HumanSkilled, Functional.Ignore, removeOnApply: true);
-			});
+                feat.AddPrerequisiteFeature(Blueprints.HumanSkilled, Functional.Ignore, removeOnApply: true);
+            });
 
-			PatchHistoryOfTerrors();
-		}
-	}
+            PatchHistoryOfTerrors();
+        }
+    }
 }
