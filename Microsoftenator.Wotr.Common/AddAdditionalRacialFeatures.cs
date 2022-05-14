@@ -52,17 +52,5 @@ namespace Microsoftenator.Wotr.Common
             LevelUpHelper.AddFeaturesFromProgression(controller.State, Owner, Features.Select(f => f.Get()).ToArray(), Owner.Progression.Race, 0);
         }
 
-        [HarmonyPatch(
-            typeof(CharGenFeatureSelectorPhaseVM),
-            nameof(CharGenFeatureSelectorPhaseVM.OrderPriority),
-            MethodType.Getter)]
-        static class Background_OrderPriority_Patch
-        {
-            static void Postfix(ref int __result, CharGenFeatureSelectorPhaseVM __instance)
-            {
-                FeatureGroup featureGroup = UIUtilityUnit.GetFeatureGroup(__instance.FeatureSelectorStateVM?.Feature);
-                if (featureGroup == FeatureGroup.BackgroundSelection) { __result += 500; }
-            }
-        }
     }
 }
