@@ -35,11 +35,11 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(HumanFeatureSelection)}.{nameof(AddHumanFeatureSelection)}");
 
-            BlueprintFeature[] features = new[]
+            var features = new List<BlueprintFeature>()
             {
-                Blueprints.HistoryOfTerrorsTrait.GetBlueprint(),
                 Blueprints.HumanBonusFeat.GetBlueprint(),
-
+                Blueprints.HistoryOfTerrorsTrait.GetBlueprint(),
+                
                 Blueprints.Awareness.GetBlueprint(),
                 Blueprints.UnstoppableMagic.GetBlueprint(),
                 Blueprints.GiantAncestry.GetBlueprint(),
@@ -62,11 +62,6 @@ namespace AlternateHumanTraits.Features
                 });
             });
 
-            BlueprintFeature[] featuresNoMoreSelections = new[]
-            {
-                noAlternateTrait,
-                //Blueprints.DualTalent.GetBlueprint()
-            };
 
             var selection = Helpers.CreateBlueprint(Blueprints.HumanFeatureSelection, selection =>
             {
@@ -84,16 +79,19 @@ namespace AlternateHumanTraits.Features
                 selection.ToReference<BlueprintFeatureBaseReference>(),
             });
 
-            foreach (var f in featuresNoMoreSelections)
-                selection.AddFeature(f);
-
             foreach (var f in features)
             {
                 f.AddFeatureCallback(new AddAdditionalRacialFeatures()
                 {
                     Features = new BlueprintFeatureBaseReference[] { selection.ToReference<BlueprintFeatureBaseReference>() }
                 });
+            }
 
+            // Hopefull this fixed pregen builds
+            features.Insert(1, noAlternateTrait);
+
+            foreach (var f in features)
+            {
                 selection.AddFeature(f);
             }
         }

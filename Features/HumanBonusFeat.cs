@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
 
@@ -26,7 +27,8 @@ namespace AlternateHumanTraits.Features
                 selection.Groups = new[] { FeatureGroup.Racial };
                 selection.Group = FeatureGroup.Feat;
 
-                selection.SetFeatures(Blueprints.BasicFeatSelection.GetBlueprint().Features, Blueprints.BasicFeatSelection.GetBlueprint().AllFeatures);
+                //selection.SetFeatures(Blueprints.BasicFeatSelection.GetBlueprint().Features, Blueprints.BasicFeatSelection.GetBlueprint().AllFeatures);
+                selection.SetFeatures(new[] { Blueprints.BasicFeatSelection.GetBlueprint().ToReference<BlueprintFeatureReference>() } );
 
                 selection.AddPrerequisiteFeature(Blueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {
