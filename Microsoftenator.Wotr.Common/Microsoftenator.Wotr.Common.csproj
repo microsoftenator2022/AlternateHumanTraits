@@ -68,10 +68,6 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
   <Target Name="Publicize" AfterTargets="Clean;Restore">
     <ItemGroup>
       <Assemblies Include="$(WrathPath)\Wrath_Data\Managed\Assembly-CSharp.dll" />
