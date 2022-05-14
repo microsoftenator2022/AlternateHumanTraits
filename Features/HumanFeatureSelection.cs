@@ -4,12 +4,10 @@ using System.Linq;
 
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
-using Kingmaker.Blueprints.Classes.Selection;
 
 using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
-using Microsoftenator.Wotr.Common.Util;
 
 namespace AlternateHumanTraits.Features
 {
@@ -37,14 +35,14 @@ namespace AlternateHumanTraits.Features
 
             var features = new List<BlueprintFeature>()
             {
+                // For Pregen builds to work, HumanBonusFeat must be the first element, followed by noAlternateTraits
                 Blueprints.HumanBonusFeat.GetBlueprint(),
-                Blueprints.HistoryOfTerrorsTrait.GetBlueprint(),
-                
+
                 Blueprints.Awareness.GetBlueprint(),
-                Blueprints.UnstoppableMagic.GetBlueprint(),
-                Blueprints.GiantAncestry.GetBlueprint(),
-                
                 Blueprints.DualTalent.GetBlueprint(),
+                Blueprints.GiantAncestry.GetBlueprint(),
+                Blueprints.HistoryOfTerrorsTrait.GetBlueprint(),
+                Blueprints.UnstoppableMagic.GetBlueprint(),
             };
 
             var noAlternateTrait =
@@ -61,7 +59,6 @@ namespace AlternateHumanTraits.Features
                     prerequisite.HideInUI = true;
                 });
             });
-
 
             var selection = Helpers.CreateBlueprint(Blueprints.HumanFeatureSelection, selection =>
             {
@@ -87,7 +84,6 @@ namespace AlternateHumanTraits.Features
                 });
             }
 
-            // Hopefull this fixed pregen builds
             features.Insert(1, noAlternateTrait);
 
             foreach (var f in features)

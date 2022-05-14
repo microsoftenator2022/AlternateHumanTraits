@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Designers.Mechanics.Facts;
 
-using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
-using Microsoftenator.Wotr.Common.Util;
 
 namespace AlternateHumanTraits.Features
 {
