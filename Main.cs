@@ -3,6 +3,7 @@
 using UnityModManagerNet;
 
 using HarmonyLib;
+using Microsoftenator.Wotr.Common.Util;
 
 namespace AlternateHumanTraits
 {
