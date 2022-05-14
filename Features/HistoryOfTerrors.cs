@@ -18,26 +18,27 @@ namespace AlternateHumanTraits.Features
 
             var historyOfTerrors = Blueprints.HistoryOfTerrorsFeat;
 
-            historyOfTerrors.AddPrerequisiteNoFeature(Blueprints.HistoryOfTerrorsTrait, Functional.Ignore);
+            historyOfTerrors.GetBlueprint()
+                .AddPrerequisiteNoFeature(Blueprints.HistoryOfTerrorsTrait.GetBlueprint(), Functional.Ignore);
         }
-
-        private const string name = "HistoryOfTerrorsTrait";
 
         internal static void AddHistoryOfTerrorsTrait()
         {
             Main.Log?.Debug($"{nameof(HistoryOfTerrors)}.{nameof(AddHistoryOfTerrorsTrait)}");
 
-            var original = Blueprints.HistoryOfTerrorsFeat;
+            var original = Blueprints.HistoryOfTerrorsFeat.GetBlueprint();
 
-            var copy = original.CreateCopy(name, Guid.Parse(Guids.HistoryOfTerrorsTrait), feat =>
+            var info = Blueprints.HistoryOfTerrorsTrait;
+
+            var copy = original.CreateCopy(info.Name, info.Guid, feat =>
             {
                 feat.SetDescription($"{feat.Description} This racial trait replaces the skilled trait.");
 
                 feat.Groups = new[] { FeatureGroup.Racial };
 
-                feat.RemoveComponents(c => c is PrerequisiteFeature p && p.Feature == Blueprints.HumanRace);
+                feat.RemoveComponents(c => c is PrerequisiteFeature p && p.Feature == Blueprints.HumanRace.GetBlueprint());
 
-                feat.AddPrerequisiteFeature(Blueprints.HumanSkilled, Functional.Ignore, removeOnApply: true);
+                feat.AddPrerequisiteFeature(Blueprints.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
             });
 
             PatchHistoryOfTerrors();

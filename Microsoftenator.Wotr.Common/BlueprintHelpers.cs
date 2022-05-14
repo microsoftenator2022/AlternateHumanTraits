@@ -12,11 +12,31 @@ using Kingmaker.Localization;
 using Kingmaker.UnitLogic;
 using Kingmaker.UnitLogic.Mechanics.Components;
 
+using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Localization;
 using Microsoftenator.Wotr.Common.Util;
 
 namespace Microsoftenator.Wotr.Common.Blueprints
 {
+    public class BlueprintInfo<T> where T : BlueprintScriptableObject
+    {
+        internal readonly string GuidString;
+        public Guid Guid => Guid.Parse(GuidString);
+        public readonly string Name;
+        public readonly string? DisplayName;
+        public readonly string? Description;
+
+        public BlueprintInfo(string guid, (string name, string? displayName, string? description) info)
+        {
+            GuidString = guid;
+            Name = info.name;
+            DisplayName = info.displayName;
+            Description = info.description;
+        }
+
+        public T GetBlueprint() => ResourcesLibrary.TryGetBlueprint<T>(GuidString);
+    }
+
     public static class Helpers
     {
         public static TBlueprint CreateBlueprint<TBlueprint>(string name, Guid guid, Action<TBlueprint> init)
@@ -43,18 +63,20 @@ namespace Microsoftenator.Wotr.Common.Blueprints
             where TBlueprint : BlueprintScriptableObject, new()
             => CreateBlueprint<TBlueprint>(name, guid, Functional.Ignore);
 
-        public static ContextRankConfig CreateContextRankConfigFeatureList(BlueprintFeatureReference[] feats)
-            => new()
-                {
-                    m_BaseValueType = ContextRankBaseValueType.FeatureList,
-                    m_FeatureList = feats,
-                };
+        public static TBlueprint CreateBlueprint<TBlueprint>(BlueprintInfo<TBlueprint> bpInfo, Action<TBlueprint> init)
+            where TBlueprint : BlueprintFeature, new()
+        {
+            return CreateBlueprint<TBlueprint>(bpInfo.Name, bpInfo.Guid, bp =>
+            {
+                if(bpInfo.DisplayName is not null)
+                    bp.SetDisplayName(bpInfo.DisplayName);
 
-        public static ContextRankConfig.CustomProgressionItem CreateProgressionItem(int baseValue, int progressionValue)
-            => new() { BaseValue = baseValue, ProgressionValue = progressionValue };
+                if(bpInfo.Description is not null)
+                    bp.SetDescription(bpInfo.Description);
 
-        public static RecalculateOnFactsChange CreateRofcComponent(BlueprintUnitFactReference[] checkedFacts)
-            => new() { m_CheckedFacts = checkedFacts };
+                init(bp);
+            });
+        }
     }
 }
 
@@ -222,6 +244,18 @@ namespace Microsoftenator.Wotr.Common.Blueprints.Extensions
 
     public static class ContextRankConfigExtensions
     {
+        public static ContextRankConfig CreateContextRankConfigFeatureList(BlueprintFeatureReference[] feats)
+            => new()
+            {
+                m_BaseValueType = ContextRankBaseValueType.FeatureList,
+                m_FeatureList = feats,
+            };
+
+        public static ContextRankConfig.CustomProgressionItem CreateProgressionItem(int baseValue, int progressionValue)
+            => new() { BaseValue = baseValue, ProgressionValue = progressionValue };
+
+        public static RecalculateOnFactsChange CreateRofcComponent(BlueprintUnitFactReference[] checkedFacts)
+            => new() { m_CheckedFacts = checkedFacts };
         public static void SetCustomProgression(this ContextRankConfig crc,
             ContextRankConfig.CustomProgressionItem[] progressionItems)
         {

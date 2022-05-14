@@ -73,10 +73,6 @@
       <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UniRx">
-      <HintPath>$(WrathPath)\Wrath_Data\Managed\UniRx.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityModManager">
       <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityModManager\UnityModManager.dll</HintPath>
       <Private>False</Private>

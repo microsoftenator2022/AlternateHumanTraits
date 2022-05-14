@@ -13,29 +13,22 @@ namespace AlternateHumanTraits.Features
 {
     internal static class HumanBonusFeat
     {
-        private const string name = "HumanBonusFeat";
-        private const string displayName = "Bonus Feat";
-        private const string description = "Humans gain an extra feat at first level";
-
         internal static void AddHumanBonusFeat()
         {
             Main.Log?.Debug($"{nameof(HumanBonusFeat)}.{nameof(AddHumanBonusFeat)}");
 
-            var humanBonusFeat = Helpers.CreateBlueprint<BlueprintFeatureSelection>(name,
-                Guid.Parse(Guids.HumanBonusFeat), selection =>
+            var humanBonusFeat = Helpers.CreateBlueprint(Blueprints.HumanBonusFeat, selection =>
             {
                 selection.IsClassFeature = true;
 
-                selection.SetDisplayName(displayName);
-                selection.SetDescription(description);
-                selection.SetIcon(Blueprints.BasicFeatSelection.Icon);
+                selection.SetIcon(Blueprints.BasicFeatSelection.GetBlueprint().Icon);
 
                 selection.Groups = new[] { FeatureGroup.Racial };
                 selection.Group = FeatureGroup.Feat;
 
-                selection.SetFeatures(Blueprints.BasicFeatSelection.Features, Blueprints.BasicFeatSelection.AllFeatures);
+                selection.SetFeatures(Blueprints.BasicFeatSelection.GetBlueprint().Features, Blueprints.BasicFeatSelection.GetBlueprint().AllFeatures);
 
-                selection.AddPrerequisiteFeature(Blueprints.BasicFeatSelectionDummy, prerequisite =>
+                selection.AddPrerequisiteFeature(Blueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {
                     prerequisite.HideInUI = true;
                 }, removeOnApply: true);

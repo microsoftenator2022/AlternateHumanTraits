@@ -15,28 +15,22 @@ namespace AlternateHumanTraits.Features
 {
     internal static class HumanFeatureSelection
     {
-        private const string name = "HumanFeatSelection";
-        private const string displayName = "Alternate Racial Traits";
-        private const string description = "The following alternate traits are available";
-
-        private const string noTraitsName = "NoAlternateHumanTraits";
-        private const string noTraitsDisplayName = "None";
-        private const string noTraitsDescription = "No alternate trait";
-
         internal static void AddBasicFeatSelectionDummy()
         {
             Main.Log?.Debug($"{nameof(HumanFeatureSelection)}.{nameof(AddBasicFeatSelectionDummy)}");
 
-            Helpers.CreateBlueprint<BlueprintFeature>("BasicFeatSelectionDummy", Guid.Parse(Guids.BasicFeatSelectionDummy), feat =>
+            Helpers.CreateBlueprint(Blueprints.BasicFeatSelectionDummy, feat =>
             {
                 feat.IsClassFeature = true;
 
-                feat.HideInUI = true;
-                feat.HideInCharacterSheetAndLevelUp = true;
+                //feat.HideInUI = true;
+                //feat.HideInCharacterSheetAndLevelUp = true;
 
-                feat.SetDisplayName(Blueprints.BasicFeatSelection.Name);
-                feat.SetDescription(Blueprints.BasicFeatSelection.Description);
-                feat.SetIcon(Blueprints.BasicFeatSelection.Icon);
+                var basicFeatSelection = Blueprints.BasicFeatSelection.GetBlueprint();
+
+                feat.SetDisplayName(basicFeatSelection.Name);
+                feat.SetDescription(basicFeatSelection.Description);
+                feat.SetIcon(basicFeatSelection.Icon);
             });
         }
 
@@ -46,27 +40,24 @@ namespace AlternateHumanTraits.Features
 
             BlueprintFeature[] features = new[]
             {
-                Blueprints.HumanBonusFeat,
-                Blueprints.Awareness,
-                Blueprints.UnstoppableMagic,
+                Blueprints.HumanBonusFeat.GetBlueprint(),
+                Blueprints.Awareness.GetBlueprint(),
+                Blueprints.UnstoppableMagic.GetBlueprint(),
 
-                Blueprints.HistoryOfTerrorsTrait,
-                Blueprints.GiantAncestry,
+                Blueprints.HistoryOfTerrorsTrait.GetBlueprint(),
+                Blueprints.GiantAncestry.GetBlueprint(),
             };
 
             var noAlternateTrait =
-                Helpers.CreateBlueprint<BlueprintFeature>(noTraitsName, Guid.Parse(Guids.NoAdditionaHumanTraits), feat =>
+                Helpers.CreateBlueprint(Blueprints.NoAdditionalHumanTraits, feat =>
             {
                 feat.IsClassFeature = true;
                 feat.HideInUI = true;
                 feat.HideInCharacterSheetAndLevelUp = true;
 
-                feat.SetDisplayName(noTraitsDisplayName);
-                feat.SetDescription(noTraitsDescription);
-
                 feat.Groups = new[] { FeatureGroup.Racial };
                 
-                feat.AddPrerequisiteNoFeature(Blueprints.BasicFeatSelectionDummy, prerequisite =>
+                feat.AddPrerequisiteNoFeature(Blueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {
                     prerequisite.HideInUI = true;
                 });
@@ -74,23 +65,19 @@ namespace AlternateHumanTraits.Features
 
             
 
-            var selection = Helpers.CreateBlueprint<BlueprintFeatureSelection>(
-                name, Guid.Parse(Guids.HumanFeatureSelection), selection =>
+            var selection = Helpers.CreateBlueprint(Blueprints.HumanFeatureSelection, selection =>
             {
                 selection.IsClassFeature = true;
-
-                selection.SetDisplayName(displayName);
-                selection.SetDescription(description);
 
                 selection.Groups = new[] { FeatureGroup.Racial };
                 
                 selection.Group = FeatureGroup.KitsuneHeritage;
             });
 
-            Blueprints.HumanRace.SetFeatures(new BlueprintFeatureBaseReference[]
+            Blueprints.HumanRace.GetBlueprint().SetFeatures(new BlueprintFeatureBaseReference[]
             {
-                Blueprints.BasicFeatSelectionDummy.ToReference<BlueprintFeatureBaseReference>(),
-                Blueprints.HumanSkilled.ToReference<BlueprintFeatureBaseReference>(),
+                Blueprints.BasicFeatSelectionDummy.GetBlueprint().ToReference<BlueprintFeatureBaseReference>(),
+                Blueprints.HumanSkilled.GetBlueprint().ToReference<BlueprintFeatureBaseReference>(),
                 selection.ToReference<BlueprintFeatureBaseReference>(),
             });
 

@@ -17,24 +17,14 @@ namespace AlternateHumanTraits.Features
 {
     internal static class GiantAncestry
     {
-        private const string name = "GiantAncestry";
-        private const string displayName = "Giant Ancestry";
-        private const string description = "Humans with ogre or troll ancestry end up having hulking builds and asymmetrical features. Such humans gain a +1 bonus on combat maneuver checks and to CMD, but a –2 penalty on Stealth checks. This racial trait replaces skilled.";
-
         internal static void AddGiantAncestry()
         {
             Main.Log?.Debug($"{nameof(GiantAncestry)}.{nameof(AddGiantAncestry)}");
-
-            var guid = Guid.Parse(Guids.GiantAncestry);
-            Main.Log?.Debug($"{guid}");
-
-            var giantAncestry = Helpers.CreateBlueprint<BlueprintFeature>(name, guid, feat =>
+            
+            var giantAncestry = Helpers.CreateBlueprint(Blueprints.GiantAncestry, feat =>
             {
                 feat.IsClassFeature = true;
                 
-                feat.SetDisplayName(displayName);
-                feat.SetDescription(description);
-
                 feat.Groups = new[] { FeatureGroup.Racial };
 
                 feat.AddComponent(new CMBBonus()
@@ -56,7 +46,7 @@ namespace AlternateHumanTraits.Features
                     Descriptor = ModifierDescriptor.Racial
                 });
 
-                feat.AddPrerequisiteFeature(Blueprints.HumanSkilled, Functional.Ignore, removeOnApply: true);
+                feat.AddPrerequisiteFeature(Blueprints.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
             });
         }
     }
