@@ -2,21 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using HarmonyLib;
-
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.Blueprints.Facts;
-using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.Localization;
-using Kingmaker.UI.Common;
-using Kingmaker.UI.MVVM._VM.CharGen.Phases.FeatureSelector;
 using Kingmaker.UnitLogic;
-using Kingmaker.UnitLogic.Class.LevelUp;
-using Kingmaker.UnitLogic.Class.LevelUp.Actions;
 using Kingmaker.UnitLogic.Mechanics.Components;
 
 using Microsoftenator.Wotr.Common.Localization;
@@ -69,11 +62,33 @@ namespace Microsoftenator.Wotr.Common.Blueprints.Extensions
 {
 	public static class BlueprintExtensions
 	{
-		public static void AddComponents(this BlueprintFeature feat, IEnumerable<BlueprintComponent> components)
-			=> feat.ComponentsArray = feat.ComponentsArray.Concat(components).ToArray();
+		public static TBlueprint CreateCopy<TBlueprint>(this TBlueprint original, string name, Guid guid, Action<TBlueprint> init) where TBlueprint : BlueprintScriptableObject
+		{
+			TBlueprint copy = TTT_Utils.Clone(original);
 
-		public static void AddComponent(this BlueprintFeature feat, BlueprintComponent component)
-			=> feat.ComponentsArray = feat.ComponentsArray.Append(component).ToArray();
+			copy.name = name;
+			copy.AssetGuid = new BlueprintGuid(guid);
+
+			init(copy);
+
+			ResourcesLibrary.BlueprintsCache.AddCachedBlueprint(copy.AssetGuid, copy);
+
+			return copy;
+		}
+	}
+
+	public static class BlueprintFeatureExtensions
+	{
+		public static void SetIcon(this BlueprintFeature feature, UnityEngine.Sprite icon) => feature.m_Icon = icon;
+
+		public static void AddComponent<TComponent>(this BlueprintFeature feat, TComponent component) where TComponent : BlueprintComponent
+		{
+			// Apparently components need a unique name
+			if (String.IsNullOrEmpty(component.name))
+				component.name = $"{feat.Name}${typeof(TComponent)}${component.GetHashCode():x}";
+
+			feat.ComponentsArray = feat.ComponentsArray.Append(component).ToArray();
+		}
 
 		public static void RemoveComponents(this BlueprintFeature feat, Func<BlueprintComponent, bool> predicate)
 			=> feat.ComponentsArray = feat.ComponentsArray.Where(c => !predicate(c)).ToArray();
@@ -101,18 +116,18 @@ namespace Microsoftenator.Wotr.Common.Blueprints.Extensions
 			bool addIsPrerequisiteFor = false)
 		{
 			feat.AddPrerequisite<PrerequisiteFeature>(p =>
-			{	
+			{
 				p.m_Feature = prerequisiteFeature.ToReference<BlueprintFeatureReference>();
 
 				init(p);
 			}, group);
 
-			if(addIsPrerequisiteFor)
+			if (addIsPrerequisiteFor)
 			{
-				if(prerequisiteFeature.IsPrerequisiteFor is null)
+				if (prerequisiteFeature.IsPrerequisiteFor is null)
 					prerequisiteFeature.IsPrerequisiteFor = new();
-			
-				if(!prerequisiteFeature.IsPrerequisiteFor.Contains(feat.ToReference<BlueprintFeatureReference>()))
+
+				if (!prerequisiteFeature.IsPrerequisiteFor.Contains(feat.ToReference<BlueprintFeatureReference>()))
 					prerequisiteFeature.IsPrerequisiteFor.Add(feat.ToReference<BlueprintFeatureReference>());
 			}
 
@@ -124,12 +139,74 @@ namespace Microsoftenator.Wotr.Common.Blueprints.Extensions
 			BlueprintFeature prerequisiteFeature, Action<PrerequisiteNoFeature> init,
 			Prerequisite.GroupType group = Prerequisite.GroupType.All)
 			=> feat.AddPrerequisite<PrerequisiteNoFeature>(p =>
-				{
-					p.m_Feature = prerequisiteFeature.ToReference<BlueprintFeatureReference>();
-				
-					init(p);
-				}, group);
+			{
+				p.m_Feature = prerequisiteFeature.ToReference<BlueprintFeatureReference>();
 
+				init(p);
+			}, group);
+
+		public static void AddFeatureCallback<TDelegate>(this BlueprintFeature feature, TDelegate callback)
+			where TDelegate : UnitFactComponentDelegate
+			=> feature.AddComponent(callback);
+	}
+
+	public static class BlueprintFeatureSelectionExtensions
+	{
+		public static void AddFeature(this BlueprintFeatureSelection selection, BlueprintFeature feature)
+		{
+			BlueprintFeatureReference[] featureRefs = selection.Features;
+
+			var featureRef = feature.ToReference<BlueprintFeatureReference>();
+
+			if (selection.m_Features.Contains(featureRef) || selection.m_AllFeatures.Contains(featureRef)) return;
+
+			selection.m_Features = selection.m_Features.Append(featureRef).ToArray();
+
+			selection.m_AllFeatures = selection.m_AllFeatures.Append(featureRef).ToArray();
+		}
+
+		public static void SetFeatures(this BlueprintFeatureSelection selection, BlueprintFeatureReference[] features, BlueprintFeatureReference[]? allFeatures = null)
+		{
+			selection.m_Features = features;
+
+			selection.m_AllFeatures = allFeatures ?? features;
+		}
+
+		public static void RemoveFeature(this BlueprintFeatureSelection selection, BlueprintFeature feature)
+		{
+			selection.m_Features = selection.m_Features.SkipWhile(f => f.Get().AssetGuid == feature.AssetGuid).ToArray();
+			selection.m_AllFeatures = selection.m_AllFeatures.SkipWhile(f => f.Get().AssetGuid == feature.AssetGuid).ToArray();
+		}
+	}
+
+	public static class BlueprintRaceExtensions
+	{
+		public static void AddFeature(this BlueprintRace race, BlueprintFeatureBase feature)
+			=> race.m_Features = race.m_Features.Append(feature.ToReference<BlueprintFeatureBaseReference>()).ToArray();
+
+		public static void AddFeatures(this BlueprintRace race, BlueprintFeatureBase[] features)
+			=> race.m_Features =
+				race.m_Features
+					.Concat(features.Select(f => f.ToReference<BlueprintFeatureBaseReference>()))
+					.ToArray();
+
+		//public static void AddFeatureAtHead(this BlueprintRace race, BlueprintFeatureBase feature)
+		//	=> race.m_Features =
+		//		(new[] { feature.ToReference<BlueprintFeatureBaseReference>() }).Concat(race.m_Features).ToArray();
+		
+		public static void SetFeatures(this BlueprintRace race, BlueprintFeatureBaseReference[] features)
+			=> race.m_Features = features;
+
+		public static void RemoveFeature(this BlueprintRace race, BlueprintFeatureBase feature)
+		{
+			var featureRef = feature.ToReference<BlueprintFeatureBaseReference>();
+
+			race.m_Features = race.m_Features.SkipWhile(f => f.Get().AssetGuid == feature.AssetGuid).ToArray();
+		}
+	}
+
+	public static class BlueprintUnitFactExtensions
+	{
 		public static void SetDisplayName(this BlueprintUnitFact bp, LocalizedString displayName)
 			=> bp.m_DisplayName = displayName;
 
@@ -141,74 +218,15 @@ namespace Microsoftenator.Wotr.Common.Blueprints.Extensions
 
 		public static void SetDescription(this BlueprintUnitFact bp, string text)
 			=> bp.SetDescription(LocalizationHelpers.DefineString($"{bp.Name}", text));
+	}
 
-		public static void AddFeature(this BlueprintFeatureSelection selection, BlueprintFeature feature)
-		{
-			BlueprintFeatureReference[] featureRefs = selection.Features;
-
-			var featureRef = feature.ToReference<BlueprintFeatureReference>();
-
-			if(selection.m_Features.Contains(featureRef) || selection.m_AllFeatures.Contains(featureRef)) return;
-
-			selection.m_Features = selection.m_Features.Append(featureRef).ToArray();
-			
-			selection.m_AllFeatures = selection.m_AllFeatures.Append(featureRef).ToArray();
-		}
-
-		public static void SetFeatures(this BlueprintFeatureSelection selection, BlueprintFeatureReference[] features, BlueprintFeatureReference[]? allFeatures = null)
-		{
-			selection.m_Features = features;
-
-			selection.m_AllFeatures = allFeatures ?? features;
-		}
-
-		public static void AddFeature(this BlueprintRace race, BlueprintFeatureBase feature)
-			=> race.m_Features = race.m_Features.Append(feature.ToReference<BlueprintFeatureBaseReference>()).ToArray();
-
-		public static void AddFeatureAtHead(this BlueprintRace race, BlueprintFeatureBase feature)
-			=> race.m_Features =
-				(new[] { feature.ToReference<BlueprintFeatureBaseReference>() }).Concat(race.m_Features).ToArray();
-
-		public static void RemoveFeature(this BlueprintFeatureSelection selection, BlueprintFeature feature)
-		{
-			var featureRef = feature.ToReference<BlueprintFeatureReference>();
-
-			selection.m_Features = selection.m_Features.SkipWhile(f => f == featureRef).ToArray();
-			selection.m_AllFeatures = selection.m_AllFeatures.SkipWhile(f => f == featureRef).ToArray();
-		}
-
-		public static void SetFeatures(this BlueprintRace race, BlueprintFeatureBaseReference[] features)
-		{
-			race.m_Features = features;
-		}
-
+	public static class ContextRankConfigExtensions
+	{
 		public static void SetCustomProgression(this ContextRankConfig crc,
 			ContextRankConfig.CustomProgressionItem[] progressionItems)
 		{
 			crc.m_Progression = ContextRankProgression.Custom;
 			crc.m_CustomProgression = progressionItems;
 		}
-
-		public static TBlueprint CreateCopy<TBlueprint>(this TBlueprint original, string name, Guid guid, Action<TBlueprint> init) where TBlueprint : BlueprintScriptableObject
-		{
-			TBlueprint copy = Unchecked.Clone(original);
-			
-			copy.name = name;
-			copy.AssetGuid = new BlueprintGuid(guid);
-
-			init(copy);
-
-			ResourcesLibrary.BlueprintsCache.AddCachedBlueprint(copy.AssetGuid, copy);
-
-			return copy;
-		}
-
-		//public static void AddSelectionCallback(this BlueprintFeature feature, BlueprintFeatureSelection selection, Action<AddAdditionalRacialFeatures, LevelUpController>? onActivate = null)
-		//{
-		//	feature.AddComponent(new AddAdditionalRacialFeatures(onActivate)
-		//	{
-		//		Features = new BlueprintFeatureBaseReference[] { selection.ToReference<BlueprintFeatureBaseReference>() }
-		//	});
-		//}
 	}
 }

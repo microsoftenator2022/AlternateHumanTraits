@@ -28,7 +28,7 @@ namespace AlternateHumanTraits
 #if DEBUG
 				s => logger.Log($"[DEBUG] {s}");
 #else
-						Functional.Ignore;
+				Functional.Ignore;
 #endif
 			public Action<string> Info => logger.Log;
 			public Action<string> Warning => logger.Warning;

@@ -1,4 +1,6 @@
-﻿using HarmonyLib;
+﻿using AlternateHumanTraits.Features;
+
+using HarmonyLib;
 
 using Kingmaker.Blueprints.JsonSystem;
 
@@ -16,11 +18,16 @@ namespace AlternateHumanTraits.Patches
 
 			Main.Log?.Debug($"{nameof(BlueprintsCache_Init_Patch)}.{nameof(Postfix)}");
 
-			Feats.HumanFeatureSelection.AddHumanBonusFeat();
-			Feats.HistoryOfTerrors.AddHistoryOfTerrorsTrait();
-			Feats.Awareness.AddAwarenessFeature();
-			Feats.UnstoppableMagic.AddUnstoppableMagic();
-			Feats.HumanFeatureSelection.AddHumanFeatureSelection();
+			HumanFeatureSelection.AddBasicFeatSelectionDummy();
+
+			HumanBonusFeat.AddHumanBonusFeat();
+			Awareness.AddAwarenessFeature();
+			UnstoppableMagic.AddUnstoppableMagic();
+
+			HistoryOfTerrors.AddHistoryOfTerrorsTrait();
+			GiantAncestry.AddGiantAncestry();
+
+			HumanFeatureSelection.AddHumanFeatureSelection();
 		}
 	}
 }
