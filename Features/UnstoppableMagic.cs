@@ -41,6 +41,11 @@ namespace AlternateHumanTraits.Features
 				{
 					prerequisite.HideInUI = true;
 				}, removeOnApply: true);
+<<<<<<< HEAD
+=======
+
+				//feat.AddFeatureCallback(new FeatureNeedsUpdate());
+>>>>>>> 39ff1f0fc89ffd4726196207e32a90bcb96309cb
 			});
 		}
 	}
