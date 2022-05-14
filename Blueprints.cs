@@ -12,7 +12,6 @@ namespace AlternateHumanTraits
 {
     internal static class Blueprints
     {
-
         private static class Guids
         {
             public const string HumanRace               = "0a5d473ead98b0646b94495af250fdc4";
@@ -25,13 +24,13 @@ namespace AlternateHumanTraits
 
             public const string BasicFeatSelectionDummy = "771f9b2efd8842c7af7f3d1887a0dd55";
 
-            //public const string DualTalent              = "";
-            //public const string DualTalentStrength      = "";
-            //public const string DualTalentDexterity     = "";
-            //public const string DualTalentConstitution  = "";
-            //public const string DualTalentIntelligence  = "";
-            //public const string DualTalentWisdom        = "";
-            //public const string DualTalentCharisma      = "";
+            public const string DualTalent              = "05efd0a9ec2f4cd5841d1b30d5adf312";
+            public const string DualTalentStrength      = "ca578029d10a491ead3d5d7568d36ba6";
+            public const string DualTalentDexterity     = "c175ca538fcc4d86b1ba568207a22b9d";
+            public const string DualTalentConstitution  = "0d293f67cd92486db7b1133ce89444a8";
+            public const string DualTalentIntelligence  = "84ec13278fca472e8e5816799b1c0ebd";
+            public const string DualTalentWisdom        = "95ae6cff05604228ba7da7d5008565d5";
+            public const string DualTalentCharisma      = "15df2403926d47d5bd6b78d56c46e270";
 
             public const string HistoryOfTerrorsTrait   = "e0a373aeeab84ce996abd752fb9bccf6";
 
@@ -46,7 +45,7 @@ namespace AlternateHumanTraits
             public const string GiantAncestry           = "e85ff5a3484f46a4aead3857b2eff9c3";
         }
 
-        internal static readonly IReadOnlyDictionary<string, (string name, string? displayName, string? description)> BlueprintsInfo =
+        private static readonly IReadOnlyDictionary<string, (string name, string? displayName, string? description)> BlueprintsInfo =
             new Dictionary<string, (string name, string? displayName, string? description)>()
             {
                 { Guids.HumanRace, (name: nameof(Guids.HumanRace), displayName: null, description: null) },
@@ -61,13 +60,16 @@ namespace AlternateHumanTraits
 
                 { Guids.BasicFeatSelectionDummy, (name: nameof(Guids.BasicFeatSelectionDummy), displayName: null, description: null) },
 
-                //{ Guids.DualTalent, (name: nameof(Guids.DualTalent), displayName: null, description: null) },
-                //{ Guids.DualTalentStrength, (name: nameof(Guids.DualTalentStrength), displayName: null, description: null) },
-                //{ Guids.DualTalentDexterity, (name: nameof(Guids.DualTalentDexterity), displayName: null, description: null) },
-                //{ Guids.DualTalentConstitution, (name: nameof(Guids.DualTalentConstitution), displayName: null, description: null) },
-                //{ Guids.DualTalentIntelligence, (name: nameof(Guids.DualTalentIntelligence), displayName: null, description: null) },
-                //{ Guids.DualTalentWisdom, (name: nameof(Guids.DualTalentWisdom), displayName: null, description: null) },
-                //{ Guids.DualTalentCharisma, (name: nameof(Guids.DualTalentCharisma), displayName: null, description: null) },
+                { Guids.DualTalent,
+                    (name: nameof(Guids.DualTalent),
+                    displayName: "Dual Talent",
+                    description: "Some humans are uniquely skilled at maximizing their natural gifts. These humans pick two ability scores and gain a +2 racial bonus in each of those scores. This racial trait replaces the +2 bonus to any one ability score, the bonus feat, and the skilled traits.") },
+                { Guids.DualTalentStrength, (name: nameof(Guids.DualTalentStrength), displayName: null, description: null) },
+                { Guids.DualTalentDexterity, (name: nameof(Guids.DualTalentDexterity), displayName: null, description: null) },
+                { Guids.DualTalentConstitution, (name: nameof(Guids.DualTalentConstitution), displayName: null, description: null) },
+                { Guids.DualTalentIntelligence, (name: nameof(Guids.DualTalentIntelligence), displayName: null, description: null) },
+                { Guids.DualTalentWisdom, (name: nameof(Guids.DualTalentWisdom), displayName: null, description: null) },
+                { Guids.DualTalentCharisma, (name: nameof(Guids.DualTalentCharisma), displayName: null, description: null) },
 
                 { Guids.GiantAncestry,
                     (name: nameof(Guids.GiantAncestry),
@@ -96,6 +98,9 @@ namespace AlternateHumanTraits
                     displayName: "Unstoppable Magic",
                     description: "Humans from civilizations built upon advanced magic are educated in a variety of ways to accomplish their magical goals. They gain a +2 racial bonus on caster level checks against spell resistance. This racial trait replaces the bonus feat trait.") },
             };
+
+        public static IEnumerable<BlueprintInfo<BlueprintScriptableObject>> BlueprintInfoCollection
+            => BlueprintsInfo.Select(i => new BlueprintInfo<BlueprintScriptableObject>(i.Key, i.Value));
 
         private static BlueprintInfo<TBlueprint> GetBlueprintInfo<TBlueprint>(string guid) where TBlueprint : BlueprintScriptableObject
             => new BlueprintInfo<TBlueprint>(guid, BlueprintsInfo[guid]);
@@ -129,5 +134,7 @@ namespace AlternateHumanTraits
             => GetBlueprintInfo<BlueprintFeature>(Guids.NoAdditionaHumanTraits);
         public static BlueprintInfo<BlueprintFeatureSelection> HumanFeatureSelection
             => GetBlueprintInfo<BlueprintFeatureSelection>(Guids.HumanFeatureSelection);
+        public static BlueprintInfo<BlueprintFeatureSelection> DualTalent
+            => GetBlueprintInfo<BlueprintFeatureSelection>(Guids.DualTalent);
     }
 }

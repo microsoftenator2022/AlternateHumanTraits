@@ -23,9 +23,6 @@ namespace AlternateHumanTraits.Features
             {
                 feat.IsClassFeature = true;
 
-                //feat.HideInUI = true;
-                //feat.HideInCharacterSheetAndLevelUp = true;
-
                 var basicFeatSelection = Blueprints.BasicFeatSelection.GetBlueprint();
 
                 feat.SetDisplayName(basicFeatSelection.Name);
@@ -40,12 +37,14 @@ namespace AlternateHumanTraits.Features
 
             BlueprintFeature[] features = new[]
             {
+                Blueprints.HistoryOfTerrorsTrait.GetBlueprint(),
                 Blueprints.HumanBonusFeat.GetBlueprint(),
+
                 Blueprints.Awareness.GetBlueprint(),
                 Blueprints.UnstoppableMagic.GetBlueprint(),
-
-                Blueprints.HistoryOfTerrorsTrait.GetBlueprint(),
                 Blueprints.GiantAncestry.GetBlueprint(),
+                
+                Blueprints.DualTalent.GetBlueprint(),
             };
 
             var noAlternateTrait =
@@ -63,7 +62,11 @@ namespace AlternateHumanTraits.Features
                 });
             });
 
-            
+            BlueprintFeature[] featuresNoMoreSelections = new[]
+            {
+                noAlternateTrait,
+                //Blueprints.DualTalent.GetBlueprint()
+            };
 
             var selection = Helpers.CreateBlueprint(Blueprints.HumanFeatureSelection, selection =>
             {
@@ -81,9 +84,10 @@ namespace AlternateHumanTraits.Features
                 selection.ToReference<BlueprintFeatureBaseReference>(),
             });
 
-            selection.AddFeature(noAlternateTrait);
+            foreach (var f in featuresNoMoreSelections)
+                selection.AddFeature(f);
 
-            foreach(var f in features)
+            foreach (var f in features)
             {
                 f.AddFeatureCallback(new AddAdditionalRacialFeatures()
                 {

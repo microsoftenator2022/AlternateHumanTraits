@@ -35,6 +35,7 @@ namespace Microsoftenator.Wotr.Common.Blueprints
         }
 
         public T GetBlueprint() => ResourcesLibrary.TryGetBlueprint<T>(GuidString);
+        public U? GetBlueprint<U>() where U : BlueprintScriptableObject => GetBlueprint() as U;
     }
 
     public static class Helpers

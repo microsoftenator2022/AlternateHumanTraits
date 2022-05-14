@@ -24,11 +24,14 @@ namespace AlternateHumanTraits.Patches
             HumanFeatureSelection.AddBasicFeatSelectionDummy();
 
             HumanBonusFeat.AddHumanBonusFeat();
+
             Awareness.AddAwarenessFeature();
             UnstoppableMagic.AddUnstoppableMagic();
 
             HistoryOfTerrors.AddHistoryOfTerrorsTrait();
             GiantAncestry.AddGiantAncestry();
+
+            DualTalent.AddDualTalent();
 
             HumanFeatureSelection.AddHumanFeatureSelection();
         }
