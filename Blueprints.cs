@@ -10,7 +10,7 @@ using Microsoftenator.Wotr.Common.Blueprints;
 
 namespace AlternateHumanTraits
 {
-    internal static class Blueprints
+    public static class Blueprints
     {
         private static class Guids
         {
@@ -21,6 +21,8 @@ namespace AlternateHumanTraits
 
             // New blueprints
             public const string Awareness               = "edc1383bf9304cd7a45ee22dd3468fc8";
+
+            public const string AdoptiveParentage       = "dcdb71d16c624423a33b0129bfd46ef3";
 
             public const string BasicFeatSelectionDummy = "771f9b2efd8842c7af7f3d1887a0dd55";
 
@@ -37,6 +39,8 @@ namespace AlternateHumanTraits
             public const string HumanBonusFeat          = "8a4a6f5ebe0c416a8fdb7dd98a9ab1b4";
 
             public const string HumanFeatureSelection   = "837e8b4205284cbbaa1ae8227870be93";
+
+            public const string MilitaryTradition       = "f44a1b342bd14ed585ec99be7d509320";
 
             public const string NoAdditionaHumanTraits  = "591db97195294968a081b7e5354bc090";
 
@@ -97,10 +101,15 @@ namespace AlternateHumanTraits
                     (name: nameof(Guids.UnstoppableMagic),
                     displayName: "Unstoppable Magic",
                     description: "Humans from civilizations built upon advanced magic are educated in a variety of ways to accomplish their magical goals. They gain a +2 racial bonus on caster level checks against spell resistance. This racial trait replaces the bonus feat trait.") },
+
+                { Guids.MilitaryTradition,
+                    (name: nameof(Guids.MilitaryTradition),
+                    displayName: "Military Tradition",
+                    description: "Several human cultures raise all children (or all children of a certain social class) to serve in the military or defend themselves with force of arms. They gain proficiency with up to two martial or exotic weapons appropriate to their culture. This racial trait replaces the bonus feat trait.") },
             };
 
-        public static IEnumerable<BlueprintInfo<BlueprintScriptableObject>> BlueprintInfoCollection
-            => BlueprintsInfo.Select(i => new BlueprintInfo<BlueprintScriptableObject>(i.Key, i.Value));
+        public static Microsoftenator.Wotr.Common.Blueprints.Blueprints BlueprintInfoCollection
+            = new(BlueprintsInfo.Select(i => new BlueprintInfo<BlueprintScriptableObject>(i.Key, i.Value)));
 
         private static BlueprintInfo<TBlueprint> GetBlueprintInfo<TBlueprint>(string guid) where TBlueprint : BlueprintScriptableObject
             => new BlueprintInfo<TBlueprint>(guid, BlueprintsInfo[guid]);
@@ -136,5 +145,7 @@ namespace AlternateHumanTraits
             => GetBlueprintInfo<BlueprintFeatureSelection>(Guids.HumanFeatureSelection);
         public static BlueprintInfo<BlueprintFeatureSelection> DualTalent
             => GetBlueprintInfo<BlueprintFeatureSelection>(Guids.DualTalent);
+        public static BlueprintInfo<BlueprintFeatureSelection> MilitaryTradition
+            => GetBlueprintInfo<BlueprintFeatureSelection>(Guids.MilitaryTradition);
     }
 }

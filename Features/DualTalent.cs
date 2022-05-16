@@ -37,7 +37,7 @@ namespace AlternateHumanTraits.Features
                 {
                     var statName = Enum.GetName(typeof(StatType), stat);
 
-                    var bpInfo = Blueprints.BlueprintInfoCollection.First(i => i.Name == $"{selection.name}{statName}");
+                    var bpInfo = Blueprints.BlueprintInfoCollection.BlueprintList.First(i => i.Name == $"{selection.name}{statName}");
 
                     var statFeature = Helpers.CreateBlueprint<BlueprintFeature>(bpInfo.Name, bpInfo.Guid, feat =>
                     {

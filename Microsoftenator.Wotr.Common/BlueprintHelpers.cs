@@ -18,26 +18,6 @@ using Microsoftenator.Wotr.Common.Util;
 
 namespace Microsoftenator.Wotr.Common.Blueprints
 {
-    public class BlueprintInfo<T> where T : BlueprintScriptableObject
-    {
-        internal readonly string GuidString;
-        public Guid Guid => Guid.Parse(GuidString);
-        public readonly string Name;
-        public readonly string? DisplayName;
-        public readonly string? Description;
-
-        public BlueprintInfo(string guid, (string name, string? displayName, string? description) info)
-        {
-            GuidString = guid;
-            Name = info.name;
-            DisplayName = info.displayName;
-            Description = info.description;
-        }
-
-        public T GetBlueprint() => ResourcesLibrary.TryGetBlueprint<T>(GuidString);
-        public U? GetBlueprint<U>() where U : BlueprintScriptableObject => GetBlueprint() as U;
-    }
-
     public static class Helpers
     {
         public static TBlueprint CreateBlueprint<TBlueprint>(string name, Guid guid, Action<TBlueprint> init)
@@ -213,10 +193,6 @@ namespace Microsoftenator.Wotr.Common.Blueprints.Extensions
                     .Concat(features.Select(f => f.ToReference<BlueprintFeatureBaseReference>()))
                     .ToArray();
 
-        //public static void AddFeatureAtHead(this BlueprintRace race, BlueprintFeatureBase feature)
-        //	=> race.m_Features =
-        //		(new[] { feature.ToReference<BlueprintFeatureBaseReference>() }).Concat(race.m_Features).ToArray();
-        
         public static void SetFeatures(this BlueprintRace race, BlueprintFeatureBaseReference[] features)
             => race.m_Features = features;
 
