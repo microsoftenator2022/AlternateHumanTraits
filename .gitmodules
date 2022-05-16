@@ -1,0 +1,3 @@
+[submodule "Microsoftenator.Wotr.Common"]
+	path = Microsoftenator.Wotr.Common
+	url = https://github.com/microsoftenator2022/Microsoftenator.Wotr.Common.git
