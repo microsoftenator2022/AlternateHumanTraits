@@ -23,6 +23,9 @@ namespace AlternateHumanTraits.Patches
 
             HumanFeatureSelection.AddBasicFeatSelectionDummy();
 
+            MissingWeaponProficiencies.AddMissingWeaponProficiencies();
+            MilitaryTradition.AddMilitaryTradition();
+
             HumanBonusFeat.AddHumanBonusFeat();
 
             Awareness.AddAwarenessFeature();

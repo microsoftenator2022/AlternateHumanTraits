@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using AlternateHumanTraits.Blueprints;
+
+using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
 
@@ -9,23 +12,40 @@ using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Util;
 
+using UnityEngine;
+
 namespace AlternateHumanTraits.Features
 {
-    internal class MilitaryTradition
+    internal static class MilitaryTradition
     {
         internal static void AddMilitaryTradition()
         {
-            var militaryTraditionSelection = Helpers.CreateBlueprint(Blueprints.MilitaryTradition, selection =>
+            var init = (BlueprintFeatureSelection selection) =>
             {
                 selection.IsClassFeature = true;
 
                 selection.Groups = new[] { FeatureGroup.Racial };
 
-                selection.AddPrerequisiteFeature(Blueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
+                //selection.SetIcon(ResourcesLibrary.TryGetResource<Sprite>(Resources.Guids.WeaponProficiencyIcon));
+
+                foreach (var weaponProficiency in WeaponProficiencies.BlueprintData)
                 {
-                    prerequisite.HideInUI = true;
-                }, removeOnApply: true);
+                    selection.AddFeature(weaponProficiency.GetBlueprint().ToReference<BlueprintFeatureReference>());
+                }
+            };
+
+            var militaryTradition = Helpers.CreateBlueprint(Traits.MilitaryTradition, init);
+            militaryTradition.AddPrerequisiteFeature(Traits.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
+            {
+                prerequisite.HideInUI = true;
+            }, removeOnApply: true);
+
+            var militaryTradition2 = Helpers.CreateBlueprint(Traits.MilitaryTraditionSecondSelection, init);
+            militaryTradition2.AddPrerequisiteFeature(militaryTradition, prerequisite =>
+            {
+                prerequisite.HideInUI = true;
             });
+            militaryTradition2.HideNotAvailibleInUI = true;
         }
     }
 }

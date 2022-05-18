@@ -40,6 +40,8 @@ namespace AlternateHumanTraits
 
         public const string MilitaryTradition = "f44a1b342bd14ed585ec99be7d509320";
 
+        public const string MilitaryTraditionSecondSelection = "2759047be8b143e1819766a1e994f5b6";
+
         public const string NoAdditionaHumanTraits = "591db97195294968a081b7e5354bc090";
 
         public const string UnstoppableMagic = "051d05e970df4929a6d39d61adac1fc8";
@@ -106,9 +108,13 @@ namespace AlternateHumanTraits
                     (name: nameof(Guids.MilitaryTradition),
                     displayName: "Military Tradition",
                     description: "Several human cultures raise all children (or all children of a certain social class) to serve in the military or defend themselves with force of arms. They gain proficiency with up to two martial or exotic weapons appropriate to their culture. This racial trait replaces the bonus feat trait.") },
+                { Guids.MilitaryTraditionSecondSelection,
+                    (name: nameof(Guids.MilitaryTraditionSecondSelection),
+                    displayName: "Military Tradition",
+                    description: "Several human cultures raise all children (or all children of a certain social class) to serve in the military or defend themselves with force of arms. They gain proficiency with up to two martial or exotic weapons appropriate to their culture. This racial trait replaces the bonus feat trait.") },
             };
 
-        public static Microsoftenator.Wotr.Common.Blueprints.Blueprints BlueprintInfo
+        public static Microsoftenator.Wotr.Common.Blueprints.Blueprints BlueprintData
             = new(BlueprintInfoCollection.Select(i => new BlueprintInfo<BlueprintScriptableObject>(i.Key, i.Value)));
 
         public static BlueprintInfo<TBlueprint> GetBlueprintInfo<TBlueprint>(string guid) where TBlueprint : BlueprintScriptableObject
@@ -147,5 +153,7 @@ namespace AlternateHumanTraits
             => GetBlueprintInfo<BlueprintFeatureSelection>(Guids.DualTalent);
         public static BlueprintInfo<BlueprintFeatureSelection> MilitaryTradition
             => GetBlueprintInfo<BlueprintFeatureSelection>(Guids.MilitaryTradition);
+        public static BlueprintInfo<BlueprintFeatureSelection> MilitaryTraditionSecondSelection
+            => GetBlueprintInfo<BlueprintFeatureSelection>(Guids.MilitaryTraditionSecondSelection);
     }
 }

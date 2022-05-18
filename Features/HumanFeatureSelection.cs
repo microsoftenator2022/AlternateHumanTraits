@@ -67,6 +67,8 @@ namespace AlternateHumanTraits.Features
                 selection.IsClassFeature = true;
 
                 selection.Groups = new[] { FeatureGroup.Racial };
+
+                //selection.SetIcon(ResourcesLibrary.TryGetResource<Sprite>(Resources.Guids.HeritageSelectionIcon));
                 
                 selection.Group = FeatureGroup.KitsuneHeritage;
             });
