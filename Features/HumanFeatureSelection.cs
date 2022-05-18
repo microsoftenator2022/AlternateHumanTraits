@@ -43,6 +43,8 @@ namespace AlternateHumanTraits.Features
                 Traits.GiantAncestry.GetBlueprint(),
                 Traits.HistoryOfTerrorsTrait.GetBlueprint(),
                 Traits.UnstoppableMagic.GetBlueprint(),
+                Traits.MilitaryTradition.GetBlueprint(),
+                Traits.MilitaryTraditionSecondSelection.GetBlueprint(),
             };
 
             var noAlternateTrait =

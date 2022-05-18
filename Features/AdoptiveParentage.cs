@@ -14,7 +14,7 @@ using Microsoftenator.Wotr.Common.Blueprints;
 
 namespace AlternateHumanTraits.Features
 {
-    internal class AdoptiveParentage
+    internal static class AdoptiveParentage
     {
         public static void AddAdoptiveParentage()
         {

@@ -13,7 +13,7 @@ using Microsoftenator.Wotr.Common.Util;
 
 namespace AlternateHumanTraits.Features
 {
-    internal class DualTalent
+    internal static class DualTalent
     {
         internal static void AddDualTalent()
         {
@@ -37,7 +37,7 @@ namespace AlternateHumanTraits.Features
                 {
                     var statName = Enum.GetName(typeof(StatType), stat);
 
-                    var bpInfo = Traits.BlueprintInfo.First(i => i.Name == $"{selection.name}{statName}");
+                    var bpInfo = Traits.BlueprintData.First(i => i.Name == $"{selection.name}{statName}");
 
                     var statFeature = Helpers.CreateBlueprint<BlueprintFeature>(bpInfo.Name, bpInfo.Guid, feat =>
                     {
