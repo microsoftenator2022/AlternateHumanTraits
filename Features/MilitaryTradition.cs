@@ -45,6 +45,10 @@ namespace AlternateHumanTraits.Features
             {
                 prerequisite.HideInUI = true;
             });
+            militaryTradition2.AddPrerequisiteNoFeature(militaryTradition2, prerequisite =>
+            {
+                prerequisite.HideInUI = true;
+            });
             militaryTradition2.HideNotAvailibleInUI = true;
         }
     }
