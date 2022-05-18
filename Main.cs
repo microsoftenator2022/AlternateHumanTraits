@@ -43,7 +43,6 @@ namespace AlternateHumanTraits
         {
             Log = new(modEntry.Logger);
 
-
             Log.Debug($"{nameof(Main)}.{nameof(Load)}");
 
             ModEntry = modEntry;
@@ -54,6 +53,5 @@ namespace AlternateHumanTraits
 
             return true;
         }
-
     }
 }

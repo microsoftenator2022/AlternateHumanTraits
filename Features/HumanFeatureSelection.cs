@@ -17,11 +17,11 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(HumanFeatureSelection)}.{nameof(AddBasicFeatSelectionDummy)}");
 
-            Helpers.CreateBlueprint(Blueprints.BasicFeatSelectionDummy, feat =>
+            Helpers.CreateBlueprint(Traits.BasicFeatSelectionDummy, feat =>
             {
                 feat.IsClassFeature = true;
 
-                var basicFeatSelection = Blueprints.BasicFeatSelection.GetBlueprint();
+                var basicFeatSelection = Traits.BasicFeatSelection.GetBlueprint();
 
                 feat.SetDisplayName(basicFeatSelection.Name);
                 feat.SetDescription(basicFeatSelection.Description);
@@ -36,17 +36,17 @@ namespace AlternateHumanTraits.Features
             var features = new List<BlueprintFeature>()
             {
                 // For Pregen builds to work, HumanBonusFeat must be the first element, followed by noAlternateTraits
-                Blueprints.HumanBonusFeat.GetBlueprint(),
+                Traits.HumanBonusFeat.GetBlueprint(),
 
-                Blueprints.Awareness.GetBlueprint(),
-                Blueprints.DualTalent.GetBlueprint(),
-                Blueprints.GiantAncestry.GetBlueprint(),
-                Blueprints.HistoryOfTerrorsTrait.GetBlueprint(),
-                Blueprints.UnstoppableMagic.GetBlueprint(),
+                Traits.Awareness.GetBlueprint(),
+                Traits.DualTalent.GetBlueprint(),
+                Traits.GiantAncestry.GetBlueprint(),
+                Traits.HistoryOfTerrorsTrait.GetBlueprint(),
+                Traits.UnstoppableMagic.GetBlueprint(),
             };
 
             var noAlternateTrait =
-                Helpers.CreateBlueprint(Blueprints.NoAdditionalHumanTraits, feat =>
+                Helpers.CreateBlueprint(Traits.NoAdditionalHumanTraits, feat =>
             {
                 feat.IsClassFeature = true;
                 feat.HideInUI = true;
@@ -54,13 +54,13 @@ namespace AlternateHumanTraits.Features
 
                 feat.Groups = new[] { FeatureGroup.Racial };
                 
-                feat.AddPrerequisiteNoFeature(Blueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
+                feat.AddPrerequisiteNoFeature(Traits.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {
                     prerequisite.HideInUI = true;
                 });
             });
 
-            var selection = Helpers.CreateBlueprint(Blueprints.HumanFeatureSelection, selection =>
+            var selection = Helpers.CreateBlueprint(Traits.HumanFeatureSelection, selection =>
             {
                 selection.IsClassFeature = true;
 
@@ -69,10 +69,10 @@ namespace AlternateHumanTraits.Features
                 selection.Group = FeatureGroup.KitsuneHeritage;
             });
 
-            Blueprints.HumanRace.GetBlueprint().SetFeatures(new BlueprintFeatureBaseReference[]
+            Traits.HumanRace.GetBlueprint().SetFeatures(new BlueprintFeatureBaseReference[]
             {
-                Blueprints.BasicFeatSelectionDummy.GetBlueprint().ToReference<BlueprintFeatureBaseReference>(),
-                Blueprints.HumanSkilled.GetBlueprint().ToReference<BlueprintFeatureBaseReference>(),
+                Traits.BasicFeatSelectionDummy.GetBlueprint().ToReference<BlueprintFeatureBaseReference>(),
+                Traits.HumanSkilled.GetBlueprint().ToReference<BlueprintFeatureBaseReference>(),
                 selection.ToReference<BlueprintFeatureBaseReference>(),
             });
 

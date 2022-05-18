@@ -22,7 +22,7 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(Awareness)}.{nameof(AddAwarenessFeature)}");
 
-            var awareness = Helpers.CreateBlueprint(Blueprints.Awareness, feat =>
+            var awareness = Helpers.CreateBlueprint(Traits.Awareness, feat =>
             {
                 feat.IsClassFeature = true;
 
@@ -39,7 +39,7 @@ namespace AlternateHumanTraits.Features
                     Value = 1
                 });
 
-                feat.AddPrerequisiteFeature(Blueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
+                feat.AddPrerequisiteFeature(Traits.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {
                     prerequisite.HideInUI = true;
                 }, removeOnApply: true);
