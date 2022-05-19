@@ -34,13 +34,13 @@ namespace AlternateHumanTraits.Features
                 }
             };
 
-            var militaryTradition = Helpers.CreateBlueprint(Traits.MilitaryTradition, init);
-            militaryTradition.AddPrerequisiteFeature(Traits.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
+            var militaryTradition = Helpers.CreateBlueprint(FeatureBlueprints.MilitaryTradition, init);
+            militaryTradition.AddPrerequisiteFeature(FeatureBlueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
             {
                 prerequisite.HideInUI = true;
             }, removeOnApply: true);
 
-            var militaryTradition2 = Helpers.CreateBlueprint(Traits.MilitaryTraditionSecondSelection, init);
+            var militaryTradition2 = Helpers.CreateBlueprint(FeatureBlueprints.MilitaryTraditionSecondSelection, init);
             militaryTradition2.AddPrerequisiteFeature(militaryTradition, prerequisite =>
             {
                 prerequisite.HideInUI = true;

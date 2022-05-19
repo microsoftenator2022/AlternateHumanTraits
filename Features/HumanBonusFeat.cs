@@ -18,19 +18,19 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(HumanBonusFeat)}.{nameof(AddHumanBonusFeat)}");
 
-            var humanBonusFeat = Helpers.CreateBlueprint(Traits.HumanBonusFeat, selection =>
+            var humanBonusFeat = Helpers.CreateBlueprint(FeatureBlueprints.HumanBonusFeat, selection =>
             {
                 selection.IsClassFeature = true;
 
-                selection.SetIcon(Traits.BasicFeatSelection.GetBlueprint().Icon);
+                selection.SetIcon(FeatureBlueprints.BasicFeatSelection.GetBlueprint().Icon);
 
                 selection.Groups = new[] { FeatureGroup.Racial };
                 selection.Group = FeatureGroup.Feat;
 
                 //selection.SetFeatures(Blueprints.BasicFeatSelection.GetBlueprint().Features, Blueprints.BasicFeatSelection.GetBlueprint().AllFeatures);
-                selection.SetFeatures(new[] { Traits.BasicFeatSelection.GetBlueprint().ToReference<BlueprintFeatureReference>() } );
+                selection.SetFeatures(new[] { FeatureBlueprints.BasicFeatSelection.GetBlueprint().ToReference<BlueprintFeatureReference>() } );
 
-                selection.AddPrerequisiteFeature(Traits.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
+                selection.AddPrerequisiteFeature(FeatureBlueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {
                     prerequisite.HideInUI = true;
                 }, removeOnApply: true);

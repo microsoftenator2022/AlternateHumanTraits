@@ -49,7 +49,7 @@ namespace AlternateHumanTraits
         public const string GiantAncestry = "e85ff5a3484f46a4aead3857b2eff9c3";
     }
 
-    public static class Traits
+    public static class FeatureBlueprints
     {
         private static readonly IReadOnlyDictionary<string, (string name, string? displayName, string? description)> BlueprintInfoCollection =
             new Dictionary<string, (string name, string? displayName, string? description)>()

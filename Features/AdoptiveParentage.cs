@@ -11,10 +11,14 @@ using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.UnitLogic.FactLogic;
 
 using Microsoftenator.Wotr.Common.Blueprints;
+using Microsoftenator.Wotr.Common.Blueprints.Extensions;
+using Microsoftenator.Wotr.Common.Util;
+
+using static AlternateHumanTraits.FeatureBlueprints;
 
 namespace AlternateHumanTraits.Features
 {
-    internal static class AdoptiveParentage
+    internal static class AdoptiveParentageSelection
     {
         public static void AddAdoptiveParentage()
         {

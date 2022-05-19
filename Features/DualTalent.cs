@@ -27,7 +27,7 @@ namespace AlternateHumanTraits.Features
                 StatType.Charisma
             };
 
-            var dualTalentSelection = Helpers.CreateBlueprint(Traits.DualTalent, selection =>
+            var dualTalentSelection = Helpers.CreateBlueprint(FeatureBlueprints.DualTalent, selection =>
             {
                 selection.IsClassFeature = true;
 
@@ -37,7 +37,7 @@ namespace AlternateHumanTraits.Features
                 {
                     var statName = Enum.GetName(typeof(StatType), stat);
 
-                    var bpInfo = Traits.BlueprintData.First(i => i.Name == $"{selection.name}{statName}");
+                    var bpInfo = FeatureBlueprints.BlueprintData.First(i => i.Name == $"{selection.name}{statName}");
 
                     var statFeature = Helpers.CreateBlueprint<BlueprintFeature>(bpInfo.Name, bpInfo.Guid, feat =>
                     {
@@ -60,12 +60,12 @@ namespace AlternateHumanTraits.Features
                 }
             });
 
-            dualTalentSelection.AddPrerequisiteFeature(Traits.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
+            dualTalentSelection.AddPrerequisiteFeature(FeatureBlueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
             {
                 prerequisite.HideInUI = true;
             }, removeOnApply: true);
 
-            dualTalentSelection.AddPrerequisiteFeature(Traits.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
+            dualTalentSelection.AddPrerequisiteFeature(FeatureBlueprints.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
         }
     }
 }

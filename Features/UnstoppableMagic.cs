@@ -17,7 +17,7 @@ namespace AlternateHumanTraits.Features
             Main.Log?.Debug($"{nameof(UnstoppableMagic)}.{nameof(AddUnstoppableMagic)}");
 
 
-            var unstoppableMagic = Helpers.CreateBlueprint<BlueprintFeature>(Traits.UnstoppableMagic, feat =>
+            var unstoppableMagic = Helpers.CreateBlueprint<BlueprintFeature>(FeatureBlueprints.UnstoppableMagic, feat =>
             {
                 feat.IsClassFeature = true;
 
@@ -25,7 +25,7 @@ namespace AlternateHumanTraits.Features
 
                 feat.AddComponent(new SpellPenetrationBonus() { Value = 2 });
 
-                feat.AddPrerequisiteFeature(Traits.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
+                feat.AddPrerequisiteFeature(FeatureBlueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {
                     prerequisite.HideInUI = true;
                 }, removeOnApply: true);

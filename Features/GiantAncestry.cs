@@ -21,7 +21,7 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(GiantAncestry)}.{nameof(AddGiantAncestry)}");
             
-            var giantAncestry = Helpers.CreateBlueprint(Traits.GiantAncestry, feat =>
+            var giantAncestry = Helpers.CreateBlueprint(FeatureBlueprints.GiantAncestry, feat =>
             {
                 feat.IsClassFeature = true;
                 
@@ -46,7 +46,7 @@ namespace AlternateHumanTraits.Features
                     Descriptor = ModifierDescriptor.Racial
                 });
 
-                feat.AddPrerequisiteFeature(Traits.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
+                feat.AddPrerequisiteFeature(FeatureBlueprints.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
             });
         }
     }
