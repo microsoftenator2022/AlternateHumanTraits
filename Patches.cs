@@ -30,6 +30,7 @@ namespace AlternateHumanTraits.Patches
 
             Awareness.AddAwarenessFeature();
             UnstoppableMagic.AddUnstoppableMagic();
+            ComprehensiveEducation.AddComprehensiveEducation();
 
             HistoryOfTerrors.AddHistoryOfTerrorsTrait();
             GiantAncestry.AddGiantAncestry();
