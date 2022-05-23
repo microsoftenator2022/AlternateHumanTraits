@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using AlternateHumanTraits.Resources.Blueprints;
+
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 
@@ -13,15 +15,17 @@ namespace AlternateHumanTraits.Features
 {
     internal static class HumanFeatureSelection
     {
+        internal static readonly List<BlueprintFeature> FeaturesToAdd = new();
+
         internal static void AddBasicFeatSelectionDummy()
         {
             Main.Log?.Debug($"{nameof(HumanFeatureSelection)}.{nameof(AddBasicFeatSelectionDummy)}");
 
-            Helpers.CreateBlueprint(FeatureBlueprints.BasicFeatSelectionDummy, feat =>
+            Helpers.CreateBlueprint(BlueprintData.BasicFeatSelectionDummy, feat =>
             {
                 feat.IsClassFeature = true;
 
-                var basicFeatSelection = FeatureBlueprints.BasicFeatSelection.GetBlueprint();
+                var basicFeatSelection = BlueprintData.BasicFeatSelection.GetBlueprint();
 
                 feat.SetDisplayName(basicFeatSelection.Name);
                 feat.SetDescription(basicFeatSelection.Description);
@@ -33,23 +37,8 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(HumanFeatureSelection)}.{nameof(AddHumanFeatureSelection)}");
 
-            var features = new List<BlueprintFeature>()
-            {
-                // For Pregen builds to work, HumanBonusFeat must be the first element, followed by noAlternateTraits
-                FeatureBlueprints.HumanBonusFeat.GetBlueprint(),
-
-                Traits.Awareness.GetBlueprint(),
-                FeatureBlueprints.Awareness.GetBlueprint(),
-                FeatureBlueprints.DualTalent.GetBlueprint(),
-                FeatureBlueprints.GiantAncestry.GetBlueprint(),
-                FeatureBlueprints.HistoryOfTerrorsTrait.GetBlueprint(),
-                FeatureBlueprints.UnstoppableMagic.GetBlueprint(),
-                FeatureBlueprints.MilitaryTradition.GetBlueprint(),
-                FeatureBlueprints.MilitaryTraditionSecondSelection.GetBlueprint(),
-            };
-
             var noAlternateTrait =
-                Helpers.CreateBlueprint(FeatureBlueprints.NoAdditionalHumanTraits, feat =>
+                Helpers.CreateBlueprint(BlueprintData.NoAdditionalHumanTraits, feat =>
             {
                 feat.IsClassFeature = true;
                 feat.HideInUI = true;
@@ -57,13 +46,13 @@ namespace AlternateHumanTraits.Features
 
                 feat.Groups = new[] { FeatureGroup.Racial };
                 
-                feat.AddPrerequisiteNoFeature(FeatureBlueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
+                feat.AddPrerequisiteNoFeature(BlueprintData.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {
                     prerequisite.HideInUI = true;
                 });
             });
 
-            var selection = Helpers.CreateBlueprint(FeatureBlueprints.HumanFeatureSelection, selection =>
+            var selection = Helpers.CreateBlueprint(BlueprintData.HumanFeatureSelection, selection =>
             {
                 selection.IsClassFeature = true;
 
@@ -74,12 +63,27 @@ namespace AlternateHumanTraits.Features
                 selection.Group = FeatureGroup.KitsuneHeritage;
             });
 
-            FeatureBlueprints.HumanRace.GetBlueprint().SetFeatures(new BlueprintFeatureBaseReference[]
+            BlueprintData.HumanRace.GetBlueprint().SetFeatures(new BlueprintFeatureBaseReference[]
             {
-                FeatureBlueprints.BasicFeatSelectionDummy.GetBlueprint().ToReference<BlueprintFeatureBaseReference>(),
-                FeatureBlueprints.HumanSkilled.GetBlueprint().ToReference<BlueprintFeatureBaseReference>(),
+                BlueprintData.BasicFeatSelectionDummy.GetBlueprint().ToReference<BlueprintFeatureBaseReference>(),
+                BlueprintData.HumanSkilled.GetBlueprint().ToReference<BlueprintFeatureBaseReference>(),
                 selection.ToReference<BlueprintFeatureBaseReference>(),
             });
+
+            var features = new List<BlueprintFeature>()
+            {
+                // For Pregen builds to work, HumanBonusFeat must be the first element, followed by noAlternateTraits
+                BlueprintData.HumanBonusFeat.GetBlueprint(),
+
+                FeatureBlueprints.AdoptiveParentage.AdoptiveParentageSelection.GetBlueprint(),
+                FeatureBlueprints.Awareness.GetBlueprint(),
+                BlueprintData.DualTalentSelection.GetBlueprint(),
+                FeatureBlueprints.GiantAncestry.GetBlueprint(),
+                FeatureBlueprints.HistoryOfTerrorsTrait.GetBlueprint(),
+                FeatureBlueprints.UnstoppableMagic.GetBlueprint(),
+                FeatureBlueprints.MilitaryTradition.GetBlueprint(),
+                FeatureBlueprints.MilitaryTraditionSecondSelection.GetBlueprint(),
+            };
 
             foreach (var f in features)
             {

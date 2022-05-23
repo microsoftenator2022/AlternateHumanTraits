@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using AlternateHumanTraits.Blueprints;
+using AlternateHumanTraits.Resources;
+using AlternateHumanTraits.Resources.Blueprints;
 
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
@@ -20,22 +21,29 @@ namespace AlternateHumanTraits.Features
     {
         internal static void AddMilitaryTradition()
         {
+            Main.Log?.Debug($"{nameof(MilitaryTradition)}.{nameof(AddMilitaryTradition)}");
+
             var init = (BlueprintFeatureSelection selection) =>
             {
                 selection.IsClassFeature = true;
 
                 selection.Groups = new[] { FeatureGroup.Racial };
 
-                //selection.SetIcon(ResourcesLibrary.TryGetResource<Sprite>(Resources.Guids.WeaponProficiencyIcon));
+                var icon = Resources.Icons.WeaponSpecialization;
 
-                foreach (var weaponProficiency in WeaponProficiencies.BlueprintData)
+                if(icon is null)
+                    Main.Log?.Debug($"Null icon");
+
+                selection.SetIcon(icon);
+
+                foreach (var weaponProficiency in BlueprintData.WeaponProficiencies)
                 {
                     selection.AddFeature(weaponProficiency.GetBlueprint().ToReference<BlueprintFeatureReference>());
                 }
             };
 
             var militaryTradition = Helpers.CreateBlueprint(FeatureBlueprints.MilitaryTradition, init);
-            militaryTradition.AddPrerequisiteFeature(FeatureBlueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
+            militaryTradition.AddPrerequisiteFeature(BlueprintData.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
             {
                 prerequisite.HideInUI = true;
             }, removeOnApply: true);
@@ -53,3 +61,4 @@ namespace AlternateHumanTraits.Features
         }
     }
 }
+

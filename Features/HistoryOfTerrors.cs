@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using AlternateHumanTraits.Resources.Blueprints;
+
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 
@@ -16,7 +18,7 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(HistoryOfTerrors)}.{nameof(PatchHistoryOfTerrors)}");
 
-            var historyOfTerrors = FeatureBlueprints.HistoryOfTerrorsFeat;
+            var historyOfTerrors = BlueprintData.HistoryOfTerrors;
 
             historyOfTerrors.GetBlueprint()
                 .AddPrerequisiteNoFeature(FeatureBlueprints.HistoryOfTerrorsTrait.GetBlueprint(), Functional.Ignore);
@@ -26,7 +28,7 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(HistoryOfTerrors)}.{nameof(AddHistoryOfTerrorsTrait)}");
 
-            var original = FeatureBlueprints.HistoryOfTerrorsFeat.GetBlueprint();
+            var original = BlueprintData.HistoryOfTerrors.GetBlueprint();
 
             var info = FeatureBlueprints.HistoryOfTerrorsTrait;
 
@@ -36,9 +38,9 @@ namespace AlternateHumanTraits.Features
 
                 feat.Groups = new[] { FeatureGroup.Racial };
 
-                feat.RemoveComponents(c => c is PrerequisiteFeature p && p.Feature == FeatureBlueprints.HumanRace.GetBlueprint());
+                feat.RemoveComponents(c => c is PrerequisiteFeature p && p.Feature == BlueprintData.HumanRace.GetBlueprint());
 
-                feat.AddPrerequisiteFeature(FeatureBlueprints.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
+                feat.AddPrerequisiteFeature(BlueprintData.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
             });
 
             PatchHistoryOfTerrors();

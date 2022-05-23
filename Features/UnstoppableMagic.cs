@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using AlternateHumanTraits.Resources.Blueprints;
+
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Designers.Mechanics.Facts;
 
@@ -25,7 +27,7 @@ namespace AlternateHumanTraits.Features
 
                 feat.AddComponent(new SpellPenetrationBonus() { Value = 2 });
 
-                feat.AddPrerequisiteFeature(FeatureBlueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
+                feat.AddPrerequisiteFeature(BlueprintData.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {
                     prerequisite.HideInUI = true;
                 }, removeOnApply: true);

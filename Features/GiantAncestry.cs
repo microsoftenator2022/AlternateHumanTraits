@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using AlternateHumanTraits.Resources.Blueprints;
+
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.EntitySystem.Stats;
@@ -46,7 +48,7 @@ namespace AlternateHumanTraits.Features
                     Descriptor = ModifierDescriptor.Racial
                 });
 
-                feat.AddPrerequisiteFeature(FeatureBlueprints.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
+                feat.AddPrerequisiteFeature(BlueprintData.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
             });
         }
     }

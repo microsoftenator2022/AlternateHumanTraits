@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using AlternateHumanTraits.Resources.Blueprints;
+
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
@@ -18,19 +20,19 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(HumanBonusFeat)}.{nameof(AddHumanBonusFeat)}");
 
-            var humanBonusFeat = Helpers.CreateBlueprint(FeatureBlueprints.HumanBonusFeat, selection =>
+            var humanBonusFeat = Helpers.CreateBlueprint(BlueprintData.HumanBonusFeat, selection =>
             {
                 selection.IsClassFeature = true;
 
-                selection.SetIcon(FeatureBlueprints.BasicFeatSelection.GetBlueprint().Icon);
+                selection.SetIcon(BlueprintData.BasicFeatSelection.GetBlueprint().Icon);
 
                 selection.Groups = new[] { FeatureGroup.Racial };
                 selection.Group = FeatureGroup.Feat;
 
                 //selection.SetFeatures(Blueprints.BasicFeatSelection.GetBlueprint().Features, Blueprints.BasicFeatSelection.GetBlueprint().AllFeatures);
-                selection.SetFeatures(new[] { FeatureBlueprints.BasicFeatSelection.GetBlueprint().ToReference<BlueprintFeatureReference>() } );
+                selection.SetFeatures(new[] { BlueprintData.BasicFeatSelection.GetBlueprint().ToReference<BlueprintFeatureReference>() } );
 
-                selection.AddPrerequisiteFeature(FeatureBlueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
+                selection.AddPrerequisiteFeature(BlueprintData.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {
                     prerequisite.HideInUI = true;
                 }, removeOnApply: true);

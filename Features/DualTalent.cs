@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using AlternateHumanTraits.Resources;
+using AlternateHumanTraits.Resources.Blueprints;
+
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
@@ -17,6 +20,8 @@ namespace AlternateHumanTraits.Features
     {
         internal static void AddDualTalent()
         {
+            Main.Log?.Debug($"{nameof(DualTalent)}.{nameof(AddDualTalent)}");
+
             var attributeStats = new[]
             {
                 StatType.Strength,
@@ -27,7 +32,7 @@ namespace AlternateHumanTraits.Features
                 StatType.Charisma
             };
 
-            var dualTalentSelection = Helpers.CreateBlueprint(FeatureBlueprints.DualTalent, selection =>
+            var dualTalentSelection = Helpers.CreateBlueprint(BlueprintData.DualTalentSelection, selection =>
             {
                 selection.IsClassFeature = true;
 
@@ -37,7 +42,7 @@ namespace AlternateHumanTraits.Features
                 {
                     var statName = Enum.GetName(typeof(StatType), stat);
 
-                    var bpInfo = FeatureBlueprints.BlueprintData.First(i => i.Name == $"{selection.name}{statName}");
+                    var bpInfo = BlueprintData.DualTalentFeatures.First(i => i.Name == $"{selection.name}{statName}");
 
                     var statFeature = Helpers.CreateBlueprint<BlueprintFeature>(bpInfo.Name, bpInfo.Guid, feat =>
                     {
@@ -60,12 +65,12 @@ namespace AlternateHumanTraits.Features
                 }
             });
 
-            dualTalentSelection.AddPrerequisiteFeature(FeatureBlueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
+            dualTalentSelection.AddPrerequisiteFeature(BlueprintData.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
             {
                 prerequisite.HideInUI = true;
             }, removeOnApply: true);
 
-            dualTalentSelection.AddPrerequisiteFeature(FeatureBlueprints.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
+            dualTalentSelection.AddPrerequisiteFeature(BlueprintData.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
         }
     }
 }

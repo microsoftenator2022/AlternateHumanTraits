@@ -1,5 +1,7 @@
 ﻿using System;
 
+using AlternateHumanTraits.Resources.Blueprints;
+
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
@@ -39,7 +41,7 @@ namespace AlternateHumanTraits.Features
                     Value = 1
                 });
 
-                feat.AddPrerequisiteFeature(FeatureBlueprints.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
+                feat.AddPrerequisiteFeature(BlueprintData.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {
                     prerequisite.HideInUI = true;
                 }, removeOnApply: true);
