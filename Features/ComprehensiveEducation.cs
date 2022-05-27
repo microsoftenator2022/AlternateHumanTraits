@@ -4,6 +4,7 @@ using System.Linq;
 
 using AlternateHumanTraits.Resources.Blueprints;
 
+using Kingmaker.Blueprints.Classes;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.UnitLogic.FactLogic;
 
@@ -11,13 +12,32 @@ using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Util;
 
+namespace AlternateHumanTraits.Resources.Blueprints
+{
+    public static partial class BlueprintData
+    {
+        public static partial class Guids
+        {
+            public const string ComprehensiveEducation = "07bc62abb0d94662968ce5374c1325ef";
+        }
+
+        public static readonly NewBlueprint<BlueprintFeature> ComprehensiveEducation =
+            new(guid: Guids.ComprehensiveEducation,
+                name: nameof(Guids.ComprehensiveEducation),
+                strings : Localization.Default,
+                displayName: "Comprehensive Eduction",
+                description: "Humans raised with skilled teachers draw upon vast swathes of knowledge gained over centuries of civilization. They gain all Knowledge skills as class skills, and they gain a +1 racial bonus on skill checks for each Knowledge skill that they gain as a class skill from their class levels. This racial trait replaces skilled.");
+    }
+}
+
 namespace AlternateHumanTraits.Features
 {
+    
     internal static class ComprehensiveEducation
     {
         internal static void AddComprehensiveEducation()
         {
-            var feature = Helpers.CreateBlueprint(FeatureBlueprints.ComprehensiveEducation, feat =>
+            var feature = Helpers.CreateBlueprint(BlueprintData.ComprehensiveEducation, feat =>
             {
                 feat.IsClassFeature = true;
 

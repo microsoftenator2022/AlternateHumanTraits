@@ -16,7 +16,11 @@ namespace AlternateHumanTraits.Patches
 
         static void Postfix()
         {
-            if (patched) return;
+            if (patched)
+            {
+                Main.Log?.Warning($"Duplicate call to {nameof(BlueprintsCache_Init_Patch)}.{nameof(Postfix)}");
+                return;
+            }
             patched = true;
 
             Main.Log?.Debug($"{nameof(BlueprintsCache_Init_Patch)}.{nameof(Postfix)}");
@@ -36,6 +40,8 @@ namespace AlternateHumanTraits.Patches
             GiantAncestry.AddGiantAncestry();
 
             DualTalent.AddDualTalent();
+            WeaponFamiliarityMartialProficiencies.AddWeaponFamiliarityMartialProficiencies();
+            AdoptiveParentageSelection.AddAdoptiveParentage();
 
             HumanFeatureSelection.AddHumanFeatureSelection();
         }

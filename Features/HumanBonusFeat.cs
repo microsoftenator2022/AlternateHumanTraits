@@ -12,6 +12,36 @@ using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Util;
 
+namespace AlternateHumanTraits.Resources.Blueprints
+{
+    public static partial class BlueprintData
+    {
+        public static partial class Guids
+        {
+            public const string HumanBonusFeat = "8a4a6f5ebe0c416a8fdb7dd98a9ab1b4";
+        }
+
+        public static readonly NewBlueprint<BlueprintFeatureSelection> HumanBonusFeat =
+            new
+            (
+                guid: Guids.HumanBonusFeat,
+                name: nameof(Guids.HumanBonusFeat),
+                strings: Localization.Default,
+                displayName: "Bonus Feat",
+                description: "Humans select one extra feat at 1st level."
+            )
+            {
+                Init = selection =>
+                {
+                    selection.IsClassFeature = true;
+
+                    selection.Groups = new[] { FeatureGroup.Racial };
+                    selection.Group = FeatureGroup.Feat;
+                }
+            };
+    }
+}
+
 namespace AlternateHumanTraits.Features
 {
     internal static class HumanBonusFeat
@@ -22,16 +52,10 @@ namespace AlternateHumanTraits.Features
 
             var humanBonusFeat = Helpers.CreateBlueprint(BlueprintData.HumanBonusFeat, selection =>
             {
-                selection.IsClassFeature = true;
-
                 selection.SetIcon(BlueprintData.BasicFeatSelection.GetBlueprint().Icon);
 
-                selection.Groups = new[] { FeatureGroup.Racial };
-                selection.Group = FeatureGroup.Feat;
-
-                //selection.SetFeatures(Blueprints.BasicFeatSelection.GetBlueprint().Features, Blueprints.BasicFeatSelection.GetBlueprint().AllFeatures);
-                selection.SetFeatures(new[] { BlueprintData.BasicFeatSelection.GetBlueprint().ToReference<BlueprintFeatureReference>() } );
-
+                selection.AddFeature(BlueprintData.BasicFeatSelection.GetBlueprint().ToReference<BlueprintFeatureReference>());
+                
                 selection.AddPrerequisiteFeature(BlueprintData.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {
                     prerequisite.HideInUI = true;

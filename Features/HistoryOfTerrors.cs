@@ -2,13 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using AlternateHumanTraits.Resources;
 using AlternateHumanTraits.Resources.Blueprints;
 
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 
+using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Util;
+
+namespace AlternateHumanTraits.Resources.Blueprints
+{
+    public static partial class BlueprintData
+    {
+        public static partial class Guids
+        {
+            public const string HistoryOfTerrorsTrait = "e0a373aeeab84ce996abd752fb9bccf6";
+        }
+
+        public static NewBlueprint<BlueprintFeature> HistoryOfTerrorsTrait =
+            new
+            (
+                guid: Guids.HistoryOfTerrorsTrait,
+                name: nameof(Guids.HistoryOfTerrorsTrait)
+            );
+    }
+}
 
 namespace AlternateHumanTraits.Features
 {
@@ -21,7 +41,7 @@ namespace AlternateHumanTraits.Features
             var historyOfTerrors = BlueprintData.HistoryOfTerrors;
 
             historyOfTerrors.GetBlueprint()
-                .AddPrerequisiteNoFeature(FeatureBlueprints.HistoryOfTerrorsTrait.GetBlueprint(), Functional.Ignore);
+                .AddPrerequisiteNoFeature(BlueprintData.HistoryOfTerrorsTrait.GetBlueprint(), Functional.Ignore);
         }
 
         internal static void AddHistoryOfTerrorsTrait()
@@ -30,11 +50,9 @@ namespace AlternateHumanTraits.Features
 
             var original = BlueprintData.HistoryOfTerrors.GetBlueprint();
 
-            var info = FeatureBlueprints.HistoryOfTerrorsTrait;
-
-            var copy = original.CreateCopy(info.Name, info.Guid, feat =>
+            var copy = original.Clone(BlueprintData.HistoryOfTerrorsTrait, feat =>
             {
-                feat.SetDescription($"{feat.Description} This racial trait replaces the skilled trait.");
+                feat.SetDescription(strings: Localization.Default, text: $"{feat.Description} This racial trait replaces the skilled trait.");
 
                 feat.Groups = new[] { FeatureGroup.Racial };
 

@@ -15,6 +15,70 @@ using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 
 using UnityEngine;
 
+namespace AlternateHumanTraits.Resources.Blueprints
+{
+    public static partial class BlueprintData
+    {
+        public static partial class Guids
+        {
+            public const string EarthBreakerProficiency = "cb96b756bec5433f8b427501959e4eb6";
+            public const string BardicheProficiency = "8cbaabb4d3264f3493ecb13ac0373782";
+        }
+
+        public static NewBlueprint<BlueprintFeature> EarthBreakerProficiency =
+            new
+            (
+                guid : Guids.EarthBreakerProficiency,
+                name: nameof(Guids.EarthBreakerProficiency),
+                strings: Localization.Default,
+                displayName: "Weapon Proficiency (Earth Breaker)",
+                description: "You become proficient with earth breakers and can use them as a weapon."
+            )
+            {
+                Init = feature =>
+                {
+                    feature.IsClassFeature = true;
+
+                    feature.SetIcon(Resources.Icons.WeaponProficiency);
+
+                    feature.AddComponent(new AddProficiencies()
+                    {
+                        WeaponProficiencies = new[] { WeaponCategory.EarthBreaker }
+                    });
+                }
+            };
+
+        public static NewBlueprint<BlueprintFeature> BardicheProficiency =
+            new
+            (
+                guid: Guids.BardicheProficiency,
+                name: nameof(Guids.BardicheProficiency),
+                strings: Localization.Default,
+                displayName: "Weapon Proficiency (Bardiche)",
+                description: "You become proficient with bardiches and can use them as a weapon."
+            )
+            {
+                Init = feature =>
+                {
+                    feature.IsClassFeature = true;
+
+                    feature.SetIcon(Resources.Icons.WeaponProficiency);
+
+                    feature.AddComponent(new AddProficiencies()
+                    {
+                        WeaponProficiencies = new[] { WeaponCategory.Bardiche }
+                    });
+                }
+            };
+
+        public static IEnumerable<NewBlueprint<BlueprintFeature>> NewWeaponProficiencies = new List<NewBlueprint<BlueprintFeature>>()
+        {
+            EarthBreakerProficiency,
+            BardicheProficiency
+        };
+    }
+}
+
 namespace AlternateHumanTraits.Features
 {
     internal static class MissingWeaponProficiencies
@@ -23,37 +87,9 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(MissingWeaponProficiencies)}.{nameof(AddMissingWeaponProficiencies)}");
 
-            var wpebInfo =
-                BlueprintData.WeaponProficiencies
-                    .First(bp => bp.GuidString == BlueprintData.Guids.EarthBreakerProficiency);
+            var earthBreakerProficiency = Helpers.CreateBlueprint(BlueprintData.EarthBreakerProficiency);
 
-            var earthBreakerProficiency = Helpers.CreateBlueprint(wpebInfo, init: feature =>
-            {
-                feature.IsClassFeature = true;
-
-                feature.SetIcon(Resources.Icons.WeaponProficiency);
-
-                feature.AddComponent(new AddProficiencies()
-                {
-                    WeaponProficiencies = new[] { WeaponCategory.EarthBreaker }
-                });
-            });
-
-            var wpbInfo =
-                BlueprintData.WeaponProficiencies
-                    .First(bp => bp.GuidString == BlueprintData.Guids.BardicheProficiency);
-
-            var bardicheProficiency = Helpers.CreateBlueprint(wpbInfo, feature =>
-            {
-                feature.IsClassFeature = true;
-
-                feature.SetIcon(Resources.Icons.WeaponProficiency);
-
-                feature.AddComponent(new AddProficiencies()
-                {
-                    WeaponProficiencies = new[] { WeaponCategory.Bardiche }
-                });
-            });
+            var bardicheProficiency = Helpers.CreateBlueprint(BlueprintData.BardicheProficiency);
         }
     }
 }
