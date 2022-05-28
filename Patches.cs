@@ -1,4 +1,5 @@
 ﻿using AlternateHumanTraits.Features;
+using AlternateHumanTraits.Resources;
 
 using HarmonyLib;
 
@@ -33,17 +34,23 @@ namespace AlternateHumanTraits.Patches
             HumanBonusFeat.AddHumanBonusFeat();
 
             Awareness.AddAwarenessFeature();
+
             UnstoppableMagic.AddUnstoppableMagic();
+
             ComprehensiveEducation.AddComprehensiveEducation();
 
             HistoryOfTerrors.AddHistoryOfTerrorsTrait();
+
             GiantAncestry.AddGiantAncestry();
 
             DualTalent.AddDualTalent();
+
             WeaponFamiliarityMartialProficiencies.AddWeaponFamiliarityMartialProficiencies();
             AdoptiveParentageSelection.AddAdoptiveParentage();
 
             HumanFeatureSelection.AddHumanFeatureSelection();
+
+            Localization.Default.LoadAll();
         }
     }
 

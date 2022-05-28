@@ -25,7 +25,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string MilitaryTraditionSecondSelection = "2759047be8b143e1819766a1e994f5b6";
         }
 
-        public static readonly NewBlueprint<BlueprintFeatureSelection> MilitaryTradition =
+        public static readonly NewUnitFact<BlueprintFeatureSelection> MilitaryTradition =
             new
             (
                 guid: Guids.MilitaryTradition,
@@ -35,19 +35,12 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 description: "Several human cultures raise all children (or all children of a certain social class) to serve in the military or defend themselves with force of arms. They gain proficiency with up to two martial or exotic weapons appropriate to their culture. This racial trait replaces the bonus feat trait."
             );
 
-        public static readonly NewBlueprint<BlueprintFeatureSelection> MilitaryTraditionSecondSelection =
+        public static readonly NewUnitFact<BlueprintFeatureSelection> MilitaryTraditionSecondSelection =
             new
             (
                 guid: Guids.MilitaryTraditionSecondSelection,
                 name: nameof(Guids.MilitaryTraditionSecondSelection)
-            )
-            {
-                DisplayName = MilitaryTradition.DisplayName,
-                Description = MilitaryTradition.Description
-            };
-
-
-        
+            );
     }
 }
 
@@ -77,7 +70,7 @@ namespace AlternateHumanTraits.Features
                         .Cast<BlueprintInfoAbstract<BlueprintFeature>>()
                         .Concat(BlueprintData.NewWeaponProficiencies))
                 {
-                    selection.AddFeature(weaponProficiency.GetBlueprintRef<BlueprintFeatureReference>());
+                    selection.AddFeature(weaponProficiency.GetBlueprint());
                 }
             };
 
@@ -87,7 +80,13 @@ namespace AlternateHumanTraits.Features
                 prerequisite.HideInUI = true;
             }, removeOnApply: true);
 
-            var militaryTradition2 = Helpers.CreateBlueprint(BlueprintData.MilitaryTraditionSecondSelection, init);
+            var militaryTradition2 = Helpers.CreateBlueprint(BlueprintData.MilitaryTraditionSecondSelection, feat =>
+            {
+                feat.SetDisplayName(BlueprintData.MilitaryTradition.DisplayName);
+                feat.SetDescription(BlueprintData.MilitaryTradition.Description);
+
+                init(feat);
+            });
             militaryTradition2.AddPrerequisiteFeature(militaryTradition, prerequisite =>
             {
                 prerequisite.HideInUI = true;

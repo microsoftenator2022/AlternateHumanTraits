@@ -10,7 +10,8 @@ namespace AlternateHumanTraits.Resources
 {
     internal static class Localization
     {
-        public static readonly LocalizedStringsPack Default = new(LocalizationManager.CurrentLocale);
+        private static readonly Lazy<LocalizedStringsPack> defaultStringsLazy = new(() => new(LocalizationManager.CurrentLocale));
+        public static LocalizedStringsPack Default => defaultStringsLazy.Value;
 
 
     }

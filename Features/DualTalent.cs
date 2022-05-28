@@ -30,15 +30,15 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string DualTalentCharisma = "15df2403926d47d5bd6b78d56c46e270";
         }
 
-        public static readonly NewBlueprint<BlueprintFeatureSelection> DualTalentSelection =
+        public static readonly NewUnitFact<BlueprintFeatureSelection> DualTalentSelection =
             new(guid: Guids.DualTalent,
                 name: nameof(Guids.DualTalent),
                 strings: Localization.Default,
                 displayName: "Dual Talent",
                 description: "Some humans are uniquely skilled at maximizing their natural gifts. These humans pick two ability scores and gain a +2 racial bonus in each of those scores. This racial trait replaces the +2 bonus to any one ability score, the bonus feat, and the skilled traits.");
 
-        public static readonly IEnumerable<NewBlueprint<BlueprintFeature>> DualTalentFeatures
-            = new List<NewBlueprint<BlueprintFeature>>()
+        public static readonly IEnumerable<NewUnitFact<BlueprintFeature>> DualTalentFeatures
+            = new List<NewUnitFact<BlueprintFeature>>()
             {
                 new(guid: Guids.DualTalentStrength, name: nameof(Guids.DualTalentStrength)),
                 new(guid: Guids.DualTalentDexterity, name: nameof(Guids.DualTalentDexterity)),

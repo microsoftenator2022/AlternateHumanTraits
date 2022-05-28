@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Kingmaker.Blueprints.JsonSystem.Converters;
+using Kingmaker.ResourceLinks;
 
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace AlternateHumanTraits.Resources
         {
             public static readonly (string, long) WeaponSpecialization = ("2a1d85e4d5185644da0a1788fc2f08d5", 21300000);
             public static readonly (string, long) WeaponProficiency = ("eba3d40eaa80da840b9e96b48db90613", 21300000);
+            public static readonly (string, long) HeritageSelection = ("7c8efbd1129b371428be7754181a4104", 21300000);
         }
 
         private static readonly IDictionary<(string, long), Sprite> sprites = new Dictionary<(string, long), Sprite>();
@@ -22,7 +24,6 @@ namespace AlternateHumanTraits.Resources
         {
             if (!sprites.ContainsKey(id))
             { 
-                //sprites[guid] = new SpriteLink() { AssetId = guid }.Load();
                 sprites[id] = (Sprite)UnityObjectConverter.AssetList.Get(id.assetId, id.fileId);
             }
 
@@ -31,5 +32,6 @@ namespace AlternateHumanTraits.Resources
         
         public static Sprite? WeaponSpecialization => GetSprite(Guids.WeaponSpecialization);
         public static Sprite? WeaponProficiency => GetSprite(Guids.WeaponProficiency);
+        public static Sprite? HeritageSelection => GetSprite(Guids.HeritageSelection);
     }
 }

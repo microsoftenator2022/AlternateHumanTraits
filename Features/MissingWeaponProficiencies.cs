@@ -25,7 +25,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string BardicheProficiency = "8cbaabb4d3264f3493ecb13ac0373782";
         }
 
-        public static NewBlueprint<BlueprintFeature> EarthBreakerProficiency =
+        public static NewUnitFact<BlueprintFeature> EarthBreakerProficiency =
             new
             (
                 guid : Guids.EarthBreakerProficiency,
@@ -48,7 +48,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 }
             };
 
-        public static NewBlueprint<BlueprintFeature> BardicheProficiency =
+        public static NewUnitFact<BlueprintFeature> BardicheProficiency =
             new
             (
                 guid: Guids.BardicheProficiency,
@@ -71,7 +71,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 }
             };
 
-        public static IEnumerable<NewBlueprint<BlueprintFeature>> NewWeaponProficiencies = new List<NewBlueprint<BlueprintFeature>>()
+        public static readonly IEnumerable<NewBlueprint<BlueprintFeature>> NewWeaponProficiencies = new List<NewBlueprint<BlueprintFeature>>()
         {
             EarthBreakerProficiency,
             BardicheProficiency

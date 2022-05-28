@@ -24,7 +24,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string GiantAncestry = "e85ff5a3484f46a4aead3857b2eff9c3";
         }        
 
-        public static NewBlueprint<BlueprintFeature> GiantAncestry =
+        public static NewUnitFact<BlueprintFeature> GiantAncestry =
             new
             (
                 guid: Guids.GiantAncestry,

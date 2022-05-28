@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using AlternateHumanTraits.Resources;
 using AlternateHumanTraits.Resources.Blueprints;
 
 using Kingmaker.Blueprints;
@@ -23,48 +24,48 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string NoAdditionaHumanTraits = "591db97195294968a081b7e5354bc090";
         }
 
-        public static readonly NewBlueprint<BlueprintFeature> BasicFeatSelectionDummy =
+        public static readonly NewUnitFact<BlueprintFeature> BasicFeatSelectionDummy =
             new(guid: Guids.BasicFeatSelectionDummy, name: nameof(Guids.BasicFeatSelectionDummy));
 
-        public static readonly NewBlueprint<BlueprintFeatureSelection> HumanFeatureSelection = new
-        (
-            guid: Guids.HumanFeatureSelection,
-            name: nameof(Guids.HumanFeatureSelection),
-            strings: Localization.Default,
-            displayName: "Alternate Racial Traits",
-            description: "The following alternate traits are available"
-        )
-        {
-            Init = selection =>
+        public static readonly NewUnitFact<BlueprintFeatureSelection> HumanFeatureSelection = 
+            new
+            (
+                guid: Guids.HumanFeatureSelection,
+                name: nameof(Guids.HumanFeatureSelection),
+                strings: Localization.Default,
+                displayName: "Alternate Racial Traits",
+                description: "The following alternate traits are available"
+            )
             {
-                selection.IsClassFeature = true;
+                Init = selection =>
+                {
+                    selection.IsClassFeature = true;
 
-                selection.Groups = new[] { FeatureGroup.Racial };
+                    selection.Groups = new[] { FeatureGroup.Racial };
 
-                //selection.SetIcon(ResourcesLibrary.TryGetResource<Sprite>(Resources.Guids.HeritageSelectionIcon));
+                    selection.Group = FeatureGroup.KitsuneHeritage;
+                }
+            };
 
-                selection.Group = FeatureGroup.KitsuneHeritage;
-            }
-        };
-
-        public static readonly NewBlueprint<BlueprintFeature> NoAdditionalHumanTraits = new
-        (
-            guid: Guids.NoAdditionaHumanTraits,
-            name: nameof(Guids.NoAdditionaHumanTraits),
-            strings: Localization.Default,
-            displayName: "None",
-            description: "No alternate trait"
-        )
-        {
-            Init = feat =>
+        public static readonly NewUnitFact<BlueprintFeature> NoAdditionalHumanTraits =
+            new
+            (
+                guid: Guids.NoAdditionaHumanTraits,
+                name: nameof(Guids.NoAdditionaHumanTraits),
+                strings: Localization.Default,
+                displayName: "None",
+                description: "No alternate trait"
+            )
             {
-                feat.IsClassFeature = true;
-                feat.HideInUI = true;
-                feat.HideInCharacterSheetAndLevelUp = true;
+                Init = feat =>
+                {
+                    feat.IsClassFeature = true;
+                    feat.HideInUI = true;
+                    feat.HideInCharacterSheetAndLevelUp = true;
 
-                feat.Groups = new[] { FeatureGroup.Racial };
-            }
-        };
+                    feat.Groups = new[] { FeatureGroup.Racial };
+                }
+            };
     }
 }
 
@@ -103,6 +104,7 @@ namespace AlternateHumanTraits.Features
             });
 
             var selection = Helpers.CreateBlueprint(BlueprintData.HumanFeatureSelection);
+            selection.SetIcon(Icons.HeritageSelection);
 
             BlueprintData.HumanRace.GetBlueprint().SetFeatures(new BlueprintFeatureBaseReference[]
             {
@@ -118,12 +120,13 @@ namespace AlternateHumanTraits.Features
 
                 BlueprintData.AdoptiveParentageSelection.GetBlueprint(),
                 BlueprintData.Awareness.GetBlueprint(),
+                BlueprintData.ComprehensiveEducation.GetBlueprint(),
                 BlueprintData.DualTalentSelection.GetBlueprint(),
                 BlueprintData.GiantAncestry.GetBlueprint(),
                 BlueprintData.HistoryOfTerrorsTrait.GetBlueprint(),
-                BlueprintData.UnstoppableMagic.GetBlueprint(),
                 BlueprintData.MilitaryTradition.GetBlueprint(),
                 BlueprintData.MilitaryTraditionSecondSelection.GetBlueprint(),
+                BlueprintData.UnstoppableMagic.GetBlueprint(),
             };
 
             foreach (var f in features)

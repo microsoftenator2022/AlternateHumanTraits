@@ -21,7 +21,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string HumanBonusFeat = "8a4a6f5ebe0c416a8fdb7dd98a9ab1b4";
         }
 
-        public static readonly NewBlueprint<BlueprintFeatureSelection> HumanBonusFeat =
+        public static readonly NewUnitFact<BlueprintFeatureSelection> HumanBonusFeat =
             new
             (
                 guid: Guids.HumanBonusFeat,
@@ -53,7 +53,7 @@ namespace AlternateHumanTraits.Features
             var humanBonusFeat = Helpers.CreateBlueprint(BlueprintData.HumanBonusFeat, selection =>
             {
                 selection.SetIcon(BlueprintData.BasicFeatSelection.GetBlueprint().Icon);
-
+                
                 selection.AddFeature(BlueprintData.BasicFeatSelection.GetBlueprint().ToReference<BlueprintFeatureReference>());
                 
                 selection.AddPrerequisiteFeature(BlueprintData.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>

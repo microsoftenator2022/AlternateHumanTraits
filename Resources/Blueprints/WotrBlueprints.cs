@@ -16,6 +16,8 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string BasicFeatSelection = "247a4068296e8be42890143f451b4b45";
             public const string DwarvenWeaponFamiliarity = "a1619e8d27fe97c40ba443f6f8ab1763";
             public const string ElvenWeaponFamiliarity = "03fd1e043fc678a4baf73fe67c3780ce";
+            public const string GnomeRace = "ef35a22c9a27da345a4528f0d5889157";
+            public const string HalflingRace = "b0c3ef2729c498f47970bb50fa1acd30";
             public const string HistoryOfTerrors = "9e4c7d08f67f4496ba42c2cdb00609a7";
             public const string HumanRace = "0a5d473ead98b0646b94495af250fdc4";
             public const string HumanSkilled = "3adf9274a210b164cb68f472dc1e4544";
@@ -32,6 +34,8 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly OwlcatBlueprint<BlueprintFeatureSelection> BasicFeatSelection = new(guid: Guids.BasicFeatSelection);
         public static readonly OwlcatBlueprint<BlueprintFeature> DwarvenWeaponFamiliarity = new(guid: Guids.DwarvenWeaponFamiliarity);
         public static readonly OwlcatBlueprint<BlueprintFeature> ElvenWeaponFamiliarity = new(guid: Guids.ElvenWeaponFamiliarity);
+        public static readonly OwlcatBlueprint<BlueprintRace> GnomeRace = new(guid: Guids.GnomeRace);
+        public static readonly OwlcatBlueprint<BlueprintRace> HalflingRace = new(guid: Guids.HalflingRace);
         public static readonly OwlcatBlueprint<BlueprintFeature> HistoryOfTerrors = new(guid: Guids.HistoryOfTerrors);
         public static readonly OwlcatBlueprint<BlueprintRace> HumanRace = new(guid: Guids.HumanRace);
         public static readonly OwlcatBlueprint<BlueprintFeature> HumanSkilled = new(guid: Guids.HumanSkilled);

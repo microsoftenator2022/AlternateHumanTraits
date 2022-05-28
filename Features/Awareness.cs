@@ -25,7 +25,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string Awareness = "edc1383bf9304cd7a45ee22dd3468fc8";
         }
 
-        public readonly static NewBlueprint<BlueprintFeature> Awareness =
+        public readonly static NewUnitFact<BlueprintFeature> Awareness =
             new
             (
                 guid: Guids.Awareness,

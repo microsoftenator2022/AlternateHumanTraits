@@ -17,6 +17,38 @@ using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Extensions;
 
+namespace AlternateHumanTraits.Resources.Blueprints
+{
+    public static partial class BlueprintData
+    {
+        public static partial class Guids
+        {
+            public const string GnomishWeaponFamiliarity = "36e7997fcb494722aa5eee06caf86801";
+            public const string HalflingWeaponFamiliarity = "dfcc0aa98c3d4826a7e60911cf588b45";
+        }
+
+        public static readonly NewUnitFact<BlueprintFeature> GnomishWeaponFamiliarity =
+            new
+            (
+                guid: Guids.GnomishWeaponFamiliarity,
+                name: nameof(Guids.GnomishWeaponFamiliarity),
+                strings: Localization.Default,
+                displayName: "Gnomish Weapon Familiarity",
+                description: "TODO"
+            );
+
+        public static readonly NewUnitFact<BlueprintFeature> HalflingWeaponFamiliarity =
+            new
+            (
+                guid: Guids.HalflingWeaponFamiliarity,
+                name: nameof(Guids.HalflingWeaponFamiliarity),
+                strings: Localization.Default,
+                displayName: "Halfling Weapon Proficiency",
+                description: "TODO"
+            );
+    }
+}
+
 namespace AlternateHumanTraits.Features
 {
     internal static class WeaponFamiliarityMartialProficiencies
@@ -27,10 +59,35 @@ namespace AlternateHumanTraits.Features
                 { Race.Elf, new[] { BlueprintData.ElvenWeaponFamiliarity } },
                 { Race.HalfOrc, new[] { BlueprintData.OrcWeaponFamiliarity } },
                 { Race.Dwarf, new[] { BlueprintData.DwarvenWeaponFamiliarity } },
+                { Race.Gnome, new[] { BlueprintData.GnomishWeaponFamiliarity } },
+                { Race.Halfling, new[] { BlueprintData.HalflingWeaponFamiliarity } },
             };
+
+        internal static void AddGnomishWeaponFamiliarity()
+        {
+            var gwf = Helpers.CreateBlueprint(BlueprintData.GnomishWeaponFamiliarity, feature =>
+            {
+                
+            });
+
+            // BlueprintData.GnomeRace.GetBlueprint().AddFeature(gwf);
+        }
+
+        internal static void AddHalflingWeaponFamiliarity()
+        {
+            var hwf = Helpers.CreateBlueprint(BlueprintData.HalflingWeaponFamiliarity, feature =>
+            {
+
+            });
+
+            // BlueprintData.HalflingRace.GetBlueprint().AddFeature(hwf);
+        }
 
         internal static void AddWeaponFamiliarityMartialProficiencies()
         {
+            AddGnomishWeaponFamiliarity();
+            AddHalflingWeaponFamiliarity();
+
             var mwp = BlueprintData.MartialWeaponProficiency.GetBlueprint();
 
             foreach(var race in weaponFamiliarities.Keys)
@@ -58,20 +115,20 @@ namespace AlternateHumanTraits.Features
                 {
                     mwp.AddComponent(new Events.UnitFact.TurnOn()
                     {
-                        Callback = cb => addProficiencies(cb.GetOwner(), wf.GetBlueprintRef())
+                        Callback = cb => addProficiencies(cb.GetOwner(), wf.GetBlueprint())
                     });
 
                     mwp.AddComponent(new Events.UnitFact.TurnOff()
                     {
-                        Callback = cb => removeProficiencies(cb.GetOwner(), wf.GetBlueprintRef())
+                        Callback = cb => removeProficiencies(cb.GetOwner(), wf.GetBlueprint())
                     });
 
-                    wf.GetBlueprintRef().Get().AddComponent(new Events.UnitFact.Activate()
+                    wf.GetBlueprint().AddComponent(new Events.UnitFact.Activate()
                     {
-                        Callback = cb => addProficiencies(cb.GetOwner(), wf.GetBlueprintRef())
+                        Callback = cb => addProficiencies(cb.GetOwner(), wf.GetBlueprint())
                     });
 
-                    wf.GetBlueprintRef().Get().AddComponent(new Events.UnitFact.Deactivate()
+                    wf.GetBlueprint().AddComponent(new Events.UnitFact.Deactivate()
                     {
                         Callback = cb => removeProficiencies(cb.GetOwner(), mwp)
                     });

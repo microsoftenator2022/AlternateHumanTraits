@@ -21,7 +21,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string ComprehensiveEducation = "07bc62abb0d94662968ce5374c1325ef";
         }
 
-        public static readonly NewBlueprint<BlueprintFeature> ComprehensiveEducation =
+        public static readonly NewUnitFact<BlueprintFeature> ComprehensiveEducation =
             new(guid: Guids.ComprehensiveEducation,
                 name: nameof(Guids.ComprehensiveEducation),
                 strings : Localization.Default,
