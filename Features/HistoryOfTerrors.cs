@@ -21,7 +21,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string HistoryOfTerrorsTrait = "e0a373aeeab84ce996abd752fb9bccf6";
         }
 
-        public static NewBlueprint<BlueprintFeature> HistoryOfTerrorsTrait =
+        public static readonly NewBlueprint<BlueprintFeature> HistoryOfTerrorsTrait =
             new
             (
                 guid: Guids.HistoryOfTerrorsTrait,

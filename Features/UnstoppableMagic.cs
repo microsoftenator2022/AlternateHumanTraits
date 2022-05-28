@@ -20,7 +20,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string UnstoppableMagic = "051d05e970df4929a6d39d61adac1fc8";
         }
 
-        public static NewUnitFact<BlueprintFeature> UnstoppableMagic =
+        public static readonly NewUnitFact<BlueprintFeature> UnstoppableMagic =
             new
             (
                 guid: Guids.UnstoppableMagic,

@@ -35,7 +35,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string AdoptiveParentageDhampir = "d6d22c99ebb64a47bcba3f0292cee70b";
         }
 
-        public static NewUnitFact<BlueprintFeatureSelection> AdoptiveParentageSelection =
+        public static readonly NewUnitFact<BlueprintFeatureSelection> AdoptiveParentageSelection =
                 new
                 (
                     guid: Guids.AdoptiveParentageSelection,
