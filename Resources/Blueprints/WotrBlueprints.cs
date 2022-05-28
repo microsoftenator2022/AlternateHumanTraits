@@ -26,6 +26,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string SkillFocusAcrobatics = "52dd89af385466c499338b7297896ded";
             public const string SkillFocusDiplomacy = "1621be43793c5bb43be55493e9c45924";
             public const string SkillFocusPerception = "f74c6bdf5c5f5374fb9302ecdc1f7d64";
+            public const string SkillFocusSelection = "c9629ef9eebb88b479b2fbc5e836656a";
             public const string SkillFocusStealth = "3a8d34905eae4a74892aae37df3352b9";
             public const string WeaponFocusBite = "b97edcf55321a814ea6b7807d246726c";
             public const string WeaponFocusLongbow = "f641e7c569328614c87e0270ac5325dd";
@@ -44,6 +45,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly OwlcatBlueprint<BlueprintFeature> SkillFocusAcrobatics = new(guid: Guids.SkillFocusAcrobatics);
         public static readonly OwlcatBlueprint<BlueprintFeature> SkillFocusDiplomacy = new(guid: Guids.SkillFocusDiplomacy);
         public static readonly OwlcatBlueprint<BlueprintFeature> SkillFocusPerception = new(guid: Guids.SkillFocusPerception);
+        public static readonly OwlcatBlueprint<BlueprintFeatureSelection> SkillFocusSelection = new(guid: Guids.SkillFocusSelection);
         public static readonly OwlcatBlueprint<BlueprintFeature> SkillFocusStealth = new(guid: Guids.SkillFocusStealth);
         public static readonly OwlcatBlueprint<BlueprintFeature> WeaponFocusBite = new(guid: Guids.WeaponFocusBite);
         public static readonly OwlcatBlueprint<BlueprintFeature> WeaponFocusLongbow = new(guid: Guids.WeaponFocusLongbow);

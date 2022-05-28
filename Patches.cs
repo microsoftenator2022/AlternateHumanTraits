@@ -50,6 +50,8 @@ namespace AlternateHumanTraits.Patches
 
             PracticedHunter.AddPracticedHunter();
 
+            FocusedStudy.AddFocusedStudy();
+
             HumanFeatureSelection.AddHumanFeatureSelection();
 
             Localization.Default.LoadAll();

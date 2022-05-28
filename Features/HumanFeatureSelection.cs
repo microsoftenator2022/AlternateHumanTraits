@@ -128,6 +128,7 @@ namespace AlternateHumanTraits.Features
                 BlueprintData.MilitaryTraditionSecondSelection.GetBlueprint(),
                 BlueprintData.UnstoppableMagic.GetBlueprint(),
                 BlueprintData.PracticedHunter.GetBlueprint(),
+                BlueprintData.FocusedStudyProgression.GetBlueprint(),
             };
 
             foreach (var f in features)
