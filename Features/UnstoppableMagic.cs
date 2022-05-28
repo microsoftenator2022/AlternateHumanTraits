@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using AlternateHumanTraits.Resources;
 using AlternateHumanTraits.Resources.Blueprints;
 
 using Kingmaker.Blueprints.Classes;
@@ -51,6 +52,7 @@ namespace AlternateHumanTraits.Features
 
             var unstoppableMagic = Helpers.CreateBlueprint<BlueprintFeature>(BlueprintData.UnstoppableMagic, feat =>
             {
+                feat.SetIcon(Icons.ElvenMagic);
                 feat.AddPrerequisiteFeature(BlueprintData.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {
                     prerequisite.HideInUI = true;

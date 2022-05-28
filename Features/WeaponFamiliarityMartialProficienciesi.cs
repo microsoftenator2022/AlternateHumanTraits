@@ -34,7 +34,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 name: nameof(Guids.GnomishWeaponFamiliarity),
                 strings: Localization.Default,
                 displayName: "Gnomish Weapon Familiarity",
-                description: "TODO"
+                description: @"Gnomes treat any weapon with the word ""Gnome"" or ""Gnomish"" in its name as a {g|Encyclopedia:Weapon_Proficiency}martial weapon{/g}."
             );
 
         public static readonly NewUnitFact<BlueprintFeature> HalflingWeaponFamiliarity =
@@ -44,7 +44,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 name: nameof(Guids.HalflingWeaponFamiliarity),
                 strings: Localization.Default,
                 displayName: "Halfling Weapon Proficiency",
-                description: "TODO"
+                description: @"Halflings treat sling staffs and any weapon with the word ""Halfling"" in its name as a {g|Encyclopedia:Weapon_Proficiency}martial weapon{/g}."
             );
     }
 }
