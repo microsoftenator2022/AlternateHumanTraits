@@ -48,6 +48,8 @@ namespace AlternateHumanTraits.Patches
             WeaponFamiliarityMartialProficiencies.AddWeaponFamiliarityMartialProficiencies();
             AdoptiveParentageSelection.AddAdoptiveParentage();
 
+            PracticedHunter.AddPracticedHunter();
+
             HumanFeatureSelection.AddHumanFeatureSelection();
 
             Localization.Default.LoadAll();
