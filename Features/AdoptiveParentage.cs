@@ -77,8 +77,8 @@ namespace AlternateHumanTraits.Features
 {
     internal static class AdoptiveParentageSelection
     {
-        internal static readonly IReadOnlyDictionary<Race, IEnumerable<BlueprintInfoAbstract<BlueprintFeature>>> parentageBonusFeatures
-            = new Dictionary<Race, IEnumerable<BlueprintInfoAbstract<BlueprintFeature>>>()
+        internal static readonly IReadOnlyDictionary<Race, IEnumerable<BlueprintInfo<BlueprintFeature>>> parentageBonusFeatures
+            = new Dictionary<Race, IEnumerable<BlueprintInfo<BlueprintFeature>>>()
             {
                 { Race.Elf, new[] { BlueprintData.ElvenWeaponFamiliarity } },
                 { Race.HalfOrc, new[] { BlueprintData.OrcWeaponFamiliarity } },

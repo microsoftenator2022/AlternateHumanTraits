@@ -53,8 +53,8 @@ namespace AlternateHumanTraits.Features
 {
     internal static class WeaponFamiliarityMartialProficiencies
     {
-        internal static readonly IReadOnlyDictionary<Race, IEnumerable<BlueprintInfoAbstract<BlueprintFeature>>> weaponFamiliarities
-            = new Dictionary<Race, IEnumerable<BlueprintInfoAbstract<BlueprintFeature>>>()
+        internal static readonly IReadOnlyDictionary<Race, IEnumerable<BlueprintInfo<BlueprintFeature>>> weaponFamiliarities
+            = new Dictionary<Race, IEnumerable<BlueprintInfo<BlueprintFeature>>>()
             {
                 { Race.Elf, new[] { BlueprintData.ElvenWeaponFamiliarity } },
                 { Race.HalfOrc, new[] { BlueprintData.OrcWeaponFamiliarity } },

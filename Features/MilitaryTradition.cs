@@ -67,7 +67,7 @@ namespace AlternateHumanTraits.Features
 
                 foreach (var weaponProficiency in 
                     BlueprintData.WeaponProficienciesStock
-                        .Cast<BlueprintInfoAbstract<BlueprintFeature>>()
+                        .Cast<BlueprintInfo<BlueprintFeature>>()
                         .Concat(BlueprintData.NewWeaponProficiencies))
                 {
                     selection.AddFeature(weaponProficiency.GetBlueprint());
