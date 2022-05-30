@@ -40,9 +40,9 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 displayName: "Dual Talent",
                 description:
                     "Some humans are uniquely skilled at maximizing their natural gifts. These humans pick two " +
-                    $"{new Link(Page.Ability_Scores,"ability scores")} and gain a +2 racial bonus in each of " +
-                    "those scores. This racial trait replaces the +2 bonus to any one ability score, the bonus feat " +
-                    "trait and the Skilled trait."
+                    $"{new Link(Page.Ability_Scores,"ability scores")} and gain a +2 racial " +
+                    $"{new Link(Page.Bonus, "bonus")} in each of those scores. This racial trait replaces the +2 " +
+                    "bonus to any one ability score, the bonus feat trait and the Skilled trait."
             );
 
         public static readonly IEnumerable<NewUnitFact<BlueprintFeature>> DualTalentFeatures
