@@ -40,6 +40,8 @@ namespace AlternateHumanTraits.Resources.Blueprints
             {
                 Init = feat =>
                 {
+                    feat.SetIcon(Icons.Stealthy);
+
                     feat.Groups = new[] { FeatureGroup.Racial };
 
                     feat.AddComponent(new AddStatBonus()

@@ -22,7 +22,7 @@ namespace AlternateHumanTraits.Resources
             public static readonly (string, long) SkillFocusSelection = ("42cb25b90b7c7d34e956c7822a9349cb", 21300000);
             public static readonly (string, long) IntimidatingProwess = ("0050b11e895fb014eb841fb0bbcbf574", 21300000);
             public static readonly (string, long) Bravery = ("af5df55819255b54fb3491bbd67a569e", 21300000);
-
+            public static readonly (string, long) Stealthy = ("3482eb9c0d448524ab950213b3866301", 21300000);
         }
 
         private static readonly IDictionary<(string, long), Sprite> sprites = new Dictionary<(string, long), Sprite>();
@@ -46,5 +46,6 @@ namespace AlternateHumanTraits.Resources
         public static Sprite? SkillFocusSelection => GetSprite(Guids.SkillFocusSelection);
         public static Sprite? IntimidatingProwess => GetSprite(Guids.IntimidatingProwess);
         public static Sprite? Bravery => GetSprite(Guids.Bravery);
+        public static Sprite? Stealthy => GetSprite(Guids.Stealthy);
     }
 }
