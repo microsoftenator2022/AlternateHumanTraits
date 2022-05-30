@@ -11,6 +11,7 @@ using Kingmaker.Blueprints.Classes.Selection;
 
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
+using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
 
 using UnityEngine;
@@ -32,7 +33,11 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 name: nameof(Guids.MilitaryTradition),
                 strings: Localization.Default,
                 displayName: "Military Tradition",
-                description: "Several human cultures raise all children (or all children of a certain social class) to serve in the military or defend themselves with force of arms. They gain proficiency with up to two martial or exotic weapons appropriate to their culture. This racial trait replaces the bonus feat trait."
+                description:
+                    "Several human cultures raise all children (or all children of a certain social class) to serve " +
+                    "in the military or defend themselves with force of arms. They gain " +
+                    $"{new Link(Page.Weapon_Proficiency, "proficiency")} with up to two martial or " +
+                    "exotic weapons appropriate to their culture. This racial trait replaces the bonus feat trait."
             );
 
         public static readonly NewUnitFact<BlueprintFeatureSelection> MilitaryTraditionSecondSelection =

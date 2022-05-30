@@ -17,6 +17,12 @@ namespace AlternateHumanTraits.Resources
             public static readonly (string, long) WeaponProficiency = ("eba3d40eaa80da840b9e96b48db90613", 21300000);
             public static readonly (string, long) HeritageSelection = ("7c8efbd1129b371428be7754181a4104", 21300000);
             public static readonly (string, long) ElvenMagic = ("15d11c952fdc96b45849f312f3931192", 21300000);
+            public static readonly (string, long) GnomeHookedHammerHead = ("ac128c37256e37d408b7149b3edeaa8f", 21300000);
+            public static readonly (string, long) SlingStaff = ("2fd0a6cb0f7152941a036ea43f0361cb", 21300000);
+            public static readonly (string, long) SkillFocusSelection = ("42cb25b90b7c7d34e956c7822a9349cb", 21300000);
+            public static readonly (string, long) IntimidatingProwess = ("0050b11e895fb014eb841fb0bbcbf574", 21300000);
+            public static readonly (string, long) Bravery = ("af5df55819255b54fb3491bbd67a569e", 21300000);
+
         }
 
         private static readonly IDictionary<(string, long), Sprite> sprites = new Dictionary<(string, long), Sprite>();
@@ -35,5 +41,10 @@ namespace AlternateHumanTraits.Resources
         public static Sprite? WeaponProficiency => GetSprite(Guids.WeaponProficiency);
         public static Sprite? HeritageSelection => GetSprite(Guids.HeritageSelection);
         public static Sprite? ElvenMagic => GetSprite(Guids.ElvenMagic);
+        public static Sprite? GnomeHookedHammerHead => GetSprite(Guids.GnomeHookedHammerHead);
+        public static Sprite? SlingStaff => GetSprite(Guids.SlingStaff);
+        public static Sprite? SkillFocusSelection => GetSprite(Guids.SkillFocusSelection);
+        public static Sprite? IntimidatingProwess => GetSprite(Guids.IntimidatingProwess);
+        public static Sprite? Bravery => GetSprite(Guids.Bravery);
     }
 }

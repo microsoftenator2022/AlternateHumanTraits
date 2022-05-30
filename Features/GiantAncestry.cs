@@ -13,6 +13,7 @@ using Kingmaker.UnitLogic.FactLogic;
 
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
+using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
 
 namespace AlternateHumanTraits.Resources.Blueprints
@@ -31,12 +32,17 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 name: nameof(Guids.GiantAncestry),
                 strings: Localization.Default,
                 displayName: "Giant Ancestry",
-                description: "Humans with ogre or troll ancestry end up having hulking builds and asymmetrical features. Such humans gain a +1 bonus on combat maneuver checks and to CMD, but a –2 penalty on Stealth checks. This racial trait replaces skilled."
+                description:
+                    "Humans with ogre or troll ancestry end up having hulking builds and asymmetrical features. Such " +
+                    $"humans gain a +1 {new Link(Page.Bonus, "bonus")} on " +
+                    $"{new Link(Page.Combat_Maneuvers, "combat maneuver")} checks and to " +
+                    $"{new Link(Page.CMD, "CMD")}, but a –2 {new Link(Page.Penalty, "penalty")} on " +
+                    "Stealth checks. This racial trait replaces Skilled."
             )
             {
                 Init = feat =>
                 {
-                    feat.IsClassFeature = true;
+                    feat.SetIcon(Icons.IntimidatingProwess);
 
                     feat.Groups = new[] { FeatureGroup.Racial };
 

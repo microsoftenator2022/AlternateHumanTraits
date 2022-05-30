@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using AlternateHumanTraits;
+using AlternateHumanTraits.Resources;
 using AlternateHumanTraits.Resources.Blueprints;
 
 using Kingmaker.Blueprints;
@@ -11,10 +11,7 @@ using Kingmaker.Blueprints.Classes.Selection;
 
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
-using Microsoftenator.Wotr.Common.Extensions;
-using Microsoftenator.Wotr.Common.Util;
-using Microsoftenator.Wotr.Common;
-using AlternateHumanTraits.Resources;
+using Microsoftenator.Wotr.Common.Encyclopedia;
 
 namespace AlternateHumanTraits.Resources.Blueprints
 {
@@ -42,13 +39,16 @@ namespace AlternateHumanTraits.Resources.Blueprints
                     name: nameof(Guids.AdoptiveParentageSelection),
                     strings: Localization.Default,
                     displayName: "Adoptive Parentage",
-                    description: "Humans are sometimes orphaned and adopted by other races. Choose one humanoid race without the human subtype. You gain that race’s weapon familiarity racial trait. If the race does not have weapon familiarity, you gain either Skill Focus or Weapon Focus as a bonus feat that is appropriate for that race instead. This racial trait replaces the bonus feat trait."
+                    description:
+                        "Humans are sometimes orphaned and adopted by other races. Choose one humanoid " +
+                        $"{new Link(Page.Race, "race")} without the human subtype. You gain that race’s " +
+                        "weapon familiarity racial trait. If the race does not have weapon familiarity, you gain " +
+                        $"either Skill Focus or Weapon Focus as a bonus {new Link(Page.Feat, "feat")} that " +
+                        "is appropriate for that race instead. This racial trait replaces the bonus feat trait."
                 )
                 {
                     Init = selection =>
                     {
-                        selection.IsClassFeature = true;
-
                         selection.Groups = new[] { FeatureGroup.Racial };
                     }
                 };

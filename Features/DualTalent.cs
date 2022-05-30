@@ -13,6 +13,7 @@ using Kingmaker.UnitLogic.FactLogic;
 
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
+using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
 
 namespace AlternateHumanTraits.Resources.Blueprints
@@ -31,11 +32,18 @@ namespace AlternateHumanTraits.Resources.Blueprints
         }
 
         public static readonly NewUnitFact<BlueprintFeatureSelection> DualTalentSelection =
-            new(guid: Guids.DualTalent,
+            new
+            (
+                guid: Guids.DualTalent,
                 name: nameof(Guids.DualTalent),
                 strings: Localization.Default,
                 displayName: "Dual Talent",
-                description: "Some humans are uniquely skilled at maximizing their natural gifts. These humans pick two ability scores and gain a +2 racial bonus in each of those scores. This racial trait replaces the +2 bonus to any one ability score, the bonus feat, and the skilled traits.");
+                description:
+                    "Some humans are uniquely skilled at maximizing their natural gifts. These humans pick two " +
+                    $"{new Link(Page.Ability_Scores,"ability scores")} and gain a +2 racial bonus in each of " +
+                    "those scores. This racial trait replaces the +2 bonus to any one ability score, the bonus feat " +
+                    "trait and the Skilled trait."
+            );
 
         public static readonly IEnumerable<NewUnitFact<BlueprintFeature>> DualTalentFeatures
             = new List<NewUnitFact<BlueprintFeature>>()

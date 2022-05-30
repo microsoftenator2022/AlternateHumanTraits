@@ -9,6 +9,7 @@ using Kingmaker.Blueprints.Classes;
 
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
+using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
 
 namespace AlternateHumanTraits.Resources.Blueprints
@@ -27,9 +28,20 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 name: nameof(Guids.FocusedStudyProgression),
                 strings: Localization.Default,
                 displayName: "Focused Study",
-                description: "All humans are skillful, but some, rather than being generalists, tend to specialize in a handful of skills. At 1st, 8th, and 16th level, such humans gain Skill Focus in a skill of their choice as a bonus feat. This racial trait replaces the bonus feat trait."
+                description:
+                    "All humans are skillful, but some, rather than being generalists, tend to specialize in a " +
+                    $"handful of {new Link(Page.Skills, "skills")}. At 1st, 8th, and 16th level, such humans " +
+                    "gain Skill Focus in a skill of their choice as a bonus feat. This racial trait replaces the " +
+                    "bonus feat trait."
 
-            );
+            )
+            {
+                Init = prog =>
+                {
+                    prog.SetIcon(Icons.SkillFocusSelection);
+                    prog.Groups = new[] { FeatureGroup.Racial };
+                }
+            };
     }
 }
 
@@ -57,7 +69,10 @@ namespace AlternateHumanTraits.Features
 
                 prog.AddPrerequisiteFeature(
                     prerequisiteFeature: BlueprintData.BasicFeatSelectionDummy.GetBlueprint(),
-                    init: Functional.Ignore, removeOnApply: true);
+                    removeOnApply: true, init: prerequisite =>
+                    {
+                        prerequisite.HideInUI = true;
+                    });
             });
         }
     }

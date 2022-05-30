@@ -10,6 +10,7 @@ using Kingmaker.UnitLogic.FactLogic;
 
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
+using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
 
 namespace AlternateHumanTraits.Resources.Blueprints
@@ -26,7 +27,13 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 name: nameof(Guids.ComprehensiveEducation),
                 strings : Localization.Default,
                 displayName: "Comprehensive Eduction",
-                description: "Humans raised with skilled teachers draw upon vast swathes of knowledge gained over centuries of civilization. They gain all Knowledge skills as class skills, and they gain a +1 racial bonus on skill checks for each Knowledge skill that they gain as a class skill from their class levels. This racial trait replaces skilled.");
+                description:
+                    "Humans raised with skilled teachers draw upon vast swathes of knowledge gained over centuries " +
+                    "of civilization. They gain all Knowledge and Lore skills as " +
+                    $"{new Link(Page.Skills, "class skills")}, and they gain a +1 racial " +
+                    $"{new Link(Page.Bonus, "bonus")} on skill {new Link(Page.Check, "checks")} for " +
+                    "each Knowledge or Lore skill that they gain as a class skill from their class levels. This " +
+                    "racial trait replaces the Skilled trait.");
     }
 }
 

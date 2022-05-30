@@ -10,6 +10,7 @@ using Kingmaker.Blueprints.Classes.Selection;
 
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
+using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
 
 namespace AlternateHumanTraits.Resources.Blueprints
@@ -28,7 +29,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 name: nameof(Guids.HumanBonusFeat),
                 strings: Localization.Default,
                 displayName: "Bonus Feat",
-                description: "Humans select one extra feat at 1st level."
+                description: $"Humans select one extra {new Link(Page.Feat, "feat")} at 1st level."
             )
             {
                 Init = selection =>

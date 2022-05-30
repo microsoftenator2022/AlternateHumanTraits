@@ -11,6 +11,7 @@ using Kingmaker.UnitLogic.FactLogic;
 
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
+using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
 
 namespace AlternateHumanTraits.Resources.Blueprints
@@ -29,7 +30,12 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 name: nameof(Guids.PracticedHunter),
                 strings: Localization.Default,
                 displayName: "Practiced Hunter",
-                description: "Members of some human cultures train from youth to find and follow the trails of vital game and at the same time hide the evidence of their own passage. These humans gain a +2 racial bonus on Stealth and Survival checks, and Stealth and Survival are always class skills for them. This racial trait replaces skilled."
+                description:
+                    "Members of some human cultures train from youth to find and follow the trails of vital game and " +
+                    "at the same time hide the evidence of their own passage. These humans gain a +2 racial " +
+                    $"{new Link(Page.Bonus, "bonus")} on Stealth and Lore (Nature) " +
+                    $"{new Link(Page.Check, "checks")}, and Stealth and Lore (Nature) are always class " +
+                    "skills for them. This racial trait replaces Skilled."
             )
             {
                 Init = feat =>

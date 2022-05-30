@@ -14,6 +14,7 @@ using Kingmaker.UnitLogic.FactLogic;
 using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
+using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
 
 namespace AlternateHumanTraits.Resources.Blueprints
@@ -32,12 +33,18 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 name: nameof(Guids.Awareness),
                 strings: Localization.Default,
                 displayName: "Awareness",
-                description: "Humans raised within monastic traditions or communities that encourage mindfulness seem to shrug off many dangers more easily than other humans. They gain a +1 racial bonus on all saving throws and concentration checks. This racial trait replaces humans’ bonus feat."
+                description: 
+                    "Humans raised within monastic traditions or communities that encourage mindfulness seem to " +
+                    "shrug off many dangers more easily than other humans. They gain a +1 racial " +
+                    $"{new Link(Page.Bonus, "bonus")} on all " +
+                    $"{new Link(Page.Saving_Throw, "saving throws")} and " +
+                    $"{new Link(Page.Concentration, "concentration checks")}. This racial trait replaces " +
+                    "humans’ bonus feat."
             )
             {
                 Init = feat =>
                 {
-                    feat.IsClassFeature = true;
+                    feat.SetIcon(Icons.Bravery);
 
                     feat.Groups = new[] { FeatureGroup.Racial };
 

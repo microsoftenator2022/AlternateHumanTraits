@@ -10,6 +10,7 @@ using Kingmaker.Designers.Mechanics.Facts;
 
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
+using Microsoftenator.Wotr.Common.Encyclopedia;
 
 namespace AlternateHumanTraits.Resources.Blueprints
 {
@@ -27,7 +28,12 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 name: nameof(Guids.UnstoppableMagic),
                 strings : Localization.Default,
                 displayName: "Unstoppable Magic",
-                description: "Humans from civilizations built upon advanced magic are educated in a variety of ways to accomplish their magical goals. They gain a +2 racial bonus on caster level checks against spell resistance. This racial trait replaces the bonus feat trait."
+                description:
+                    "Humans from civilizations built upon advanced magic are educated in a variety of ways to " +
+                    $"accomplish their magical goals. They gain a +2 racial {new Link(Page.Bonus, "bonus")} " +
+                    $"on {new Link(Page.Caster_Level, "caster level")} {new Link(Page.Check, "checks")} " +
+                    $"against {new Link(Page.Spell_Resistance, "spell resistance")}. This racial trait " +
+                    $"replaces the bonus feat trait."
             )
             {
                 Init = feat =>

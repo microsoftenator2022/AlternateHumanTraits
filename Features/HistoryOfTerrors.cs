@@ -52,7 +52,7 @@ namespace AlternateHumanTraits.Features
 
             var copy = original.Clone(BlueprintData.HistoryOfTerrorsTrait, feat =>
             {
-                feat.SetDescription(strings: Localization.Default, text: $"{feat.Description} This racial trait replaces the skilled trait.");
+                feat.SetDescription(strings: Localization.Default, text: $"{feat.Description} This racial trait replaces the Skilled trait.");
 
                 feat.Groups = new[] { FeatureGroup.Racial };
 

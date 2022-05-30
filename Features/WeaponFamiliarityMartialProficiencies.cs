@@ -16,6 +16,7 @@ using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Extensions;
+using Microsoftenator.Wotr.Common.Encyclopedia;
 
 namespace AlternateHumanTraits.Resources.Blueprints
 {
@@ -34,8 +35,16 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 name: nameof(Guids.GnomishWeaponFamiliarity),
                 strings: Localization.Default,
                 displayName: "Gnomish Weapon Familiarity",
-                description: @"Gnomes treat any weapon with the word ""Gnome"" or ""Gnomish"" in its name as a {g|Encyclopedia:Weapon_Proficiency}martial weapon{/g}."
-            );
+                description: 
+                    "Gnomes treat any weapon with the word \"Gnome\" in its name as a " +
+                    $"{new Link(Page.Weapon_Proficiency, "martial weapon")}."
+            )
+            {
+                Init = feat =>
+                {
+                    feat.SetIcon(Icons.GnomeHookedHammerHead);
+                }
+            };
 
         public static readonly NewUnitFact<BlueprintFeature> HalflingWeaponFamiliarity =
             new
@@ -44,8 +53,16 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 name: nameof(Guids.HalflingWeaponFamiliarity),
                 strings: Localization.Default,
                 displayName: "Halfling Weapon Proficiency",
-                description: @"Halflings treat sling staffs and any weapon with the word ""Halfling"" in its name as a {g|Encyclopedia:Weapon_Proficiency}martial weapon{/g}."
-            );
+                description:
+                    "Halflings treat sling staffs and any weapon with the word \"Halfling\" in its name as a " +
+                    $"{new Link(Page.Weapon_Proficiency, "martial weapon")}."
+            )
+            {
+                Init = feat =>
+                {
+                    feat.SetIcon(Icons.SlingStaff);
+                }
+            };
     }
 }
 
