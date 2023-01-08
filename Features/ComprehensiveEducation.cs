@@ -48,17 +48,38 @@ namespace AlternateHumanTraits.Features
             {
                 feat.IsClassFeature = true;
 
-                feat.AddComponent(new AddBackgroundClassSkill()
+                // Apparently you need both ClassSkill and BackgroundClassSkill?
+
+                feat.AddComponent(new AddClassSkill()
                 {
                     Skill = StatType.SkillKnowledgeArcana
                 });
                 feat.AddComponent(new AddBackgroundClassSkill()
                 {
+                    Skill = StatType.SkillKnowledgeArcana
+                });
+
+                feat.AddComponent(new AddClassSkill()
+                {
                     Skill = StatType.SkillKnowledgeWorld
                 });
                 feat.AddComponent(new AddBackgroundClassSkill()
                 {
+                    Skill = StatType.SkillKnowledgeWorld
+                });
+
+                feat.AddComponent(new AddClassSkill()
+                {
                     Skill = StatType.SkillLoreNature
+                });
+                feat.AddComponent(new AddBackgroundClassSkill()
+                {
+                    Skill = StatType.SkillLoreNature
+                });
+
+                feat.AddComponent(new AddClassSkill()
+                {
+                    Skill = StatType.SkillLoreReligion
                 });
                 feat.AddComponent(new AddBackgroundClassSkill()
                 {

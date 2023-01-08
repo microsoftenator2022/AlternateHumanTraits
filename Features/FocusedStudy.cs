@@ -61,11 +61,13 @@ namespace AlternateHumanTraits.Features
                 };
 
                 foreach(var entry in levelEntries)
+                {
                     entry.SetFeatures(Functional.Enumerable.Singleton(BlueprintData.SkillFocusSelection.GetBlueprint()));
-                
+                }
+
                 prog.LevelEntries = levelEntries;
 
-                prog.ForAllOtherClasses = true;
+                //prog.ForAllOtherClasses = true;
 
                 prog.AddPrerequisiteFeature(
                     prerequisiteFeature: BlueprintData.BasicFeatSelectionDummy.GetBlueprint(),
