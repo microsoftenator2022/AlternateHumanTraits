@@ -13,7 +13,6 @@ using Kingmaker.UnitLogic;
 using Kingmaker.UnitLogic.FactLogic;
 
 using Microsoftenator.Wotr.Common;
-using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Extensions;
 using Microsoftenator.Wotr.Common.Encyclopedia;
@@ -31,7 +30,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewUnitFact<BlueprintFeature> GnomishWeaponFamiliarity =
             new
             (
-                guid: Guids.GnomishWeaponFamiliarity,
+                guidString: Guids.GnomishWeaponFamiliarity,
                 name: nameof(Guids.GnomishWeaponFamiliarity),
                 strings: Localization.Default,
                 displayName: "Gnomish Weapon Familiarity",
@@ -49,7 +48,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewUnitFact<BlueprintFeature> HalflingWeaponFamiliarity =
             new
             (
-                guid: Guids.HalflingWeaponFamiliarity,
+                guidString: Guids.HalflingWeaponFamiliarity,
                 name: nameof(Guids.HalflingWeaponFamiliarity),
                 strings: Localization.Default,
                 displayName: "Halfling Weapon Proficiency",
@@ -82,7 +81,7 @@ namespace AlternateHumanTraits.Features
 
         internal static void AddGnomishWeaponFamiliarity()
         {
-            var gwf = Helpers.CreateBlueprint(BlueprintData.GnomishWeaponFamiliarity, feature =>
+            var gwf = Helpers.Blueprint.CreateWith(BlueprintData.GnomishWeaponFamiliarity)(feature =>
             {
                 
             });
@@ -92,7 +91,7 @@ namespace AlternateHumanTraits.Features
 
         internal static void AddHalflingWeaponFamiliarity()
         {
-            var hwf = Helpers.CreateBlueprint(BlueprintData.HalflingWeaponFamiliarity, feature =>
+            var hwf = Helpers.Blueprint.CreateWith(BlueprintData.HalflingWeaponFamiliarity)(feature =>
             {
 
             });

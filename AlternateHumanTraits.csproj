@@ -104,6 +104,6 @@
   </Target>-->
 
   <PropertyGroup>
-    <PostBuildEvent>(robocopy "$(OutDir) " "%25WrathPath%25\Debug\Mods\AlternateHumanTraits\ " /s /e )^&amp; IF %25ERRORLEVEL%25 LEQ 1 exit 0</PostBuildEvent>
+    <PostBuildEvent>(robocopy "$(OutDir) " "%25WrathPath%25\Mods\AlternateHumanTraits\ " /s /e )^&amp; IF %25ERRORLEVEL%25 LEQ 1 exit 0</PostBuildEvent>
   </PropertyGroup>
 </Project>

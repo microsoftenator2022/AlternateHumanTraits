@@ -9,7 +9,7 @@ using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
 using Kingmaker.UnitLogic.FactLogic;
 
-using Microsoftenator.Wotr.Common.Blueprints;
+using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
@@ -26,7 +26,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewUnitFact<BlueprintFeature> PracticedHunter =
             new
             (
-                guid: Guids.PracticedHunter,
+                guidString: Guids.PracticedHunter,
                 name: nameof(Guids.PracticedHunter),
                 strings: Localization.Default,
                 displayName: "Practiced Hunter",
@@ -78,7 +78,7 @@ namespace AlternateHumanTraits.Features
     {
         public static void AddPracticedHunter()
         {
-            var practicedHunter = Helpers.CreateBlueprint(BlueprintData.PracticedHunter, feat =>
+            var practicedHunter = Helpers.Blueprint.CreateWith(BlueprintData.PracticedHunter)(feat =>
             {
                 feat.AddPrerequisiteFeature(
                     prerequisiteFeature: BlueprintData.HumanSkilled.GetBlueprint(),

@@ -9,7 +9,7 @@ using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
 
-using Microsoftenator.Wotr.Common.Blueprints;
+using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
@@ -29,7 +29,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewUnitFact<BlueprintFeatureSelection> MilitaryTradition =
             new
             (
-                guid: Guids.MilitaryTradition,
+                guidString: Guids.MilitaryTradition,
                 name: nameof(Guids.MilitaryTradition),
                 strings: Localization.Default,
                 displayName: "Military Tradition",
@@ -43,7 +43,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewUnitFact<BlueprintFeatureSelection> MilitaryTraditionSecondSelection =
             new
             (
-                guid: Guids.MilitaryTraditionSecondSelection,
+                guidString: Guids.MilitaryTraditionSecondSelection,
                 name: nameof(Guids.MilitaryTraditionSecondSelection)
             );
     }
@@ -79,13 +79,13 @@ namespace AlternateHumanTraits.Features
                 }
             };
 
-            var militaryTradition = Helpers.CreateBlueprint(BlueprintData.MilitaryTradition, init);
+            var militaryTradition = Helpers.Blueprint.CreateWith(BlueprintData.MilitaryTradition)(init);
             militaryTradition.AddPrerequisiteFeature(BlueprintData.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
             {
                 prerequisite.HideInUI = true;
             }, removeOnApply: true);
 
-            var militaryTradition2 = Helpers.CreateBlueprint(BlueprintData.MilitaryTraditionSecondSelection, feat =>
+            var militaryTradition2 = Helpers.Blueprint.CreateWith(BlueprintData.MilitaryTraditionSecondSelection)(feat =>
             {
                 feat.SetDisplayName(BlueprintData.MilitaryTradition.DisplayName);
                 feat.SetDescription(BlueprintData.MilitaryTradition.Description);

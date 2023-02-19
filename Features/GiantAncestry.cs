@@ -11,7 +11,7 @@ using Kingmaker.Enums;
 using Kingmaker.RuleSystem.Rules;
 using Kingmaker.UnitLogic.FactLogic;
 
-using Microsoftenator.Wotr.Common.Blueprints;
+using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
@@ -28,7 +28,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewUnitFact<BlueprintFeature> GiantAncestry =
             new
             (
-                guid: Guids.GiantAncestry,
+                guidString: Guids.GiantAncestry,
                 name: nameof(Guids.GiantAncestry),
                 strings: Localization.Default,
                 displayName: "Giant Ancestry",
@@ -77,7 +77,7 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(GiantAncestry)}.{nameof(AddGiantAncestry)}");
             
-            var giantAncestry = Helpers.CreateBlueprint(BlueprintData.GiantAncestry, feat =>
+            var giantAncestry = Helpers.Blueprint.CreateWith(BlueprintData.GiantAncestry)(feat =>
             {
                 feat.AddPrerequisiteFeature(BlueprintData.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
             });

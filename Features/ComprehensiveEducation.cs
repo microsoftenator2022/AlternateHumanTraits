@@ -8,7 +8,7 @@ using Kingmaker.Blueprints.Classes;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.UnitLogic.FactLogic;
 
-using Microsoftenator.Wotr.Common.Blueprints;
+using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
@@ -23,7 +23,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         }
 
         public static readonly NewUnitFact<BlueprintFeature> ComprehensiveEducation =
-            new(guid: Guids.ComprehensiveEducation,
+            new(guidString: Guids.ComprehensiveEducation,
                 name: nameof(Guids.ComprehensiveEducation),
                 strings : Localization.Default,
                 displayName: "Comprehensive Eduction",
@@ -44,7 +44,7 @@ namespace AlternateHumanTraits.Features
     {
         internal static void AddComprehensiveEducation()
         {
-            var feature = Helpers.CreateBlueprint(BlueprintData.ComprehensiveEducation, feat =>
+            var feature = Helpers.Blueprint.CreateWith(BlueprintData.ComprehensiveEducation)(feat =>
             {
                 feat.IsClassFeature = true;
 

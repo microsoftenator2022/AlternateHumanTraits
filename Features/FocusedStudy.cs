@@ -7,7 +7,7 @@ using AlternateHumanTraits.Resources.Blueprints;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 
-using Microsoftenator.Wotr.Common.Blueprints;
+using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
@@ -24,7 +24,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewUnitFact<BlueprintProgression> FocusedStudyProgression =
             new
             (
-                guid: Guids.FocusedStudyProgression,
+                guidString: Guids.FocusedStudyProgression,
                 name: nameof(Guids.FocusedStudyProgression),
                 strings: Localization.Default,
                 displayName: "Focused Study",
@@ -51,7 +51,7 @@ namespace AlternateHumanTraits.Features
     {
         internal static void AddFocusedStudy()
         {
-            var focusedStudyProgression = Helpers.CreateBlueprint(BlueprintData.FocusedStudyProgression, prog =>
+            var focusedStudyProgression = Helpers.Blueprint.CreateWith(BlueprintData.FocusedStudyProgression)(prog =>
             {
                 var levelEntries = new[]
                 {

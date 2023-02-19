@@ -5,7 +5,7 @@ using System.Linq;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
 
-using Microsoftenator.Wotr.Common.Blueprints;
+using Microsoftenator.Wotr.Common;
 
 namespace AlternateHumanTraits.Resources.Blueprints
 {
@@ -32,22 +32,22 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string WeaponFocusLongbow = "f641e7c569328614c87e0270ac5325dd";
         }
 
-        public static readonly OwlcatBlueprint<BlueprintFeatureSelection> BasicFeatSelection = new(guid: Guids.BasicFeatSelection);
-        public static readonly OwlcatBlueprint<BlueprintFeature> DwarvenWeaponFamiliarity = new(guid: Guids.DwarvenWeaponFamiliarity);
-        public static readonly OwlcatBlueprint<BlueprintFeature> ElvenWeaponFamiliarity = new(guid: Guids.ElvenWeaponFamiliarity);
-        public static readonly OwlcatBlueprint<BlueprintRace> GnomeRace = new(guid: Guids.GnomeRace);
-        public static readonly OwlcatBlueprint<BlueprintRace> HalflingRace = new(guid: Guids.HalflingRace);
-        public static readonly OwlcatBlueprint<BlueprintFeature> HistoryOfTerrors = new(guid: Guids.HistoryOfTerrors);
-        public static readonly OwlcatBlueprint<BlueprintRace> HumanRace = new(guid: Guids.HumanRace);
-        public static readonly OwlcatBlueprint<BlueprintFeature> HumanSkilled = new(guid: Guids.HumanSkilled);
-        public static readonly OwlcatBlueprint<BlueprintFeature> MartialWeaponProficiency = new(guid: Guids.MartialWeaponProficiency);
-        public static readonly OwlcatBlueprint<BlueprintFeature> OrcWeaponFamiliarity = new(guid: Guids.OrcWeaponFamiliarity);
-        public static readonly OwlcatBlueprint<BlueprintFeature> SkillFocusAcrobatics = new(guid: Guids.SkillFocusAcrobatics);
-        public static readonly OwlcatBlueprint<BlueprintFeature> SkillFocusDiplomacy = new(guid: Guids.SkillFocusDiplomacy);
-        public static readonly OwlcatBlueprint<BlueprintFeature> SkillFocusPerception = new(guid: Guids.SkillFocusPerception);
-        public static readonly OwlcatBlueprint<BlueprintFeatureSelection> SkillFocusSelection = new(guid: Guids.SkillFocusSelection);
-        public static readonly OwlcatBlueprint<BlueprintFeature> SkillFocusStealth = new(guid: Guids.SkillFocusStealth);
-        public static readonly OwlcatBlueprint<BlueprintFeature> WeaponFocusBite = new(guid: Guids.WeaponFocusBite);
-        public static readonly OwlcatBlueprint<BlueprintFeature> WeaponFocusLongbow = new(guid: Guids.WeaponFocusLongbow);
+        public static readonly OwlcatBlueprint<BlueprintFeatureSelection> BasicFeatSelection = new(guidString: Guids.BasicFeatSelection);
+        public static readonly OwlcatBlueprint<BlueprintFeature> DwarvenWeaponFamiliarity = new(guidString: Guids.DwarvenWeaponFamiliarity);
+        public static readonly OwlcatBlueprint<BlueprintFeature> ElvenWeaponFamiliarity = new(guidString: Guids.ElvenWeaponFamiliarity);
+        public static readonly OwlcatBlueprint<BlueprintRace> GnomeRace = new(guidString: Guids.GnomeRace);
+        public static readonly OwlcatBlueprint<BlueprintRace> HalflingRace = new(guidString: Guids.HalflingRace);
+        public static readonly OwlcatBlueprint<BlueprintFeature> HistoryOfTerrors = new(guidString: Guids.HistoryOfTerrors);
+        public static readonly OwlcatBlueprint<BlueprintRace> HumanRace = new(guidString: Guids.HumanRace);
+        public static readonly OwlcatBlueprint<BlueprintFeature> HumanSkilled = new(guidString: Guids.HumanSkilled);
+        public static readonly OwlcatBlueprint<BlueprintFeature> MartialWeaponProficiency = new(guidString: Guids.MartialWeaponProficiency);
+        public static readonly OwlcatBlueprint<BlueprintFeature> OrcWeaponFamiliarity = new(guidString: Guids.OrcWeaponFamiliarity);
+        public static readonly OwlcatBlueprint<BlueprintFeature> SkillFocusAcrobatics = new(guidString: Guids.SkillFocusAcrobatics);
+        public static readonly OwlcatBlueprint<BlueprintFeature> SkillFocusDiplomacy = new(guidString: Guids.SkillFocusDiplomacy);
+        public static readonly OwlcatBlueprint<BlueprintFeature> SkillFocusPerception = new(guidString: Guids.SkillFocusPerception);
+        public static readonly OwlcatBlueprint<BlueprintFeatureSelection> SkillFocusSelection = new(guidString: Guids.SkillFocusSelection);
+        public static readonly OwlcatBlueprint<BlueprintFeature> SkillFocusStealth = new(guidString: Guids.SkillFocusStealth);
+        public static readonly OwlcatBlueprint<BlueprintFeature> WeaponFocusBite = new(guidString: Guids.WeaponFocusBite);
+        public static readonly OwlcatBlueprint<BlueprintFeature> WeaponFocusLongbow = new(guidString: Guids.WeaponFocusLongbow);
     }
 }

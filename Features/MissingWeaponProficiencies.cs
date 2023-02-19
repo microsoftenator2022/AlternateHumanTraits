@@ -10,7 +10,7 @@ using Kingmaker.Blueprints.Classes;
 using Kingmaker.Enums;
 using Kingmaker.UnitLogic.FactLogic;
 
-using Microsoftenator.Wotr.Common.Blueprints;
+using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 
 using UnityEngine;
@@ -28,7 +28,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewUnitFact<BlueprintFeature> EarthBreakerProficiency =
             new
             (
-                guid : Guids.EarthBreakerProficiency,
+                guidString : Guids.EarthBreakerProficiency,
                 name: nameof(Guids.EarthBreakerProficiency),
                 strings: Localization.Default,
                 displayName: "Weapon Proficiency (Earth Breaker)",
@@ -51,7 +51,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewUnitFact<BlueprintFeature> BardicheProficiency =
             new
             (
-                guid: Guids.BardicheProficiency,
+                guidString: Guids.BardicheProficiency,
                 name: nameof(Guids.BardicheProficiency),
                 strings: Localization.Default,
                 displayName: "Weapon Proficiency (Bardiche)",
@@ -87,9 +87,9 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(MissingWeaponProficiencies)}.{nameof(AddMissingWeaponProficiencies)}");
 
-            var earthBreakerProficiency = Helpers.CreateBlueprint(BlueprintData.EarthBreakerProficiency);
+            var earthBreakerProficiency = Helpers.Blueprint.Create(BlueprintData.EarthBreakerProficiency);
 
-            var bardicheProficiency = Helpers.CreateBlueprint(BlueprintData.BardicheProficiency);
+            var bardicheProficiency = Helpers.Blueprint.Create(BlueprintData.BardicheProficiency);
         }
     }
 }

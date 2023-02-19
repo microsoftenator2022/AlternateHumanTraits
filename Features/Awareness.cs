@@ -12,7 +12,6 @@ using Kingmaker.Enums;
 using Kingmaker.UnitLogic.FactLogic;
 
 using Microsoftenator.Wotr.Common;
-using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
@@ -29,7 +28,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public readonly static NewUnitFact<BlueprintFeature> Awareness =
             new
             (
-                guid: Guids.Awareness,
+                guidString: Guids.Awareness,
                 name: nameof(Guids.Awareness),
                 strings: Localization.Default,
                 displayName: "Awareness",
@@ -71,7 +70,7 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(Awareness)}.{nameof(AddAwarenessFeature)}");
 
-            var awareness = Helpers.CreateBlueprint(BlueprintData.Awareness, feat =>
+            var awareness = Helpers.Blueprint.Feature.CreateWith(BlueprintData.Awareness)(feat =>
             {
                 feat.AddPrerequisiteFeature(BlueprintData.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {

@@ -11,7 +11,7 @@ using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
 using Kingmaker.UnitLogic.FactLogic;
 
-using Microsoftenator.Wotr.Common.Blueprints;
+using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
@@ -34,7 +34,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewUnitFact<BlueprintFeatureSelection> DualTalentSelection =
             new
             (
-                guid: Guids.DualTalent,
+                guidString: Guids.DualTalent,
                 name: nameof(Guids.DualTalent),
                 strings: Localization.Default,
                 displayName: "Dual Talent",
@@ -48,12 +48,12 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly IEnumerable<NewUnitFact<BlueprintFeature>> DualTalentFeatures
             = new List<NewUnitFact<BlueprintFeature>>()
             {
-                new(guid: Guids.DualTalentStrength, name: nameof(Guids.DualTalentStrength)),
-                new(guid: Guids.DualTalentDexterity, name: nameof(Guids.DualTalentDexterity)),
-                new(guid: Guids.DualTalentConstitution, name: nameof(Guids.DualTalentConstitution)),
-                new(guid: Guids.DualTalentIntelligence, name: nameof(Guids.DualTalentIntelligence)),
-                new(guid: Guids.DualTalentWisdom, name: nameof(Guids.DualTalentWisdom)),
-                new(guid: Guids.DualTalentCharisma, name: nameof(Guids.DualTalentCharisma)),
+                new(guidString: Guids.DualTalentStrength, name: nameof(Guids.DualTalentStrength)),
+                new(guidString: Guids.DualTalentDexterity, name: nameof(Guids.DualTalentDexterity)),
+                new(guidString: Guids.DualTalentConstitution, name: nameof(Guids.DualTalentConstitution)),
+                new(guidString: Guids.DualTalentIntelligence, name: nameof(Guids.DualTalentIntelligence)),
+                new(guidString: Guids.DualTalentWisdom, name: nameof(Guids.DualTalentWisdom)),
+                new(guidString: Guids.DualTalentCharisma, name: nameof(Guids.DualTalentCharisma)),
             };
 
     }
@@ -77,7 +77,7 @@ namespace AlternateHumanTraits.Features
                 StatType.Charisma
             };
 
-            var dualTalentSelection = Helpers.CreateBlueprint(BlueprintData.DualTalentSelection, selection =>
+            var dualTalentSelection = Helpers.Blueprint.CreateWith(BlueprintData.DualTalentSelection)(selection =>
             {
                 selection.IsClassFeature = true;
 
@@ -89,7 +89,7 @@ namespace AlternateHumanTraits.Features
 
                     var bpInfo = BlueprintData.DualTalentFeatures.First(i => i.Name == $"{selection.name}{statName}");
 
-                    var statFeature = Helpers.CreateBlueprint<BlueprintFeature>(bpInfo, feat =>
+                    var statFeature = Helpers.Blueprint.CreateWith<BlueprintFeature>(bpInfo)(feat =>
                     {
                         feat.IsClassFeature = true;
 

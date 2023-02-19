@@ -9,7 +9,7 @@ using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
 
-using Microsoftenator.Wotr.Common.Blueprints;
+using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Encyclopedia;
 
@@ -35,7 +35,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewUnitFact<BlueprintFeatureSelection> AdoptiveParentageSelection =
                 new
                 (
-                    guid: Guids.AdoptiveParentageSelection,
+                    guidString: Guids.AdoptiveParentageSelection,
                     name: nameof(Guids.AdoptiveParentageSelection),
                     strings: Localization.Default,
                     displayName: "Adoptive Parentage",
@@ -94,7 +94,7 @@ namespace AlternateHumanTraits.Features
 
         private static BlueprintFeatureSelection CreateParentage(Race race, string displayName, string description)
         {
-            var parentageFeature = Helpers.CreateBlueprint(BlueprintData.AdoptiveParentage.Selections[race], selection =>
+            var parentageFeature = Helpers.Blueprint.CreateWith(BlueprintData.AdoptiveParentage.Selections[race])(selection =>
             {
                 Main.Log?.Debug($"{nameof(AdoptiveParentageSelection)}.{nameof(CreateParentage)}");
 
@@ -132,7 +132,7 @@ namespace AlternateHumanTraits.Features
             //    CreateParentage(Race.Dhampir),
             //};
 
-            var selection = Helpers.CreateBlueprint(BlueprintData.AdoptiveParentageSelection, selection =>
+            var selection = Helpers.Blueprint.CreateWith(BlueprintData.AdoptiveParentageSelection)(selection =>
             {
                 foreach(var r in parentageBonusFeatures.Keys)
                 {

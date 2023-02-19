@@ -8,7 +8,7 @@ using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
 
-using Microsoftenator.Wotr.Common.Blueprints;
+using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Encyclopedia;
 using Microsoftenator.Wotr.Common.Util;
@@ -25,7 +25,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewUnitFact<BlueprintFeatureSelection> HumanBonusFeat =
             new
             (
-                guid: Guids.HumanBonusFeat,
+                guidString: Guids.HumanBonusFeat,
                 name: nameof(Guids.HumanBonusFeat),
                 strings: Localization.Default,
                 displayName: "Bonus Feat",
@@ -51,7 +51,7 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(HumanBonusFeat)}.{nameof(AddHumanBonusFeat)}");
 
-            var humanBonusFeat = Helpers.CreateBlueprint(BlueprintData.HumanBonusFeat, selection =>
+            var humanBonusFeat = Helpers.Blueprint.CreateWith(BlueprintData.HumanBonusFeat)(selection =>
             {
                 selection.SetIcon(BlueprintData.BasicFeatSelection.GetBlueprint().Icon);
                 

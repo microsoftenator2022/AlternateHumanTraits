@@ -10,7 +10,6 @@ using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
 
 using Microsoftenator.Wotr.Common;
-using Microsoftenator.Wotr.Common.Blueprints;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 
 namespace AlternateHumanTraits.Resources.Blueprints
@@ -25,12 +24,12 @@ namespace AlternateHumanTraits.Resources.Blueprints
         }
 
         public static readonly NewUnitFact<BlueprintFeature> BasicFeatSelectionDummy =
-            new(guid: Guids.BasicFeatSelectionDummy, name: nameof(Guids.BasicFeatSelectionDummy));
+            new(guidString: Guids.BasicFeatSelectionDummy, name: nameof(Guids.BasicFeatSelectionDummy));
 
         public static readonly NewUnitFact<BlueprintFeatureSelection> HumanFeatureSelection = 
             new
             (
-                guid: Guids.HumanFeatureSelection,
+                guidString: Guids.HumanFeatureSelection,
                 name: nameof(Guids.HumanFeatureSelection),
                 strings: Localization.Default,
                 displayName: "Alternate Racial Traits",
@@ -50,7 +49,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewUnitFact<BlueprintFeature> NoAdditionalHumanTraits =
             new
             (
-                guid: Guids.NoAdditionaHumanTraits,
+                guidString: Guids.NoAdditionaHumanTraits,
                 name: nameof(Guids.NoAdditionaHumanTraits),
                 strings: Localization.Default,
                 displayName: "None",
@@ -79,7 +78,7 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(HumanFeatureSelection)}.{nameof(AddBasicFeatSelectionDummy)}");
 
-            Helpers.CreateBlueprint(BlueprintData.BasicFeatSelectionDummy, feat =>
+            Helpers.Blueprint.CreateWith(BlueprintData.BasicFeatSelectionDummy)(feat =>
             {
                 feat.IsClassFeature = true;
 
@@ -95,7 +94,7 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(HumanFeatureSelection)}.{nameof(AddHumanFeatureSelection)}");
 
-            var noAlternateTrait = Helpers.CreateBlueprint(BlueprintData.NoAdditionalHumanTraits, feat =>
+            var noAlternateTrait = Helpers.Blueprint.CreateWith(BlueprintData.NoAdditionalHumanTraits)(feat =>
             {
                 feat.AddPrerequisiteNoFeature(BlueprintData.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>
                 {
@@ -103,7 +102,7 @@ namespace AlternateHumanTraits.Features
                 });
             });
 
-            var selection = Helpers.CreateBlueprint(BlueprintData.HumanFeatureSelection);
+            var selection = Helpers.Blueprint.Create(BlueprintData.HumanFeatureSelection);
             selection.SetIcon(Icons.HeritageSelection);
 
             BlueprintData.HumanRace.GetBlueprint().SetFeatures(new BlueprintFeatureBaseReference[]
@@ -133,7 +132,7 @@ namespace AlternateHumanTraits.Features
 
             foreach (var f in features)
             {
-                f.AddFeatureCallback(new AddAdditionalRacialFeatures()
+                f.AddFeatureCallback(new Microsoftenator.Wotr.Common.AddAdditionalRacialFeatures()
                 {
                     Features = new BlueprintFeatureBaseReference[] { selection.ToReference<BlueprintFeatureBaseReference>() }
                 });

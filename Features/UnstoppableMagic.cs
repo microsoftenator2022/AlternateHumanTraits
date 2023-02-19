@@ -8,7 +8,7 @@ using AlternateHumanTraits.Resources.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Designers.Mechanics.Facts;
 
-using Microsoftenator.Wotr.Common.Blueprints;
+using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Encyclopedia;
 
@@ -24,7 +24,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewUnitFact<BlueprintFeature> UnstoppableMagic =
             new
             (
-                guid: Guids.UnstoppableMagic,
+                guidString: Guids.UnstoppableMagic,
                 name: nameof(Guids.UnstoppableMagic),
                 strings : Localization.Default,
                 displayName: "Unstoppable Magic",
@@ -56,7 +56,7 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(UnstoppableMagic)}.{nameof(AddUnstoppableMagic)}");
 
-            var unstoppableMagic = Helpers.CreateBlueprint<BlueprintFeature>(BlueprintData.UnstoppableMagic, feat =>
+            var unstoppableMagic = Helpers.Blueprint.CreateWith<BlueprintFeature>(BlueprintData.UnstoppableMagic)(feat =>
             {
                 feat.SetIcon(Icons.ElvenMagic);
                 feat.AddPrerequisiteFeature(BlueprintData.BasicFeatSelectionDummy.GetBlueprint(), prerequisite =>

@@ -8,7 +8,8 @@ using AlternateHumanTraits.Resources.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 
-using Microsoftenator.Wotr.Common.Blueprints;
+using Microsoftenator.Wotr.Common;
+using Microsoftenator.Wotr.Common.Extensions;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Util;
 
@@ -24,7 +25,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         public static readonly NewBlueprint<BlueprintFeature> HistoryOfTerrorsTrait =
             new
             (
-                guid: Guids.HistoryOfTerrorsTrait,
+                guidString: Guids.HistoryOfTerrorsTrait,
                 name: nameof(Guids.HistoryOfTerrorsTrait)
             );
     }
@@ -50,7 +51,7 @@ namespace AlternateHumanTraits.Features
 
             var original = BlueprintData.HistoryOfTerrors.GetBlueprint();
 
-            var copy = original.Clone(BlueprintData.HistoryOfTerrorsTrait, feat =>
+            var copy = Helpers.Blueprint.CloneWith(original, BlueprintData.HistoryOfTerrorsTrait)(feat =>
             {
                 feat.SetDescription(strings: Localization.Default, text: $"{feat.Description} This racial trait replaces the Skilled trait.");
 
