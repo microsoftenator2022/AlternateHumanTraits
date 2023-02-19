@@ -41,6 +41,16 @@ namespace AlternateHumanTraits
 
         static bool Load(UnityModManager.ModEntry modEntry)
         {
+            if (UnityModManager.FindMod("MiscTweaksAndFixes") is UnityModManager.ModEntry other)
+            {
+                var otherVersion = other.Version;
+                if (otherVersion < Version.Parse("0.9.7"))
+                {
+                    modEntry.Logger.Critical($"Incompatible mod version of 'MiscTweaksAndFixes': {otherVersion} version >= 0.9.7 required.");
+                    return false;
+                }
+            }
+
             Log = new(modEntry.Logger);
 
             Log.Debug($"{nameof(Main)}.{nameof(Load)}");
