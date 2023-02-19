@@ -2,7 +2,8 @@
   "Releases": [
     {
       "Id": "AlternateHumanTraits",
-      "Version": "0.9.1"
+      "Version": "0.9.1",
+      "DownloadUrl": "https://github.com/microsoftenator2022/AlternateHumanTraits/releases/download/1.0.1/AlternateHumanTraits.zip"
     }
   ]
 }
