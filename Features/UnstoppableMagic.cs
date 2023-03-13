@@ -5,6 +5,8 @@ using System.Linq;
 using AlternateHumanTraits.Resources;
 using AlternateHumanTraits.Resources.Blueprints;
 
+using BlueprintInfoSourceGenerator.Localization;
+
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Designers.Mechanics.Facts;
 
@@ -21,23 +23,24 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string UnstoppableMagic = "051d05e970df4929a6d39d61adac1fc8";
         }
 
-        public static readonly NewUnitFact<BlueprintFeature> UnstoppableMagic =
-            new
-            (
-                guidString: Guids.UnstoppableMagic,
-                name: nameof(Guids.UnstoppableMagic),
-                strings : Localization.Default,
-                displayName: "Unstoppable Magic",
-                description:
-                    "Humans from civilizations built upon advanced magic are educated in a variety of ways to " +
-                    $"accomplish their magical goals. They gain a +2 racial {new Link(Page.Bonus, "bonus")} " +
-                    $"on {new Link(Page.Caster_Level, "caster level")} {new Link(Page.Check, "checks")} " +
-                    $"against {new Link(Page.Spell_Resistance, "spell resistance")}. This racial trait " +
-                    $"replaces the bonus feat trait."
-            )
+        [LocalizedString]
+        public static readonly string UnstoppableMagicDisplayName = "Unstoppable Magic";
+        [LocalizedString]
+        public static readonly string UnstoppableMagicDescription =
+            "Humans from civilizations built upon advanced magic are educated in a variety of ways to " +
+            $"accomplish their magical goals. They gain a +2 racial {new Link(Page.Bonus, "bonus")} " +
+            $"on {new Link(Page.Caster_Level, "caster level")} {new Link(Page.Check, "checks")} " +
+            $"against {new Link(Page.Spell_Resistance, "spell resistance")}. This racial trait " +
+            $"replaces the bonus feat trait.";
+
+        public static readonly NewBlueprint<BlueprintFeature> UnstoppableMagic =
+            new (guidString: Guids.UnstoppableMagic, name: nameof(Guids.UnstoppableMagic))
             {
                 Init = feat =>
                 {
+                    feat.SetDisplayName(LocalizedStrings.UnstoppableMagicDisplayName);
+                    feat.SetDescription(LocalizedStrings.UnstoppableMagicDescription);
+
                     feat.IsClassFeature = true;
 
                     feat.Groups = new[] { FeatureGroup.Racial };

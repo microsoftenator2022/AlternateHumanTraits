@@ -5,10 +5,13 @@ using System.Linq;
 using AlternateHumanTraits.Resources;
 using AlternateHumanTraits.Resources.Blueprints;
 
+using BlueprintInfoSourceGenerator.Localization;
+
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
+using Kingmaker.Localization;
 using Kingmaker.UnitLogic.FactLogic;
 
 using Microsoftenator.Wotr.Common;
@@ -31,22 +34,21 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string DualTalentCharisma = "15df2403926d47d5bd6b78d56c46e270";
         }
 
-        public static readonly NewUnitFact<BlueprintFeatureSelection> DualTalentSelection =
-            new
-            (
-                guidString: Guids.DualTalent,
-                name: nameof(Guids.DualTalent),
-                strings: Localization.Default,
-                displayName: "Dual Talent",
-                description:
-                    "Some humans are uniquely skilled at maximizing their natural gifts. These humans pick two " +
-                    $"{new Link(Page.Ability_Scores,"ability scores")} and gain a +2 racial " +
-                    $"{new Link(Page.Bonus, "bonus")} in each of those scores. This racial trait replaces the +2 " +
-                    "bonus to any one ability score, the bonus feat trait and the Skilled trait."
-            );
+        [LocalizedString]
+        public static readonly string DualTalentDisplayName = "Dual Talent";
 
-        public static readonly IEnumerable<NewUnitFact<BlueprintFeature>> DualTalentFeatures
-            = new List<NewUnitFact<BlueprintFeature>>()
+        [LocalizedString]
+        public static readonly string DualTalentDescription =
+            "Some humans are uniquely skilled at maximizing their natural gifts. These humans pick two " +
+            $"{new Link(Page.Ability_Scores, "ability scores")} and gain a +2 racial " +
+            $"{new Link(Page.Bonus, "bonus")} in each of those scores. This racial trait replaces the +2 " +
+            "bonus to any one ability score, the bonus feat trait and the Skilled trait.";
+
+        public static readonly NewBlueprint<BlueprintFeatureSelection> DualTalentSelection =
+            new (guidString: Guids.DualTalent, name: nameof(Guids.DualTalent));
+
+        public static readonly IEnumerable<NewBlueprint<BlueprintFeature>> DualTalentFeatures
+            = new List<NewBlueprint<BlueprintFeature>>()
             {
                 new(guidString: Guids.DualTalentStrength, name: nameof(Guids.DualTalentStrength)),
                 new(guidString: Guids.DualTalentDexterity, name: nameof(Guids.DualTalentDexterity)),
@@ -81,6 +83,9 @@ namespace AlternateHumanTraits.Features
             {
                 selection.IsClassFeature = true;
 
+                selection.SetDisplayName(LocalizedStrings.DualTalentDisplayName);
+                selection.SetDescription(LocalizedStrings.DualTalentDescription);
+
                 selection.Groups = new[] { FeatureGroup.Racial };
 
                 foreach(var stat in attributeStats)
@@ -93,8 +98,8 @@ namespace AlternateHumanTraits.Features
                     {
                         feat.IsClassFeature = true;
 
-                        feat.SetDisplayName(Localization.Default, $"{selection.Name} - {statName}");
-                        feat.SetDescription(Localization.Default, selection.Description);
+                        feat.SetDisplayName(Localization.Default, $"{BlueprintData.DualTalentDisplayName} - {statName}");
+                        feat.SetDescription(LocalizedStrings.DualTalentDescription);
 
                         feat.Groups = new[] { FeatureGroup.Racial };
 

@@ -16,6 +16,7 @@ using Microsoftenator.Wotr.Common;
 using Microsoftenator.Wotr.Common.Blueprints.Extensions;
 using Microsoftenator.Wotr.Common.Extensions;
 using Microsoftenator.Wotr.Common.Encyclopedia;
+using BlueprintInfoSourceGenerator.Localization;
 
 namespace AlternateHumanTraits.Resources.Blueprints
 {
@@ -27,38 +28,40 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string HalflingWeaponFamiliarity = "dfcc0aa98c3d4826a7e60911cf588b45";
         }
 
-        public static readonly NewUnitFact<BlueprintFeature> GnomishWeaponFamiliarity =
-            new
-            (
-                guidString: Guids.GnomishWeaponFamiliarity,
-                name: nameof(Guids.GnomishWeaponFamiliarity),
-                strings: Localization.Default,
-                displayName: "Gnomish Weapon Familiarity",
-                description: 
-                    "Gnomes treat any weapon with the word \"Gnome\" in its name as a " +
-                    $"{new Link(Page.Weapon_Proficiency, "martial weapon")}."
-            )
+        [LocalizedString]
+        public static readonly string GnomishWeaponFamiliarityDisplayName = "Gnomish Weapon Familiarity";
+        [LocalizedString]
+        public static readonly string GnomishWeaponFamiliarityDescription =
+            "Gnomes treat any weapon with the word \"Gnome\" in its name as a " +
+            $"{new Link(Page.Weapon_Proficiency, "martial weapon")}.";
+
+        public static readonly NewBlueprint<BlueprintFeature> GnomishWeaponFamiliarity =
+            new (guidString: Guids.GnomishWeaponFamiliarity, name: nameof(Guids.GnomishWeaponFamiliarity))
             {
                 Init = feat =>
                 {
+                    feat.SetDisplayName(LocalizedStrings.GnomishWeaponFamiliarityDisplayName);
+                    feat.SetDescription(LocalizedStrings.GnomishWeaponFamiliarityDescription);
+
                     feat.SetIcon(Icons.GnomeHookedHammerHead);
                 }
             };
 
-        public static readonly NewUnitFact<BlueprintFeature> HalflingWeaponFamiliarity =
-            new
-            (
-                guidString: Guids.HalflingWeaponFamiliarity,
-                name: nameof(Guids.HalflingWeaponFamiliarity),
-                strings: Localization.Default,
-                displayName: "Halfling Weapon Proficiency",
-                description:
-                    "Halflings treat sling staffs and any weapon with the word \"Halfling\" in its name as a " +
-                    $"{new Link(Page.Weapon_Proficiency, "martial weapon")}."
-            )
+        [LocalizedString]
+        public static readonly string HalflingWeaponFamiliarityDisplayName = "Halfling Weapon Familiarity";
+        [LocalizedString]
+        public static readonly string HalflingWeaponFamiliarityDescription =
+            "Halflings treat sling staffs and any weapon with the word \"Halfling\" in its name as a " +
+            $"{new Link(Page.Weapon_Proficiency, "martial weapon")}.";
+
+        public static readonly NewBlueprint<BlueprintFeature> HalflingWeaponFamiliarity =
+            new (guidString: Guids.HalflingWeaponFamiliarity, name: nameof(Guids.HalflingWeaponFamiliarity))
             {
                 Init = feat =>
                 {
+                    feat.SetDisplayName(LocalizedStrings.HalflingWeaponFamiliarityDisplayName);
+                    feat.SetDescription(LocalizedStrings.HalflingWeaponFamiliarityDescription);
+
                     feat.SetIcon(Icons.SlingStaff);
                 }
             };

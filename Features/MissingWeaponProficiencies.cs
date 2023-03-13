@@ -5,6 +5,8 @@ using System.Linq;
 using AlternateHumanTraits.Resources;
 using AlternateHumanTraits.Resources.Blueprints;
 
+using BlueprintInfoSourceGenerator.Localization;
+
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Enums;
@@ -25,18 +27,20 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string BardicheProficiency = "8cbaabb4d3264f3493ecb13ac0373782";
         }
 
-        public static readonly NewUnitFact<BlueprintFeature> EarthBreakerProficiency =
-            new
-            (
-                guidString : Guids.EarthBreakerProficiency,
-                name: nameof(Guids.EarthBreakerProficiency),
-                strings: Localization.Default,
-                displayName: "Weapon Proficiency (Earth Breaker)",
-                description: "You become proficient with earth breakers and can use them as a weapon."
-            )
+        [LocalizedString]
+        public static readonly string EarthBreakerProficiencyDisplayName = "Weapon Proficiency (Earth Breaker)";
+        [LocalizedString]
+        public static readonly string EarthBreakerProficiencyDescription =
+            "You become proficient with earth breakers and can use them as a weapon.";
+
+        public static readonly NewBlueprint<BlueprintFeature> EarthBreakerProficiency =
+            new (guidString : Guids.EarthBreakerProficiency, name: nameof(Guids.EarthBreakerProficiency))
             {
                 Init = feature =>
                 {
+                    feature.SetDisplayName(LocalizedStrings.EarthBreakerProficiencyDisplayName);
+                    feature.SetDescription(LocalizedStrings.EarthBreakerProficiencyDescription);
+
                     feature.IsClassFeature = true;
 
                     feature.SetIcon(Resources.Icons.WeaponProficiency);
@@ -48,18 +52,20 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 }
             };
 
-        public static readonly NewUnitFact<BlueprintFeature> BardicheProficiency =
-            new
-            (
-                guidString: Guids.BardicheProficiency,
-                name: nameof(Guids.BardicheProficiency),
-                strings: Localization.Default,
-                displayName: "Weapon Proficiency (Bardiche)",
-                description: "You become proficient with bardiches and can use them as a weapon."
-            )
+        [LocalizedString]
+        public static readonly string BardicheProficiencyDisplayName = "Weapon Proficiency (Bardiche)";
+        [LocalizedString]
+        public static readonly string BardicheProficiencyDeescription =
+            "You become proficient with bardiches and can use them as a weapon.";
+
+        public static readonly NewBlueprint<BlueprintFeature> BardicheProficiency =
+            new (guidString: Guids.BardicheProficiency, name: nameof(Guids.BardicheProficiency))
             {
                 Init = feature =>
                 {
+                    feature.SetDisplayName(LocalizedStrings.BardicheProficiencyDisplayName);
+                    feature.SetDisplayName(LocalizedStrings.BardicheProficiencyDeescription);
+
                     feature.IsClassFeature = true;
 
                     feature.SetIcon(Resources.Icons.WeaponProficiency);

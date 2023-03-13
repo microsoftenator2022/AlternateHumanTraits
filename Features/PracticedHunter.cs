@@ -4,6 +4,8 @@ using System.Linq;
 
 using AlternateHumanTraits.Resources.Blueprints;
 
+using BlueprintInfoSourceGenerator.Localization;
+
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
@@ -23,23 +25,24 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string PracticedHunter = "6fcc8889f4984ec68fd2422fc59bc361";
         }
 
-        public static readonly NewUnitFact<BlueprintFeature> PracticedHunter =
-            new
-            (
-                guidString: Guids.PracticedHunter,
-                name: nameof(Guids.PracticedHunter),
-                strings: Localization.Default,
-                displayName: "Practiced Hunter",
-                description:
-                    "Members of some human cultures train from youth to find and follow the trails of vital game and " +
-                    "at the same time hide the evidence of their own passage. These humans gain a +2 racial " +
-                    $"{new Link(Page.Bonus, "bonus")} on Stealth and Lore (Nature) " +
-                    $"{new Link(Page.Check, "checks")}, and Stealth and Lore (Nature) are always class " +
-                    "skills for them. This racial trait replaces Skilled."
-            )
+        [LocalizedString]
+        public static readonly string PracticedHunterDisplayName = "Practiced Hunter";
+        [LocalizedString]
+        public static readonly string PracticedHunterDescription =
+            "Members of some human cultures train from youth to find and follow the trails of vital game and " +
+            "at the same time hide the evidence of their own passage. These humans gain a +2 racial " +
+            $"{new Link(Page.Bonus, "bonus")} on Stealth and Lore (Nature) " +
+            $"{new Link(Page.Check, "checks")}, and Stealth and Lore (Nature) are always class " +
+            "skills for them. This racial trait replaces Skilled.";
+
+        public static readonly NewBlueprint<BlueprintFeature> PracticedHunter =
+            new (guidString: Guids.PracticedHunter, name: nameof(Guids.PracticedHunter))
             {
                 Init = feat =>
                 {
+                    feat.SetDisplayName(LocalizedStrings.PracticedHunterDisplayName);
+                    feat.SetDescription(LocalizedStrings.PracticedHunterDescription);
+
                     feat.SetIcon(Icons.Stealthy);
 
                     feat.Groups = new[] { FeatureGroup.Racial };

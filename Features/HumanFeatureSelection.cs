@@ -5,6 +5,8 @@ using System.Linq;
 using AlternateHumanTraits.Resources;
 using AlternateHumanTraits.Resources.Blueprints;
 
+using BlueprintInfoSourceGenerator.Localization;
+
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
@@ -23,21 +25,22 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string NoAdditionaHumanTraits = "591db97195294968a081b7e5354bc090";
         }
 
-        public static readonly NewUnitFact<BlueprintFeature> BasicFeatSelectionDummy =
+        public static readonly NewBlueprint<BlueprintFeature> BasicFeatSelectionDummy =
             new(guidString: Guids.BasicFeatSelectionDummy, name: nameof(Guids.BasicFeatSelectionDummy));
 
-        public static readonly NewUnitFact<BlueprintFeatureSelection> HumanFeatureSelection = 
-            new
-            (
-                guidString: Guids.HumanFeatureSelection,
-                name: nameof(Guids.HumanFeatureSelection),
-                strings: Localization.Default,
-                displayName: "Alternate Racial Traits",
-                description: "The following alternate traits are available"
-            )
+        [LocalizedString]
+        public static readonly string HumanFeatureSelectionDisplayName = "Alternate Racial Traits";
+        [LocalizedString]
+        public static readonly string HumanFeatureSelectionDescription = "The following alternate traits are available";
+
+        public static readonly NewBlueprint<BlueprintFeatureSelection> HumanFeatureSelection = 
+            new (guidString: Guids.HumanFeatureSelection, name: nameof(Guids.HumanFeatureSelection))
             {
                 Init = selection =>
                 {
+                    selection.SetDisplayName(LocalizedStrings.HumanFeatureSelectionDisplayName);
+                    selection.SetDescription(LocalizedStrings.HumanFeatureSelectionDescription);
+
                     selection.IsClassFeature = true;
 
                     selection.Groups = new[] { FeatureGroup.Racial };
@@ -46,18 +49,19 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 }
             };
 
-        public static readonly NewUnitFact<BlueprintFeature> NoAdditionalHumanTraits =
-            new
-            (
-                guidString: Guids.NoAdditionaHumanTraits,
-                name: nameof(Guids.NoAdditionaHumanTraits),
-                strings: Localization.Default,
-                displayName: "None",
-                description: "No alternate trait"
-            )
+        [LocalizedString]
+        public static readonly string NoAdditionalTraitsDisplayName = "None";
+        [LocalizedString]
+        public static readonly string NoAdditionalTraitsDescription = "No alternate trait";
+
+        public static readonly NewBlueprint<BlueprintFeature> NoAdditionalHumanTraits =
+            new (guidString: Guids.NoAdditionaHumanTraits, name: nameof(Guids.NoAdditionaHumanTraits))
             {
                 Init = feat =>
                 {
+                    feat.SetDisplayName(LocalizedStrings.NoAdditionalTraitsDisplayName);
+                    feat.SetDescription(LocalizedStrings.NoAdditionalTraitsDescription);
+
                     feat.IsClassFeature = true;
                     feat.HideInUI = true;
                     feat.HideInCharacterSheetAndLevelUp = true;

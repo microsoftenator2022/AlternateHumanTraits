@@ -5,6 +5,8 @@ using System.Linq;
 using AlternateHumanTraits.Resources;
 using AlternateHumanTraits.Resources.Blueprints;
 
+using BlueprintInfoSourceGenerator.Localization;
+
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
@@ -32,42 +34,43 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string AdoptiveParentageDhampir = "d6d22c99ebb64a47bcba3f0292cee70b";
         }
 
-        public static readonly NewUnitFact<BlueprintFeatureSelection> AdoptiveParentageSelection =
-                new
-                (
-                    guidString: Guids.AdoptiveParentageSelection,
-                    name: nameof(Guids.AdoptiveParentageSelection),
-                    strings: Localization.Default,
-                    displayName: "Adoptive Parentage",
-                    description:
-                        "Humans are sometimes orphaned and adopted by other races. Choose one humanoid " +
-                        $"{new Link(Page.Race, "race")} without the human subtype. You gain that race’s " +
-                        "weapon familiarity racial trait. If the race does not have weapon familiarity, you gain " +
-                        $"either Skill Focus or Weapon Focus as a bonus {new Link(Page.Feat, "feat")} that " +
-                        "is appropriate for that race instead. This racial trait replaces the bonus feat trait."
-                )
+        [LocalizedString]
+        public static readonly string AdoptiveParentageSelectionDisplayName = "Adoptive Parentage";
+
+        [LocalizedString]
+        public static readonly string AdoptiveParentageDescription =
+            "Humans are sometimes orphaned and adopted by other races. Choose one humanoid " +
+            $"{new Link(Page.Race, "race")} without the human subtype. You gain that race’s " +
+            "weapon familiarity racial trait. If the race does not have weapon familiarity, you gain " +
+            $"either Skill Focus or Weapon Focus as a bonus {new Link(Page.Feat, "feat")} that " +
+            "is appropriate for that race instead. This racial trait replaces the bonus feat trait.";
+
+        public static readonly NewBlueprint<BlueprintFeatureSelection> AdoptiveParentageSelection =
+            new (guidString: Guids.AdoptiveParentageSelection, name: nameof(Guids.AdoptiveParentageSelection))
+            {
+                Init = selection =>
                 {
-                    Init = selection =>
-                    {
-                        selection.Groups = new[] { FeatureGroup.Racial };
-                    }
-                };
+                    selection.SetDisplayName(LocalizedStrings.AdoptiveParentageSelectionDisplayName);
+                    selection.SetDescription(LocalizedStrings.AdoptiveParentageDescription);
+                    selection.Groups = new[] { FeatureGroup.Racial };
+                }
+            };
 
         public static class AdoptiveParentage
         {
-            public static IReadOnlyDictionary<Race, NewUnitFact<BlueprintFeatureSelection>> Selections
-                = new Dictionary<Race, NewUnitFact<BlueprintFeatureSelection>>()
+            public static IReadOnlyDictionary<Race, NewBlueprint<BlueprintFeatureSelection>> Selections
+                = new Dictionary<Race, NewBlueprint<BlueprintFeatureSelection>>()
                 {
-                    { Race.Elf, new NewUnitFact<BlueprintFeatureSelection>(Guids.AdoptiveParentageElf, nameof(Guids.AdoptiveParentageElf)) },
-                    { Race.HalfOrc, new NewUnitFact<BlueprintFeatureSelection>(Guids.AdoptiveParentageOrc, nameof(Guids.AdoptiveParentageOrc)) },
-                    { Race.Dwarf, new NewUnitFact<BlueprintFeatureSelection>(Guids.AdoptiveParentageDwarf, nameof(Guids.AdoptiveParentageDwarf)) },
-                    { Race.Gnome, new NewUnitFact<BlueprintFeatureSelection>(Guids.AdoptiveParentageGnome, nameof(Guids.AdoptiveParentageGnome)) },
-                    { Race.Halfling, new NewUnitFact<BlueprintFeatureSelection>(Guids.AdoptiveParentageHalfling, nameof(Guids.AdoptiveParentageHalfling)) },
-                    { Race.Aasimar, new NewUnitFact<BlueprintFeatureSelection>(Guids.AdoptiveParentageAasimar, nameof(Guids.AdoptiveParentageAasimar)) },
-                    { Race.Tiefling, new NewUnitFact<BlueprintFeatureSelection>(Guids.AdoptiveParentageTiefling, nameof(Guids.AdoptiveParentageTiefling)) },
-                    { Race.Oread, new NewUnitFact<BlueprintFeatureSelection>(Guids.AdoptiveParentageOread, nameof(Guids.AdoptiveParentageOread)) },
-                    { Race.Kitsune, new NewUnitFact<BlueprintFeatureSelection>(Guids.AdoptiveParentageKitsune, nameof(Guids.AdoptiveParentageKitsune)) },
-                    { Race.Dhampir, new NewUnitFact<BlueprintFeatureSelection>(Guids.AdoptiveParentageDhampir, nameof(Guids.AdoptiveParentageDhampir)) },
+                    { Race.Elf, new NewBlueprint<BlueprintFeatureSelection>(Guids.AdoptiveParentageElf, nameof(Guids.AdoptiveParentageElf)) },
+                    { Race.HalfOrc, new NewBlueprint<BlueprintFeatureSelection>(Guids.AdoptiveParentageOrc, nameof(Guids.AdoptiveParentageOrc)) },
+                    { Race.Dwarf, new NewBlueprint<BlueprintFeatureSelection>(Guids.AdoptiveParentageDwarf, nameof(Guids.AdoptiveParentageDwarf)) },
+                    { Race.Gnome, new NewBlueprint<BlueprintFeatureSelection>(Guids.AdoptiveParentageGnome, nameof(Guids.AdoptiveParentageGnome)) },
+                    { Race.Halfling, new NewBlueprint<BlueprintFeatureSelection>(Guids.AdoptiveParentageHalfling, nameof(Guids.AdoptiveParentageHalfling)) },
+                    { Race.Aasimar, new NewBlueprint<BlueprintFeatureSelection>(Guids.AdoptiveParentageAasimar, nameof(Guids.AdoptiveParentageAasimar)) },
+                    { Race.Tiefling, new NewBlueprint<BlueprintFeatureSelection>(Guids.AdoptiveParentageTiefling, nameof(Guids.AdoptiveParentageTiefling)) },
+                    { Race.Oread, new NewBlueprint<BlueprintFeatureSelection>(Guids.AdoptiveParentageOread, nameof(Guids.AdoptiveParentageOread)) },
+                    { Race.Kitsune, new NewBlueprint<BlueprintFeatureSelection>(Guids.AdoptiveParentageKitsune, nameof(Guids.AdoptiveParentageKitsune)) },
+                    { Race.Dhampir, new NewBlueprint<BlueprintFeatureSelection>(Guids.AdoptiveParentageDhampir, nameof(Guids.AdoptiveParentageDhampir)) },
                 };
         }
     }
@@ -92,7 +95,7 @@ namespace AlternateHumanTraits.Features
                 { Race.Dhampir, new[]{ BlueprintData.SkillFocusDiplomacy, BlueprintData.SkillFocusPerception } },
             };
 
-        private static BlueprintFeatureSelection CreateParentage(Race race, string displayName, string description)
+        private static BlueprintFeatureSelection CreateParentage(Race race, string displayName)
         {
             var parentageFeature = Helpers.Blueprint.CreateWith(BlueprintData.AdoptiveParentage.Selections[race])(selection =>
             {
@@ -101,7 +104,7 @@ namespace AlternateHumanTraits.Features
                 selection.IsClassFeature = true;
 
                 selection.SetDisplayName(Localization.Default, displayName);
-                selection.SetDescription(Localization.Default, description);
+                selection.SetDescription(LocalizedStrings.AdoptiveParentageDescription);
 
                 foreach (var f in parentageBonusFeatures[race])
                 {
@@ -118,20 +121,6 @@ namespace AlternateHumanTraits.Features
         {
             Main.Log?.Debug($"{nameof(AdoptiveParentageSelection)}.{nameof(AddAdoptiveParentage)}");
 
-            //var parentageSelections = new []
-            //{
-            //    CreateParentage(Race.Elf),
-            //    CreateParentage(Race.HalfOrc),
-            //    CreateParentage(Race.Dwarf),
-            //    CreateParentage(Race.Gnome),
-            //    CreateParentage(Race.Halfling),
-            //    CreateParentage(Race.Aasimar),
-            //    CreateParentage(Race.Tiefling),
-            //    CreateParentage(Race.Oread),
-            //    CreateParentage(Race.Kitsune),
-            //    CreateParentage(Race.Dhampir),
-            //};
-
             var selection = Helpers.Blueprint.CreateWith(BlueprintData.AdoptiveParentageSelection)(selection =>
             {
                 foreach(var r in parentageBonusFeatures.Keys)
@@ -143,8 +132,7 @@ namespace AlternateHumanTraits.Features
                     };
 
                     var feat = CreateParentage(r,
-                        $"{selection.Name} - {raceName}",
-                        selection.Description);
+                        $"{BlueprintData.AdoptiveParentageSelectionDisplayName} - {raceName}");
 
                     selection.AddFeature(feat);
                 }

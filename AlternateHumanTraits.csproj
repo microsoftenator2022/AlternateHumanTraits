@@ -11,8 +11,13 @@
     <EmbeddedResource Remove="Microsoftenator.Wotr.Common\**" />
     <None Remove="Microsoftenator.Wotr.Common\**" />
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="Microsoftenator.Wotr.Common\Microsoftenator.Wotr.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlueprintInfoSourceGenerator\BlueprintInfoSourceGenerator\BlueprintInfoSourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>

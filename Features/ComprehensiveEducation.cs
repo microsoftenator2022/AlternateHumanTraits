@@ -4,6 +4,8 @@ using System.Linq;
 
 using AlternateHumanTraits.Resources.Blueprints;
 
+using BlueprintInfoSourceGenerator.Localization;
+
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.UnitLogic.FactLogic;
@@ -22,18 +24,21 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string ComprehensiveEducation = "07bc62abb0d94662968ce5374c1325ef";
         }
 
-        public static readonly NewUnitFact<BlueprintFeature> ComprehensiveEducation =
+        [LocalizedString]
+        public static readonly string ComprehensiveEducationDisplayName = "Comprehensive Eduction";
+        
+        [LocalizedString]
+        public static readonly string ComprehensiveEducationDescription =
+            "Humans raised with skilled teachers draw upon vast swathes of knowledge gained over centuries " +
+            "of civilization. They gain all Knowledge and Lore skills as " +
+            $"{new Link(Page.Skills, "class skills")}, and they gain a +1 racial " +
+            $"{new Link(Page.Bonus, "bonus")} on skill {new Link(Page.Check, "checks")} for " +
+            "each Knowledge or Lore skill that they gain as a class skill from their class levels. This " +
+            "racial trait replaces the Skilled trait.";
+
+        public static readonly NewBlueprint<BlueprintFeature> ComprehensiveEducation =
             new(guidString: Guids.ComprehensiveEducation,
-                name: nameof(Guids.ComprehensiveEducation),
-                strings : Localization.Default,
-                displayName: "Comprehensive Eduction",
-                description:
-                    "Humans raised with skilled teachers draw upon vast swathes of knowledge gained over centuries " +
-                    "of civilization. They gain all Knowledge and Lore skills as " +
-                    $"{new Link(Page.Skills, "class skills")}, and they gain a +1 racial " +
-                    $"{new Link(Page.Bonus, "bonus")} on skill {new Link(Page.Check, "checks")} for " +
-                    "each Knowledge or Lore skill that they gain as a class skill from their class levels. This " +
-                    "racial trait replaces the Skilled trait.");
+                name: nameof(Guids.ComprehensiveEducation));
     }
 }
 
@@ -47,6 +52,9 @@ namespace AlternateHumanTraits.Features
             var feature = Helpers.Blueprint.CreateWith(BlueprintData.ComprehensiveEducation)(feat =>
             {
                 feat.IsClassFeature = true;
+
+                feat.SetDisplayName(LocalizedStrings.ComprehensiveEducationDisplayName);
+                feat.SetDescription(LocalizedStrings.ComprehensiveEducationDescription);
 
                 // Apparently you need both ClassSkill and BackgroundClassSkill?
 

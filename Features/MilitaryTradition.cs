@@ -5,6 +5,8 @@ using System.Linq;
 using AlternateHumanTraits.Resources;
 using AlternateHumanTraits.Resources.Blueprints;
 
+using BlueprintInfoSourceGenerator.Localization;
+
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Selection;
@@ -26,26 +28,20 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string MilitaryTraditionSecondSelection = "2759047be8b143e1819766a1e994f5b6";
         }
 
-        public static readonly NewUnitFact<BlueprintFeatureSelection> MilitaryTradition =
-            new
-            (
-                guidString: Guids.MilitaryTradition,
-                name: nameof(Guids.MilitaryTradition),
-                strings: Localization.Default,
-                displayName: "Military Tradition",
-                description:
-                    "Several human cultures raise all children (or all children of a certain social class) to serve " +
-                    "in the military or defend themselves with force of arms. They gain " +
-                    $"{new Link(Page.Weapon_Proficiency, "proficiency")} with up to two martial or " +
-                    "exotic weapons appropriate to their culture. This racial trait replaces the bonus feat trait."
-            );
+        [LocalizedString]
+        public static readonly string MilitaryTraditionDisplayName = "Military Tradition";
+        [LocalizedString]
+        public static readonly string MilitaryTraditionDescription =
+            "Several human cultures raise all children (or all children of a certain social class) to serve " +
+            "in the military or defend themselves with force of arms. They gain " +
+            $"{new Link(Page.Weapon_Proficiency, "proficiency")} with up to two martial or " +
+            "exotic weapons appropriate to their culture. This racial trait replaces the bonus feat trait.";
 
-        public static readonly NewUnitFact<BlueprintFeatureSelection> MilitaryTraditionSecondSelection =
-            new
-            (
-                guidString: Guids.MilitaryTraditionSecondSelection,
-                name: nameof(Guids.MilitaryTraditionSecondSelection)
-            );
+        public static readonly NewBlueprint<BlueprintFeatureSelection> MilitaryTradition =
+            new (guidString: Guids.MilitaryTradition, name: nameof(Guids.MilitaryTradition));
+
+        public static readonly NewBlueprint<BlueprintFeatureSelection> MilitaryTraditionSecondSelection =
+            new (guidString: Guids.MilitaryTraditionSecondSelection, name: nameof(Guids.MilitaryTraditionSecondSelection));
     }
 }
 
@@ -59,6 +55,9 @@ namespace AlternateHumanTraits.Features
 
             var init = (BlueprintFeatureSelection selection) =>
             {
+                selection.SetDisplayName(LocalizedStrings.MilitaryTraditionDisplayName);
+                selection.SetDescription(LocalizedStrings.MilitaryTraditionDescription);
+
                 selection.IsClassFeature = true;
 
                 selection.Groups = new[] { FeatureGroup.Racial };
@@ -85,13 +84,7 @@ namespace AlternateHumanTraits.Features
                 prerequisite.HideInUI = true;
             }, removeOnApply: true);
 
-            var militaryTradition2 = Helpers.Blueprint.CreateWith(BlueprintData.MilitaryTraditionSecondSelection)(feat =>
-            {
-                feat.SetDisplayName(BlueprintData.MilitaryTradition.DisplayName);
-                feat.SetDescription(BlueprintData.MilitaryTradition.Description);
-
-                init(feat);
-            });
+            var militaryTradition2 = Helpers.Blueprint.CreateWith(BlueprintData.MilitaryTraditionSecondSelection)(init);
             militaryTradition2.AddPrerequisiteFeature(militaryTradition, prerequisite =>
             {
                 prerequisite.HideInUI = true;

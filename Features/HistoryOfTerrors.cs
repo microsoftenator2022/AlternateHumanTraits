@@ -23,11 +23,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
         }
 
         public static readonly NewBlueprint<BlueprintFeature> HistoryOfTerrorsTrait =
-            new
-            (
-                guidString: Guids.HistoryOfTerrorsTrait,
-                name: nameof(Guids.HistoryOfTerrorsTrait)
-            );
+            new (guidString: Guids.HistoryOfTerrorsTrait, name: nameof(Guids.HistoryOfTerrorsTrait));
     }
 }
 
@@ -51,16 +47,20 @@ namespace AlternateHumanTraits.Features
 
             var original = BlueprintData.HistoryOfTerrors.GetBlueprint();
 
-            var copy = Helpers.Blueprint.CloneWith(original, BlueprintData.HistoryOfTerrorsTrait)(feat =>
-            {
-                feat.SetDescription(strings: Localization.Default, text: $"{feat.Description} This racial trait replaces the Skilled trait.");
+            var copy = Helpers.Blueprint.CloneWith(
+                original,
+                nameof(BlueprintData.Guids.HistoryOfTerrorsTrait),
+                Guid.Parse(BlueprintData.Guids.HistoryOfTerrorsTrait))
+                (feat =>
+                {
+                    feat.SetDescription(strings: Localization.Default, text: $"{feat.Description} This racial trait replaces the Skilled trait.");
 
-                feat.Groups = new[] { FeatureGroup.Racial };
+                    feat.Groups = new[] { FeatureGroup.Racial };
 
-                feat.RemoveComponents(c => c is PrerequisiteFeature p && p.Feature == BlueprintData.HumanRace.GetBlueprint());
+                    feat.RemoveComponents(c => c is PrerequisiteFeature p && p.Feature == BlueprintData.HumanRace.GetBlueprint());
 
-                feat.AddPrerequisiteFeature(BlueprintData.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
-            });
+                    feat.AddPrerequisiteFeature(BlueprintData.HumanSkilled.GetBlueprint(), Functional.Ignore, removeOnApply: true);
+                });
 
             PatchHistoryOfTerrors();
         }

@@ -4,6 +4,8 @@ using System.Linq;
 
 using AlternateHumanTraits.Resources.Blueprints;
 
+using BlueprintInfoSourceGenerator.Localization;
+
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 
@@ -21,23 +23,24 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string FocusedStudyProgression = "0073c8a521284e299d256f21833d3205";
         }
 
-        public static readonly NewUnitFact<BlueprintProgression> FocusedStudyProgression =
-            new
-            (
-                guidString: Guids.FocusedStudyProgression,
-                name: nameof(Guids.FocusedStudyProgression),
-                strings: Localization.Default,
-                displayName: "Focused Study",
-                description:
-                    "All humans are skillful, but some, rather than being generalists, tend to specialize in a " +
-                    $"handful of {new Link(Page.Skills, "skills")}. At 1st, 8th, and 16th level, such humans " +
-                    "gain Skill Focus in a skill of their choice as a bonus feat. This racial trait replaces the " +
-                    "bonus feat trait."
+        [LocalizedString]
+        public static readonly string FocusedStudyDisplayName = "Focused Study";
 
-            )
+        [LocalizedString]
+        public static readonly string FocusedStudyDescription =
+            "All humans are skillful, but some, rather than being generalists, tend to specialize in a " +
+            $"handful of {new Link(Page.Skills, "skills")}. At 1st, 8th, and 16th level, such humans " +
+            "gain Skill Focus in a skill of their choice as a bonus feat. This racial trait replaces the " +
+            "bonus feat trait.";
+
+        public static readonly NewBlueprint<BlueprintProgression> FocusedStudyProgression =
+            new (guidString: Guids.FocusedStudyProgression, name: nameof(Guids.FocusedStudyProgression))
             {
                 Init = prog =>
                 {
+                    prog.SetDisplayName(LocalizedStrings.FocusedStudyDisplayName);
+                    prog.SetDescription(LocalizedStrings.FocusedStudyDescription);
+
                     prog.SetIcon(Icons.SkillFocusSelection);
                     prog.Groups = new[] { FeatureGroup.Racial };
                 }
@@ -66,8 +69,6 @@ namespace AlternateHumanTraits.Features
                 }
 
                 prog.LevelEntries = levelEntries;
-
-                //prog.ForAllOtherClasses = true;
 
                 prog.AddPrerequisiteFeature(
                     prerequisiteFeature: BlueprintData.BasicFeatSelectionDummy.GetBlueprint(),

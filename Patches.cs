@@ -5,6 +5,7 @@ using HarmonyLib;
 
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.JsonSystem;
+using Kingmaker.Localization;
 using Kingmaker.UI.Common;
 using Kingmaker.UI.MVVM._VM.CharGen.Phases.FeatureSelector;
 
@@ -55,6 +56,8 @@ namespace AlternateHumanTraits.Patches
             HumanFeatureSelection.AddHumanFeatureSelection();
 
             Localization.Default.LoadAll();
+
+            LocalizationManager.CurrentPack.AddStrings(LocalizedStrings.GetLocalizationPack(LocalizationManager.CurrentLocale));
         }
     }
 

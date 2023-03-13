@@ -2,6 +2,8 @@
 
 using AlternateHumanTraits.Resources.Blueprints;
 
+using BlueprintInfoSourceGenerator.Localization;
+
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
@@ -25,24 +27,26 @@ namespace AlternateHumanTraits.Resources.Blueprints
             public const string Awareness = "edc1383bf9304cd7a45ee22dd3468fc8";
         }
 
-        public readonly static NewUnitFact<BlueprintFeature> Awareness =
-            new
-            (
-                guidString: Guids.Awareness,
-                name: nameof(Guids.Awareness),
-                strings: Localization.Default,
-                displayName: "Awareness",
-                description: 
-                    "Humans raised within monastic traditions or communities that encourage mindfulness seem to " +
-                    "shrug off many dangers more easily than other humans. They gain a +1 racial " +
-                    $"{new Link(Page.Bonus, "bonus")} on all " +
-                    $"{new Link(Page.Saving_Throw, "saving throws")} and " +
-                    $"{new Link(Page.Concentration, "concentration checks")}. This racial trait replaces " +
-                    "humans’ bonus feat."
-            )
+        [LocalizedString]
+        public static readonly string AwarenessDisplayName = "Awareness";
+
+        [LocalizedString]
+        public static readonly string AwarenessDescription =
+            "Humans raised within monastic traditions or communities that encourage mindfulness seem to " +
+            "shrug off many dangers more easily than other humans. They gain a +1 racial " +
+            $"{new Link(Page.Bonus, "bonus")} on all " +
+            $"{new Link(Page.Saving_Throw, "saving throws")} and " +
+            $"{new Link(Page.Concentration, "concentration checks")}. This racial trait replaces " +
+            "humans’ bonus feat.";
+
+        public readonly static NewBlueprint<BlueprintFeature> Awareness =
+            new (guidString: Guids.Awareness, name: nameof(Guids.Awareness))
             {
                 Init = feat =>
                 {
+                    feat.SetDisplayName(LocalizedStrings.AwarenessDisplayName);
+                    feat.SetDescription(LocalizedStrings.AwarenessDescription);
+
                     feat.SetIcon(Icons.Bravery);
 
                     feat.Groups = new[] { FeatureGroup.Racial };
