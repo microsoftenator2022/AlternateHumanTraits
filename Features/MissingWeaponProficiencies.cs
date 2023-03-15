@@ -64,7 +64,7 @@ namespace AlternateHumanTraits.Resources.Blueprints
                 Init = feature =>
                 {
                     feature.SetDisplayName(LocalizedStrings.BardicheProficiencyDisplayName);
-                    feature.SetDisplayName(LocalizedStrings.BardicheProficiencyDeescription);
+                    feature.SetDescription(LocalizedStrings.BardicheProficiencyDeescription);
 
                     feature.IsClassFeature = true;
 
