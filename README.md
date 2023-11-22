@@ -1,5 +1,7 @@
 # Alternate Human Traits
 
+# New version can be found [here](https://github.com/microsoftenator2022/AlternateRacialTraits)
+
 A mod for Owlcat's Pathfinder: Wrath of the Righteous.
 
 Every race except humans have extra choices during character creation.
